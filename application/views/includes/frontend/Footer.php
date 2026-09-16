@@ -1,0 +1,1099 @@
+<script>
+    /**
+     * LOADING SPINNER AFRICAN GREEN FARMERS
+     * Affiche le spinner pendant 1 seconde puis le masque avec animation
+     */
+    (function() {
+        'use strict';
+        
+        var loader = document.getElementById("loadingSpinner");
+        
+        if (!loader) return;
+
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                loader.classList.add("loader-hidden");
+                setTimeout(function() {
+                    loader.remove();
+                    document.body.style.overflow = '';
+                }, 400);
+            }, 1000);
+        });
+        
+        if (document.readyState === 'complete') {
+            window.dispatchEvent(new Event('load'));
+        }
+    })();
+</script>
+
+<script>
+// Injection automatique du jeton CSRF dans toutes les requêtes fetch POST
+(function() {
+    'use strict';
+    var CSRF_NAME = '<?= $this->security->get_csrf_token_name() ?>';
+    var CSRF_HASH = '<?= $this->security->get_csrf_hash() ?>';
+    if (!CSRF_HASH || typeof window.fetch !== 'function' || window.__csrfFetchPatched) return;
+    window.__csrfFetchPatched = true;
+
+    var origFetch = window.fetch;
+    window.fetch = function(url, options) {
+        options = options || {};
+        var method = (options.method || 'GET').toUpperCase();
+        if (method === 'POST') {
+            if (!options.headers) options.headers = {};
+            if (typeof options.headers.set === 'function' && !options.headers.has('X-CSRF-TOKEN')) {
+                options.headers.set('X-CSRF-TOKEN', CSRF_HASH);
+            } else if (typeof options.headers === 'object') {
+                options.headers['X-CSRF-TOKEN'] = CSRF_HASH;
+            }
+            if (typeof options.body === 'string') {
+                try {
+                    var parsed = JSON.parse(options.body);
+                    if (parsed && typeof parsed === 'object' && Array.isArray(parsed) === false && parsed[CSRF_NAME] === undefined) {
+                        parsed[CSRF_NAME] = CSRF_HASH;
+                        options.body = JSON.stringify(parsed);
+                    }
+                } catch (e) { /* body non-JSON : laissé tel quel */ }
+            }
+        }
+        return origFetch.call(this, url, options);
+    };
+
+    if (window.jQuery && jQuery.ajaxSetup) {
+        jQuery.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if ((settings.type || 'GET').toUpperCase() !== 'POST') return;
+                if (!CSRF_HASH) return;
+                if (xhr && xhr.setRequestHeader) xhr.setRequestHeader('X-CSRF-TOKEN', CSRF_HASH);
+                var d = settings.data;
+                if (d instanceof FormData) {
+                    if (!d.has(CSRF_NAME)) d.append(CSRF_NAME, CSRF_HASH);
+                } else if (d && typeof d === 'object') {
+                    d[CSRF_NAME] = CSRF_HASH;
+                } else if (typeof d === 'string') {
+                    settings.data = (d.length ? d + '&' : '') + encodeURIComponent(CSRF_NAME) + '=' + encodeURIComponent(CSRF_HASH);
+                } else {
+                    settings.data = encodeURIComponent(CSRF_NAME) + '=' + encodeURIComponent(CSRF_HASH);
+                }
+            }
+        });
+    }
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- MODERN FOOTER - 3 COLUMNS ONLY -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<footer class="site-footer" id="footer">
+    <div class="footer-container">
+        
+        <!-- Main Section -->
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    
+                    <!-- Column 1: Brand & Quick Contact -->
+                    <div class="footer-col footer-col-brand">
+                        <div class="footer-brand">
+                            <?php 
+                            $site_logo = $this->Model->get_setting('site_logo');
+                            if (!empty($site_logo)): 
+                            ?>
+                            <img src="<?= base_url('attachments/Configurations/' . $site_logo) ?>" 
+                                 alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?>" 
+                                 class="footer-logo">
+                            <?php endif; ?>
+                            <div class="brand-info">
+                                <h3><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?></h3>
+                                <span>Afrique Australe</span>
+                            </div>
+                        </div>
+
+                        <p class="footer-desc">
+                            <?= htmlspecialchars($this->Model->get_setting('agf_description_courte', 'Medical teleconsultation platform and phytopharmaceutical products'), ENT_QUOTES, 'UTF-8') ?>
+                        </p>
+
+                        <!-- Quick Contact -->
+                        <div class="footer-quick-contact">
+                            <a href="tel:<?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 97 123 4567'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
+                                <i class="bi bi-telephone-fill"></i>
+                                <span><?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 97 123 4567'), ENT_QUOTES, 'UTF-8') ?></span>
+                            </a>
+                            <a href="mailto:<?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'info@africangreenfarmers.com'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span><?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'info@africangreenfarmers.com'), ENT_QUOTES, 'UTF-8') ?></span>
+                            </a>
+                            <a href="#" class="quick-contact-item" onclick="openMap(); return false;">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span><?= htmlspecialchars($this->Model->get_setting('adresse_siege', 'Lusaka, Zambie'), ENT_QUOTES, 'UTF-8') ?></span>
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Column 2: Navigation -->
+                        <div class="footer-col footer-col-nav">
+                        <button class="footer-accordion-toggle d-lg-none" aria-expanded="false" aria-controls="footerNav1">
+                            <h4>Navigation</h4>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <h4 class="d-none d-lg-block">Navigation</h4>
+                        
+                        <div class="footer-accordion-content" id="footerNav1">
+                            <ul class="footer-links">
+                                <li><a href="<?= base_url() ?>">Home</a></li>
+                                <li><a href="<?= base_url('about') ?>">About Us</a></li>
+                                <li><a href="<?= base_url('Products') ?>">Products</a></li>
+                                <li><a href="<?= base_url('doctor') ?>">Consultation</a></li>
+                                <li><a href="<?= base_url('about') ?>">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Our Services -->
+                        <div class="footer-col footer-col-services">
+                        <button class="footer-accordion-toggle d-lg-none" aria-expanded="false" aria-controls="footerNav2">
+                            <h4>Our Services</h4>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <h4 class="d-none d-lg-block">Our Services</h4>
+                        
+                        <div class="footer-accordion-content" id="footerNav2">
+                            <ul class="footer-links">
+                                <li>
+                                    <a href="<?= base_url('doctor') ?>">
+                                        <i class="bi bi-heart-pulse"></i>
+                                        Medical Consultation
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url('Products') ?>">
+                                        <i class="bi bi-shop"></i>
+                                        Product Sales
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url('about') ?>">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                        Invest
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Column 4: Newsletter -->
+                    <?php
+                    $CI =& get_instance();
+                    $social_links = $CI->db->query("
+                        SELECT * FROM social_links 
+                        WHERE is_active = 1 
+                        ORDER BY display_order ASC
+                    ")->result_array();
+                    ?>
+                    <div class="footer-col footer-col-newsletter">
+                        <button class="footer-accordion-toggle d-lg-none" aria-expanded="false" aria-controls="footerNav3">
+                            <h4>Newsletter</h4>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <h4 class="d-none d-lg-block">Newsletter</h4>
+                        
+                        <div class="footer-accordion-content" id="footerNav3">
+                            <p class="footer-newsletter-desc">Subscribe for the latest news on products, investment opportunities and A.G.F developments.</p>
+                            <form class="footer-newsletter-form" id="newsletterFormFooter" onsubmit="return handleNewsletter(event)">
+                                <div class="footer-newsletter-input">
+                                    <input type="email" id="newsletterEmailFooter" placeholder="Your email address" required>
+                                    <button type="submit"><i class="bi bi-send"></i></button>
+                                </div>
+                                <div id="newsletterMsgFooter" class="newsletter-msg"></div>
+                            </form>
+                            <div class="footer-newsletter-social">
+                                <span>Follow us:</span>
+                                <div class="footer-social footer-social-sm">
+                                    <?php foreach($social_links as $social): ?>
+                                    <a href="<?= htmlspecialchars($social['url']) ?>" target="_blank" rel="noopener" aria-label="<?= htmlspecialchars($social['label']) ?>">
+                                        <i class="bi bi-<?= $social['icon_name'] ?>"></i>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    
+                    <!-- Copyright -->
+                    <div class="footer-copyright">
+                        <p>&copy; <?= date('Y') ?> <strong><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?></strong>. All rights reserved.</p>
+                    </div>
+
+                    <!-- Legal Links -->
+                    <div class="footer-legal">
+                        <p>Conçu par Dushime Paul : dushimeyesupaulin@gmail.com</p>
+                    </div>
+
+                    <!-- Back to Top -->
+                    <button class="back-to-top" onclick="scrollToTop()" aria-label="Retour en haut">
+                        <i class="bi bi-arrow-up"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+
+<!-- Footer Styles -->
+<style>
+/* ============================================
+   MODERN FOOTER - 3 COLUMNS
+   ============================================ */
+:root {
+    --footer-bg: #1a365d;
+    --footer-bg-light: #1e40af;
+    --footer-text: rgba(255, 255, 255, 0.8);
+    --footer-text-muted: rgba(255, 255, 255, 0.6);
+    --footer-border: rgba(255, 255, 255, 0.1);
+    --footer-accent: #d4af37;
+    --footer-blue: #38bdf8;
+    --primary: #1e40af;
+    --primary-light: #3b82f6;
+    --blue: #1e40af;
+    --red: #dc2626;
+    --gold: #d4af37;
+}
+
+.site-footer {
+    background: url('<?= base_url("attachments/Parametres/2026030221535169a5eacf8b9bd.jpg") ?>') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--footer-text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    position: relative;
+    margin-top: auto;
+}
+
+.site-footer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 54, 93, 0.92);
+    z-index: 0;
+}
+
+.site-footer > * {
+    position: relative;
+    z-index: 1;
+}
+
+.sticky-avatar-mini,
+.avatar-placeholder-mini {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+.sticky-avatar-mini img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Decorative top line */
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    z-index: 2;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.footer-container {
+    position: relative;
+}
+
+/* ============================================
+   FOOTER MAIN - 4 Columns Grid
+   ============================================ */
+.footer-main {
+    padding: 60px 0 40px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* ============================================
+   COLUMN 1: BRAND
+   ============================================ */
+.footer-col-brand {
+    max-width: 350px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.footer-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: white;
+    padding: 4px;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.footer-brand:hover .footer-logo {
+    transform: scale(1.05) rotate(3deg);
+}
+
+.brand-info h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.brand-info span {
+    font-size: 11px;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.footer-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    color: var(--footer-text-muted);
+}
+
+/* Quick Contact */
+.footer-quick-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.quick-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid var(--footer-border);
+    transition: all 0.3s ease;
+}
+
+.quick-contact-item:hover {
+    background: rgba(30, 64, 175, 0.15);
+    border-color: var(--blue);
+    color: white;
+    transform: translateX(5px);
+}
+
+.quick-contact-item i {
+    color: var(--blue);
+    font-size: 16px;
+}
+
+/* Social Links */
+.footer-social {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+    border: 1px solid var(--footer-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-link:hover {
+    background: var(--blue);
+    color: white;
+    transform: translateY(-4px) scale(1.1);
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+}
+
+/* ============================================
+   COLUMNS 2 & 3: NAVIGATION & SERVICES
+   ============================================ */
+.footer-col h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background: var(--blue);
+    border-radius: 2px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    padding: 6px 0;
+}
+
+.footer-links a:hover {
+    color: var(--footer-blue);
+    transform: translateX(8px);
+}
+
+.footer-links a i {
+    color: var(--footer-blue);
+    font-size: 14px;
+}
+
+/* ============================================
+/* ============================================
+   COLUMN 4: NEWSLETTER
+   ============================================ */
+.footer-col-newsletter h4 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.footer-newsletter-desc {
+    font-size: 0.85rem;
+    color: var(--footer-text-muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.footer-newsletter-form {
+    margin-bottom: 20px;
+}
+
+.footer-newsletter-input {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    border: 1px solid var(--footer-border);
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.footer-newsletter-input:focus-within {
+    border-color: var(--blue);
+}
+
+.footer-newsletter-input input {
+    flex: 1;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    min-width: 0;
+}
+
+.footer-newsletter-input input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-newsletter-input button {
+    padding: 12px 18px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-newsletter-input button:hover {
+    background: var(--primary);
+}
+
+.footer-newsletter-social {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-newsletter-social span {
+    font-size: 0.8rem;
+    color: var(--footer-text-muted);
+}
+
+.footer-social-sm {
+    display: flex;
+    gap: 8px;
+}
+
+.footer-social-sm a {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.footer-social-sm a:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+}
+    white-space: nowrap;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.newsletter-input-group button:hover {
+    background: var(--primary-light);
+}
+
+.newsletter-msg {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--footer-text-muted);
+    min-height: 20px;
+}
+
+.newsletter-msg.success {
+    color: #34d399;
+}
+
+.newsletter-msg.error {
+    color: #f87171;
+}
+
+/* ============================================
+   FOOTER BOTTOM
+   ============================================ */
+.footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--footer-border);
+    padding: 20px 0;
+}
+
+.footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-copyright {
+    font-size: 0.9rem;
+    color: var(--footer-text-muted);
+}
+
+.footer-copyright strong {
+    color: white;
+    font-weight: 600;
+}
+
+.footer-legal {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.footer-legal p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--footer-text-muted);
+}
+
+.back-to-top {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--footer-border);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.back-to-top:hover {
+    background: var(--blue);
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+}
+
+/* ============================================
+   MOBILE STICKY FOOTER
+   ============================================ */
+.mobile-sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1030;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sticky-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 8px;
+}
+
+.sticky-nav-item i {
+    font-size: 22px;
+    transition: transform 0.3s ease;
+}
+
+.sticky-nav-item.active,
+.sticky-nav-item:hover {
+    color: var(--primary);
+}
+
+.sticky-nav-item.active i {
+    transform: scale(1.1);
+}
+
+/* ============================================
+   MOBILE ACCORDION
+   ============================================ */
+.footer-accordion-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    cursor: pointer;
+    border-bottom: 1px solid var(--footer-border);
+}
+
+.footer-accordion-toggle h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.footer-accordion-toggle h4::after {
+    display: none;
+}
+
+.footer-accordion-toggle i {
+    transition: transform 0.3s ease;
+    color: var(--blue);
+}
+
+.footer-accordion-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.footer-accordion-content {
+    max-height: none;
+    overflow: visible;
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+@media (max-width: 1200px) {
+    .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    
+    .footer-col-brand {
+        grid-column: 1 / -1;
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .footer-col-newsletter {
+        grid-column: 1 / -1;
+    }
+    
+    .mobile-sticky-footer {
+        display: flex;
+    }
+    
+    body {
+        padding-bottom: 64px;
+    }
+    
+    .footer-brand {
+        justify-content: center;
+    }
+    
+    .footer-quick-contact {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .footer-desc {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .footer-col-nav,
+    .footer-col-services,
+    .footer-col-newsletter {
+        border-bottom: 1px solid var(--footer-border);
+        padding: 0 16px;
+    }
+    
+    .footer-col h4 {
+        display: none;
+    }
+    
+    .footer-accordion-toggle {
+        display: flex !important;
+    }
+    
+    .footer-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .footer-accordion-content.open {
+        max-height: 500px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+    
+    .footer-links a {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .footer-links a:hover {
+        transform: none;
+        padding-left: 10px;
+    }
+    
+    .back-to-top {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 1020;
+        background: var(--blue);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-main {
+        padding: 40px 0 20px;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .footer-col-brand,
+    .footer-col-nav,
+    .footer-col-services,
+    .footer-col-newsletter {
+        border-bottom: 1px solid var(--footer-border);
+        padding: 16px;
+    }
+    
+    .footer-brand {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .footer-logo {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .brand-info h3 {
+        font-size: 1.5rem;
+    }
+    
+    .brand-info {
+        text-align: center;
+    }
+    
+    .quick-contact-item {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .footer-quick-contact {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .footer-newsletter-input {
+        flex-direction: column;
+        border-radius: 12px;
+    }
+    
+    .footer-newsletter-input input {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--footer-border);
+    }
+    
+    .footer-newsletter-input button {
+        padding: 12px;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .footer-newsletter-social {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .footer-copyright {
+        font-size: 0.85rem;
+    }
+    
+    .footer-legal p {
+        font-size: 0.8rem;
+    }
+    
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+}
+
+/* Desktop - Navigation always visible */
+@media (min-width: 993px) {
+    .footer-accordion-toggle {
+        display: none !important;
+    }
+    
+    .footer-accordion-content {
+        max-height: none !important;
+        overflow: visible !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .footer-col h4 {
+        display: block !important;
+    }
+    
+    .footer-col-nav,
+    .footer-col-services {
+        padding: 0;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .site-footer::before {
+        animation: none;
+    }
+    
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+</style>
+
+<!-- Footer Scripts -->
+<script>
+(function() {
+    'use strict';
+
+    if (window.footerScriptInitialized) return;
+    window.footerScriptInitialized = true;
+
+    // FOOTER ACCORDIONS
+    var accordionToggles = document.querySelectorAll('.footer-accordion-toggle');
+    for (var i = 0; i < accordionToggles.length; i++) {
+        accordionToggles[i].addEventListener('click', function() {
+            var expanded = this.getAttribute('aria-expanded') === 'true';
+            var contentId = this.getAttribute('aria-controls');
+            var content = document.getElementById(contentId);
+
+            var allToggles = document.querySelectorAll('.footer-accordion-toggle');
+            for (var j = 0; j < allToggles.length; j++) {
+                if (allToggles[j] !== this) {
+                    allToggles[j].setAttribute('aria-expanded', 'false');
+                    var otherContent = document.getElementById(allToggles[j].getAttribute('aria-controls'));
+                    if (otherContent) otherContent.classList.remove('open');
+                }
+            }
+
+            this.setAttribute('aria-expanded', !expanded);
+            if (content) content.classList.toggle('open');
+        });
+    }
+
+    // UTILITAIRES
+    window.scrollToTop = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.openMap = function() {
+        var address = "<?= addslashes($this->Model->get_setting('adresse_siege', 'Lusaka, Zambie')) ?>";
+        window.open('https://maps.google.com/?q=' + encodeURIComponent(address), '_blank');
+    };
+
+    // CONFIG BASE URL
+    if (typeof BASE_URL === 'undefined') {
+        window.BASE_URL = '<?php echo rtrim(base_url(), '/'); ?>/';
+    }
+
+    // NEWSLETTER
+    window.handleNewsletter = function(e) {
+        e.preventDefault();
+        var email = document.getElementById('newsletterEmailFooter');
+        var msg = document.getElementById('newsletterMsgFooter');
+        if (!email || !email.value) return false;
+        msg.className = 'newsletter-msg';
+        msg.textContent = 'Subscribing...';
+        fetch(BASE_URL + 'newsletter/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRF-TOKEN': CSRF_HASH },
+            body: 'email=' + encodeURIComponent(email.value)
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+            if (d.success) {
+                msg.className = 'newsletter-msg success';
+                msg.textContent = d.message || 'Thank you for subscribing!';
+                email.value = '';
+            } else {
+                msg.className = 'newsletter-msg error';
+                msg.textContent = d.message || 'An error occurred.';
+            }
+        })
+        .catch(function() {
+            msg.className = 'newsletter-msg error';
+            msg.textContent = 'Network error. Please try again.';
+        });
+        return false;
+    };
+})();
+</script>

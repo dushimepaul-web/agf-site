@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [PT,L]
+
+# ---------------------------------------------------------------
+# Blocage strict de l'accès direct aux fichiers et dossiers sensibles
+# (fichiers de session, sauvegardes, dumps SQL, secrets, documentation)
+# ---------------------------------------------------------------
+RewriteRule ^(application|system|vendor|tests)/ - [F,L]
+RewriteRule ^(DB|docs)/ - [F,L]
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|webp|svg|ico)$ [NC]
+RewriteRule ^attachments/ - [L]
+RewriteRule ^attachments/ - [F,L]
+RewriteRule ^(GUIE\.HTML|index\.html|cahier-charge\.md|README\.md|contributing\.md|composer\.(json|lock)|\.user\.ini|\.env)$ - [F,L]
+RewriteRule ^\.(git|idea|vscode|htaccess)$ - [F,L]
+
+# Limites d'upload (mod_php : effectif immédiatement, sans redémarrage Apache)
+# Alignées sur .user.ini (20M) pour l'import Excel / uploads de logo
+php_value upload_max_filesize 20M
+php_value post_max_size 20M
