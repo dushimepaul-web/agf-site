@@ -9,7 +9,7 @@ if ($is_product_page) {
     $page_title = htmlspecialchars($product['title']) . ' - ' . htmlspecialchars($this->Model->get_setting('site_name','African Green Farmers'));
     $page_desc  = !empty($product['description']) ? substr(htmlspecialchars($product['description']),0,160) : 'Produit A.G.F';
     $page_image = base_url('attachments/Products/'.$product['main_image']);
-    $page_url   = base_url('Products/detail/'.($product['slug'] ?? $product['id']));
+    $page_url   = base_url('shop/detail/'.($product['slug'] ?? $product['id']));
 } else {
     // Title personnalisé par page (SEO) si fourni par le contrôleur
     $page_title = (!empty($site_title) && !in_array($site_title, ['Frontend', 'Admin Dashboard']))
@@ -21,7 +21,7 @@ if ($is_product_page) {
     $site_logo  = $this->Model->get_setting('site_logo','assets/fro.png');
     $page_image = !empty($site_image)
         ? $site_image
-        : base_url('attachments/Configurations/'.$site_logo);
+        : base_url($site_logo);
     $page_url   = !empty($site_url) ? $site_url : base_url();
 }
 $logged_in  = $this->session->userdata('logged_in') === TRUE;
@@ -57,7 +57,7 @@ if ($logged_in && !empty($user_name)) {
 <meta name="twitter:card"       content="summary_large_image">
 <meta name="twitter:title"      content="<?= $page_title ?>">
 <meta name="twitter:image"      content="<?= $page_image ?>">
-<link rel="icon" href="<?= base_url('attachments/Configurations/'.$this->Model->get_setting('favicon_ico','assets/fro.png')) ?>" type="image/png">
+<link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico','assets/fro.png')) ?>" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -634,7 +634,7 @@ body { top:0!important; margin-top:0!important; }
   <div class="nuf-loader-ring">
     <div class="nuf-loader-ring-track"></div>
     <img class="nuf-loader-logo"
-         src="<?= base_url('attachments/Configurations/'.$this->Model->get_setting('site_logo','assets/fro.png')) ?>"
+         src="<?= base_url($this->Model->get_setting('site_logo','assets/fro.png')) ?>"
          alt="A.G.F" onerror="this.src='<?= base_url('assets/images/logo.png') ?>'">
   </div>
   <div class="nuf-loader-text"><?= $this->Model->get_setting('site_name','African Green Farmers') ?></div>
@@ -644,15 +644,18 @@ body { top:0!important; margin-top:0!important; }
 <div id="google_translate_element" style="display:none;"></div>
 <script>
 function googleTranslateElementInit(){
-  new google.translate.TranslateElement({
-    pageLanguage:'en',
-    includedLanguages:'fr,en,zh-CN,es,hi,ar,pt,bn,ru,ja,de,vi,tr,ko,it,fa,pl,ro,nl,uk,ms,id,th,sv,fi,da,no,cs,hu,el,he,rn,sw,so,am,yo,ig,ha,zu,af,ta,te,mr,kn,gu,pa,ur,ne,km',
-    layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay:false
-  },'google_translate_element');
+  try {
+    new google.translate.TranslateElement({
+      pageLanguage:'en',
+      includedLanguages:'fr,en,zh-CN,es,hi,ar,pt,bn,ru,ja,de,vi,tr,ko,it,fa,pl,ro,nl,uk,ms,id,th,sv,fi,da,no,cs,hu,el,he,rn,sw,so,am,yo,ig,ha,zu,af,ta,te,mr,kn,gu,pa,ur,ne,km',
+      layout:google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay:false
+    },'google_translate_element');
+  } catch(e){}
 }
 </script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer onerror="this.onerror=null;this.remove();"></script>
+<script>var BASE_PATH='<?= rtrim(parse_url(base_url(),PHP_URL_PATH),'/') ?>';</script>
 
 <!-- TOP BAR -->
 <div class="nuf-topbar" id="nufTopbar">
@@ -689,7 +692,7 @@ function googleTranslateElementInit(){
     <!-- Brand -->
     <a href="<?= base_url() ?>" class="nuf-brand">
       <div class="nuf-brand-logo">
-        <img src="<?= base_url('attachments/Configurations/'.$this->Model->get_setting('site_logo','logo.png')) ?>"
+        <img src="<?= base_url($this->Model->get_setting('site_logo','logo.png')) ?>"
              alt="A.G.F" onerror="this.src='<?= base_url('assets/images/logo.png') ?>'">
       </div>
       <div class="nuf-brand-text">
@@ -815,7 +818,7 @@ function googleTranslateElementInit(){
     <ul class="nuf-menu">
 
       <li class="nuf-menu-item">
-        <a href="<?= base_url('') ?>" class="nuf-menu-link">
+        <a href="<?= base_url() ?>" class="nuf-menu-link">
           Home
         </a>
       </li>
@@ -855,7 +858,7 @@ function googleTranslateElementInit(){
       </li>
 
       <li class="nuf-menu-item">
-        <a href="<?= base_url('Products') ?>" class="nuf-menu-link">
+        <a href="<?= base_url('shop') ?>" class="nuf-menu-link">
           Shop
         </a>
       </li>
@@ -884,6 +887,7 @@ function googleTranslateElementInit(){
             <div class="nuf-mega-col">
               <h3><i class="bi bi-bank"></i> Relations</h3>
               <ul class="nuf-mega-list">
+                <li><a href="<?= base_url('relations') ?>"><i class="bi bi-chevron-right"></i> Transparency &amp; Funding Structure</a></li>
                 <li><a href="<?= base_url('broker-commission') ?>"><i class="bi bi-chevron-right"></i> Broker Commission</a></li>
                 <li><a href="<?= base_url('broker') ?>"><i class="bi bi-chevron-right"></i> Become a Broker</a></li>
                 <li><a href="<?= base_url('investor') ?>"><i class="bi bi-chevron-right"></i> Become an Investor</a></li>
@@ -901,7 +905,7 @@ function googleTranslateElementInit(){
 
     </ul>
     <div class="nuf-nav-cta">
-      <a href="<?= base_url('Home/Contact') ?>" class="nuf-btn-cta">
+      <a href="<?= base_url('contact') ?>" class="nuf-btn-cta">
         <i class="bi bi-headset"></i>
         Contact
       </a>
@@ -953,7 +957,7 @@ function googleTranslateElementInit(){
             <a href="<?= base_url('esg_Sustainability') ?>" class="nuf-sub-item">ESG Sustainability</a>
           </div>
         </li>
-        <li><a href="<?= base_url('Products') ?>" class="nuf-panel-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
+        <li><a href="<?= base_url('shop') ?>" class="nuf-panel-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
         <li><a href="<?= base_url('doctor') ?>" class="nuf-panel-link"><i class="bi bi-camera-video"></i><span>Teleconsultation</span></a></li>
         <li>
           <button class="nuf-panel-link" data-sub="mob-invest">
@@ -968,7 +972,7 @@ function googleTranslateElementInit(){
           </div>
         </li>
         <li><a href="<?= base_url('media') ?>" class="nuf-panel-link"><i class="bi bi-collection-play"></i><span>Media</span></a></li>
-        <li><a href="<?= base_url('Home/Contact') ?>" class="nuf-panel-link"><i class="bi bi-envelope"></i><span>Contact</span></a></li>
+        <li><a href="<?= base_url('contact') ?>" class="nuf-panel-link"><i class="bi bi-envelope"></i><span>Contact</span></a></li>
       </ul>
     </div>
 
@@ -1026,16 +1030,16 @@ function googleTranslateElementInit(){
   </div>
 
   <div class="nuf-panel-foot">
-    <a href="<?= base_url('Home/Contact') ?>" class="nuf-panel-btn primary">
-      <i class="bi bi-headset"></i> Nous contacter
+    <a href="<?= base_url('contact') ?>" class="nuf-panel-btn primary">
+      <i class="bi bi-headset"></i> Contact Us
     </a>
     <?php if (!$logged_in): ?>
       <a href="<?= base_url('auth') ?>" class="nuf-panel-btn outline">
-        <i class="bi bi-box-arrow-in-right"></i> Connexion
+        <i class="bi bi-box-arrow-in-right"></i> Login
       </a>
     <?php else: ?>
       <a href="<?= base_url('auth/logout') ?>" class="nuf-panel-btn outline">
-        <i class="bi bi-box-arrow-right"></i> Déconnexion
+        <i class="bi bi-box-arrow-right"></i> Logout
       </a>
     <?php endif; ?>
   </div>
@@ -1046,12 +1050,12 @@ function googleTranslateElementInit(){
 <div class="nuf-bottom">
   <ul class="nuf-bottom-list">
     <li><a href="<?= base_url() ?>" class="nuf-bottom-link"><i class="bi bi-house-door"></i><span>Home</span></a></li>
-    <li><a href="<?= base_url('Products') ?>" class="nuf-bottom-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
+    <li><a href="<?= base_url('shop') ?>" class="nuf-bottom-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
     <li><a href="<?= base_url('doctor') ?>" class="nuf-bottom-link"><i class="bi bi-camera-video"></i><span>Consult</span></a></li>
-    <li><a href="<?= base_url('about') ?>" class="nuf-bottom-link"><i class="bi bi-collection-play"></i><span>About</span></a></li>
+    <li><a href="<?= base_url('media') ?>" class="nuf-bottom-link"><i class="bi bi-collection-play"></i><span>Media</span></a></li>
     <li>
       <a href="<?= $logged_in ? base_url('Dashboard') : base_url('auth') ?>" class="nuf-bottom-link">
-        <i class="bi bi-person"></i><span><?= $logged_in ? 'Compte' : 'Connexion' ?></span>
+        <i class="bi bi-person"></i><span><?= $logged_in ? 'Account' : 'Login' ?></span>
       </a>
     </li>
   </ul>
@@ -1241,17 +1245,17 @@ function renderSearch(data, q) {
                 
                 // Déterminer l'URL selon le type
                 if (key === 'produits') {
-                    url = baseUrl + '/product/' + slug;
+                    url = baseUrl + '/shop/detail/' + slug;
                 } else if (key === 'actualites') {
-                    url = baseUrl + '/actualite/' + slug;
+                    url = baseUrl + '/media/detail/' + slug;
                 } else if (key === 'pages') {
-                    url = baseUrl + '/' + slug;
+                    url = baseUrl + item.url;
                 }
                 
                 html += '<a href="' + url + '" class="nuf-search-item">'
                     + '<i class="bi ' + icons[key] + '"></i>'
-                    + '<div><div style="font-weight:600;">' + esc(item.titre) + '</div>'
-                    + '<div style="font-size:12px;color:var(--gray);">' + esc((item.extrait || item.description || '').slice(0,50)) + '</div></div>'
+                    + '<div><div style="font-weight:600;">' + esc(item.titre || item.title || '') + '</div>'
+                    + '<div style="font-size:12px;color:var(--gray);">' + esc((item.extrait || item.description || item.soustitre || '').slice(0,60)) + '</div></div>'
                     + '</a>';
             });
         }
@@ -1276,15 +1280,16 @@ function renderSearch(data, q) {
      ● Les boutons "actif" reflètent la langue courante
   --------------------------------------------------------------- */
   var STORAGE_KEY = 'nuf_lang';
+  var VALID_LANGS = ['en','fr','sw','rn','zh-CN','es','hi','ar','bn','pt','ru','ur','id','de','ja','ms','tr','ko','vi','it','fa','ta','th','pl','nl','uk','el','he','am','so','yo','ha','ig','zu','af','km','ne','mr','te','kn','gu','pa','da','no','fi','cs','hu','sv','ro'];
 
-  /* Lire la langue active (depuis cookie ou storage) */
+  /* Lire la langue active depuis l'URL ou cookie */
   function getActiveLang() {
-    var cookie = getCookie('googtrans');      // ex: /fr/en
-    if (cookie && cookie !== '/fr/fr') {
-      var parts = cookie.split('/');
-      return parts[parts.length - 1] || 'fr';
-    }
-    return localStorage.getItem(STORAGE_KEY) || 'fr';
+    var path = window.location.pathname;
+    var seg = path.split('/')[1];
+    if (seg && VALID_LANGS.indexOf(seg) !== -1) return seg;
+    var cookie = getCookie('agf_lang');
+    if (cookie && VALID_LANGS.indexOf(cookie) !== -1) return cookie;
+    return localStorage.getItem(STORAGE_KEY) || 'en';
   }
 
   /* Appliquer la langue au bouton desktop */
@@ -1294,29 +1299,41 @@ function renderSearch(data, q) {
     var labelEl = document.getElementById('nufLangLabel');
     if (opt && flagEl && labelEl) {
       var img = opt.querySelector('img');
-      flagEl.src = img ? img.src : 'https://flagcdn.com/w20/fr.png';
+      flagEl.src = img ? img.src : 'https://flagcdn.com/w20/gb.png';
       labelEl.textContent = opt.getAttribute('data-name') || lang;
     }
-    /* Marquer le bouton actif */
     document.querySelectorAll('.nuf-lang-opt').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-lang') === lang);
     });
   }
 
-  /* Changer de langue — LA seule fonction appelée partout */
-  function setLanguage(lang) {
-    if (lang === 'fr') {
-      /* Retour au français : effacer cookies + storage */
-      deleteCookie('googtrans');
-      localStorage.removeItem(STORAGE_KEY);
-    } else {
-      /* Écrire le cookie googtrans attendu par Google Translate */
-      deleteCookie('googtrans');
-      setCookie('googtrans', '/fr/' + lang, 365);
-      localStorage.setItem(STORAGE_KEY, lang);
+  /* Construire l'URL avec préfixe /lang/ APRÈS le base_path */
+  function buildLangUrl(lang) {
+    var bp = (window.BASE_PATH || '').replace(/\/+$/, '');
+    var path = window.location.pathname;
+    var routePath = path.substring(bp.length) || '/';
+    var seg = routePath.split('/')[1];
+    if (seg && VALID_LANGS.indexOf(seg) !== -1) {
+      routePath = '/' + routePath.split('/').slice(2).join('/');
     }
-    /* Recharger la page pour que Google Translate prenne le nouveau cookie */
-    window.location.reload();
+    if (routePath.charAt(0) !== '/') routePath = '/' + routePath;
+    if (lang === 'en') {
+      return window.location.origin + bp + routePath;
+    }
+    return window.location.origin + bp + '/' + lang + routePath;
+  }
+
+  /* Changer de langue — redirect vers /lang/... */
+  function setLanguage(lang) {
+    setCookie('agf_lang', lang, 365);
+    localStorage.setItem(STORAGE_KEY, lang);
+    if (lang !== 'en') {
+      deleteCookie('googtrans');
+      setCookie('googtrans', '/en/' + lang, 365);
+    } else {
+      deleteCookie('googtrans');
+    }
+    window.location.href = buildLangUrl(lang);
   }
 
   /* Init au chargement */
@@ -1325,7 +1342,7 @@ function renderSearch(data, q) {
     refreshLangBtn(current);
 
     /* Activer Google Translate sur la bonne langue si pas déjà fait */
-    if (current !== 'fr') {
+    if (current !== 'en') {
       var tryApply = setInterval(function () {
         var sel = document.querySelector('.goog-te-combo');
         if (sel) {

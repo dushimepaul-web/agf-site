@@ -522,6 +522,73 @@ class Model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    // MEDECINS
+
+    public function getDoctorByUUID($uuid) {
+        $this->db->select('
+            medecins.id,
+            medecins.uuid,
+            medecins.user_id,
+            medecins.specialite,
+            medecins.numero_licence,
+            medecins.annees_experience,
+            medecins.honoraires_consultation,
+            medecins.currency,
+            medecins.USD_EUR_Equivalent_en_BIF,
+            medecins.prix_pour_residant_burundi,
+            medecins.est_disponible,
+            medecins.note_moyenne,
+            medecins.nombre_avis,
+            medecins.bio,
+            medecins.diplomes,
+            medecins.langues_parlees,
+            medecins.actif,
+            medecins.created_at,
+            medecins.updated_at,
+            users.nom,
+            users.prenom,
+            users.email,
+            users.telephone,
+            users.photo,
+            users.is_active,
+            users.est_verifie
+        ');
+        $this->db->from('medecins');
+        $this->db->join('users', 'users.id = medecins.user_id');
+        $this->db->where('medecins.uuid', $uuid);
+        $this->db->where('medecins.actif', 1);
+        $this->db->where('users.is_active', 1);
+        $query = $this->db->get();
+        return $query->row_array() ?: null;
+    }
+
+    public function get_medecins_disponibles($limit = null) {
+        $this->db->select('medecins.*, users.nom, users.prenom, users.email');
+        $this->db->from('medecins');
+        $this->db->join('users', 'users.id = medecins.user_id');
+        $this->db->where('medecins.actif', 1);
+        $this->db->where('users.is_active', 1);
+        if ($limit) $this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    // PAYS
+
+    public function getPaysByName($name) {
+        $this->db->where('pays', $name);
+        $query = $this->db->get('pays');
+        return $query->row_array() ?: null;
+    }
+
+    // PAIEMENT
+
+    public function getActivePaymentMethods() {
+        $this->db->where('actif', 1);
+        $query = $this->db->get('mode_paiements');
+        return $query->result_array();
+    }
+
     // STATISTIQUES
 
     public function get_statistics() {

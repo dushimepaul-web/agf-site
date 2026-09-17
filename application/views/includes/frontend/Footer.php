@@ -99,7 +99,7 @@
                             $site_logo = $this->Model->get_setting('site_logo');
                             if (!empty($site_logo)): 
                             ?>
-                            <img src="<?= base_url('attachments/Configurations/' . $site_logo) ?>" 
+                            <img src="<?= base_url($site_logo) ?>" 
                                  alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?>" 
                                  class="footer-logo">
                             <?php endif; ?>
@@ -141,11 +141,12 @@
                         
                         <div class="footer-accordion-content" id="footerNav1">
                             <ul class="footer-links">
-                                <li><a href="<?= base_url() ?>">Home</a></li>
-                                <li><a href="<?= base_url('about') ?>">About Us</a></li>
-                                <li><a href="<?= base_url('Products') ?>">Products</a></li>
-                                <li><a href="<?= base_url('doctor') ?>">Consultation</a></li>
-                                <li><a href="<?= base_url('about') ?>">Contact</a></li>
+                                <li><a href="<?= base_url() ?>"><i class="bi bi-house-door"></i> Home</a></li>
+                                <li><a href="<?= base_url('profil-societe') ?>"><i class="bi bi-building"></i> About Us</a></li>
+                                <li><a href="<?= base_url('shop') ?>"><i class="bi bi-box-seam"></i> Shop</a></li>
+                                <li><a href="<?= base_url('doctor') ?>"><i class="bi bi-camera-video"></i> Consultation</a></li>
+                                <li><a href="<?= base_url('media') ?>"><i class="bi bi-collection-play"></i> Media</a></li>
+                                <li><a href="<?= base_url('contact') ?>"><i class="bi bi-envelope"></i> Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -167,15 +168,21 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url('Products') ?>">
+                                    <a href="<?= base_url('shop') ?>">
                                         <i class="bi bi-shop"></i>
                                         Product Sales
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url('about') ?>">
+                                    <a href="<?= base_url('investment-projection') ?>">
                                         <i class="bi bi-graph-up-arrow"></i>
                                         Invest
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url('contact') ?>">
+                                        <i class="bi bi-envelope"></i>
+                                        Contact Us
                                     </a>
                                 </li>
                             </ul>
@@ -193,20 +200,13 @@
                     ?>
                     <div class="footer-col footer-col-newsletter">
                         <button class="footer-accordion-toggle d-lg-none" aria-expanded="false" aria-controls="footerNav3">
-                            <h4>Newsletter</h4>
+                            <h4>Contact</h4>
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4 class="d-none d-lg-block">Newsletter</h4>
+                        <h4 class="d-none d-lg-block">Contact</h4>
                         
                         <div class="footer-accordion-content" id="footerNav3">
-                            <p class="footer-newsletter-desc">Subscribe for the latest news on products, investment opportunities and A.G.F developments.</p>
-                            <form class="footer-newsletter-form" id="newsletterFormFooter" onsubmit="return handleNewsletter(event)">
-                                <div class="footer-newsletter-input">
-                                    <input type="email" id="newsletterEmailFooter" placeholder="Your email address" required>
-                                    <button type="submit"><i class="bi bi-send"></i></button>
-                                </div>
-                                <div id="newsletterMsgFooter" class="newsletter-msg"></div>
-                            </form>
+                            <p class="footer-newsletter-desc">Stay connected with A.G.F for the latest news on products, investment opportunities and developments.</p>
                             <div class="footer-newsletter-social">
                                 <span>Follow us:</span>
                                 <div class="footer-social footer-social-sm">
@@ -1058,42 +1058,6 @@
     window.openMap = function() {
         var address = "<?= addslashes($this->Model->get_setting('adresse_siege', 'Lusaka, Zambie')) ?>";
         window.open('https://maps.google.com/?q=' + encodeURIComponent(address), '_blank');
-    };
-
-    // CONFIG BASE URL
-    if (typeof BASE_URL === 'undefined') {
-        window.BASE_URL = '<?php echo rtrim(base_url(), '/'); ?>/';
-    }
-
-    // NEWSLETTER
-    window.handleNewsletter = function(e) {
-        e.preventDefault();
-        var email = document.getElementById('newsletterEmailFooter');
-        var msg = document.getElementById('newsletterMsgFooter');
-        if (!email || !email.value) return false;
-        msg.className = 'newsletter-msg';
-        msg.textContent = 'Subscribing...';
-        fetch(BASE_URL + 'newsletter/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRF-TOKEN': CSRF_HASH },
-            body: 'email=' + encodeURIComponent(email.value)
-        })
-        .then(function(r) { return r.json(); })
-        .then(function(d) {
-            if (d.success) {
-                msg.className = 'newsletter-msg success';
-                msg.textContent = d.message || 'Thank you for subscribing!';
-                email.value = '';
-            } else {
-                msg.className = 'newsletter-msg error';
-                msg.textContent = d.message || 'An error occurred.';
-            }
-        })
-        .catch(function() {
-            msg.className = 'newsletter-msg error';
-            msg.textContent = 'Network error. Please try again.';
-        });
-        return false;
     };
 })();
 </script>

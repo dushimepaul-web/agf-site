@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="<?= $lang ?? 'fr' ?>">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title><?= $page_title ?? 'NUFOTEC' ?> - Media</title>
-    <link rel="icon" href="<?= base_url('attachments/Configurations/' . $this->Model->get_setting('favicon_ico', 'assets/fro.png')) ?>" type="image/png">
-    <link rel="apple-touch-icon" href="<?= base_url('attachments/Configurations/' . $this->Model->get_setting('favicon_ico', 'assets/fro.png')) ?>">
+    <title><?= $page_title ?? 'A.G.F' ?> - Media</title>
+    <?php 
+                            $site_logo = $this->Model->get_setting('site_logo');
+                            if (!empty($site_logo)): 
+                            ?>
+    <link rel="icon" href="<?= base_url($site_logo) ?>" type="image/png">
+    <link rel="apple-touch-icon" href="<?= base_url($site_logo) ?>">
+    <?php endif; ?>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="<?= base_url('assets/backend/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
     
    <script type="text/javascript">
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
-        pageLanguage: 'fr',
-        includedLanguages: 'fr,en,rn,sw,ar,de,es,pt,it,zh-CN,ru,nl,pl,tr,ja,ko,hi,vi,th,el,he,sv,da,no,fi,cs,hu,ro,uk',
+        pageLanguage: 'en',
+        includedLanguages: 'en,fr,rn,sw,ar,de,es,pt,it,zh-CN,ru,nl,pl,tr,ja,ko,hi,vi,th,el,he,sv,da,no,fi,cs,hu,ro,uk',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
     }, 'google_translate_element');
@@ -26,7 +31,7 @@ function googleTranslateElementInit() {
             var cookie = cookies[i].trim();
             if (cookie.startsWith('googtrans=')) {
                 var lang = cookie.split('=')[1];
-                if (lang && lang !== '/fr/') {
+                if (lang && lang !== '/en/') {
                     var selectElement = document.querySelector('.goog-te-combo');
                     if (selectElement) {
                         var langCode = lang.split('/')[2];
@@ -43,26 +48,41 @@ function googleTranslateElementInit() {
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
     <style>
-        /* Variables modernes */
+        /* Variables modernes — Premium Dark Theme */
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --bg-tertiary: #1a1a1a;
-            --bg-card: #181818;
-            --bg-hover: #272727;
-            --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --text-tertiary: #717171;
-            --accent-green: #00d084;
-            --accent-blue: #3ea6ff;
-            --accent-red: #ff0000;
-            --border-color: #2a2a2a;
-            --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.15s ease;
-            --glass-bg: rgba(26, 26, 26, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg-primary: #09090b;
+            --bg-secondary: #111113;
+            --bg-tertiary: #18181b;
+            --bg-card: #1c1c1f;
+            --bg-hover: #27272a;
+            --bg-active: #2a2d32;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.25);
+            --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.2);
+            --accent-red: #ef4444;
+            --accent-gradient: linear-gradient(135deg, #10b981, #059669);
+            --accent-gradient-blue: linear-gradient(135deg, #3b82f6, #2563eb);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+            --shadow-glow-green: 0 0 30px rgba(16, 185, 129, 0.15);
+            --shadow-glow-blue: 0 0 30px rgba(59, 130, 246, 0.12);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.18s ease;
+            --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --glass-bg: rgba(17, 17, 19, 0.88);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 9999px;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -525,6 +545,54 @@ function googleTranslateElementInit() {
         /* ============================================ */
         /* SIDEBAR MODERNE */
         /* ============================================ */
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            display: flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: var(--bg-tertiary); border: 1px solid var(--border-color);
+            color: var(--text-primary); cursor: pointer; transition: var(--transition-fast);
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .theme-toggle:hover { background: var(--bg-hover); transform: rotate(20deg); }
+
+        /* Light Theme — doux, pas trop blanc */
+        body.light-mode {
+            --bg-primary: #eef0f2;
+            --bg-secondary: #f5f6f8;
+            --bg-tertiary: #eaecf0;
+            --bg-card: #f9fafb;
+            --bg-hover: #e2e5e9;
+            --bg-active: #d5d9de;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-tertiary: #9ca3af;
+            --accent-green: #059669;
+            --accent-green-glow: rgba(5, 150, 105, 0.12);
+            --accent-blue: #2563eb;
+            --accent-blue-glow: rgba(37, 99, 235, 0.1);
+            --accent-red: #dc2626;
+            --border-color: rgba(0, 0, 0, 0.06);
+            --border-light: rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 16px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+            --glass-bg: rgba(245, 246, 248, 0.88);
+            --glass-border: rgba(0, 0, 0, 0.05);
+        }
+        body.light-mode .sidebar { background: var(--bg-secondary); border-right: 1px solid var(--border-color); }
+        body.light-mode .media-card { border: 1px solid rgba(0,0,0,0.06); background: var(--bg-card); }
+        body.light-mode .search-input { background: var(--bg-tertiary); border-color: var(--border-color); color: var(--text-primary); }
+        body.light-mode .search-dropdown { background: var(--bg-card); border-color: var(--border-color); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        body.light-mode .search-item { border-bottom-color: var(--border-color); }
+        body.light-mode .search-item-title { color: var(--text-primary); }
+        body.light-mode ::-webkit-scrollbar-thumb { background: #c4c8ce; }
+        body.light-mode ::-webkit-scrollbar-track { background: #e8eaee; }
+        body.light-mode .play-icon-wrap { box-shadow: 0 4px 20px rgba(5, 150, 105, 0.25); }
+        body.light-mode .audio-card:hover { background: rgba(0,0,0,0.03); }
+        body.light-mode .news-card { border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
+
         .sidebar { 
             position: fixed; 
             left: 0; 
@@ -704,34 +772,43 @@ function googleTranslateElementInit() {
         .media-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 1.5rem; 
+            gap: 1.5rem;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .media-card-wrapper {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         /* Media Card Premium */
         .media-card { 
             cursor: pointer; 
             transition: var(--transition);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
         }
         
         .media-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(16, 185, 129, 0.2);
         }
         
         .thumbnail-container { 
             position: relative; 
-            border-radius: 12px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
             overflow: hidden;
             background: var(--bg-tertiary);
             aspect-ratio: 16 / 9;
             background-size: cover;
             background-position: center;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .media-card:hover .thumbnail-container {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
         
         .play-overlay {
@@ -740,7 +817,7 @@ function googleTranslateElementInit() {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -752,45 +829,87 @@ function googleTranslateElementInit() {
             opacity: 1;
         }
         
-        .play-overlay i {
-            font-size: 3rem;
-            color: white;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        .play-icon-wrap {
+            width: 64px;
+            height: 64px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px var(--accent-green-glow);
+            transition: var(--transition-bounce);
+            transform: scale(0.8);
         }
+        
+        .media-card:hover .play-icon-wrap {
+            transform: scale(1);
+        }
+        
+        .play-icon-wrap i {
+            font-size: 1.75rem;
+            color: white;
+            margin-left: 3px;
+        }
+        
+        /* Card badges */
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            backdrop-filter: blur(8px);
+        }
+        .card-badge i { font-size: 0.65rem; }
+        .card-badge-video { background: rgba(239, 68, 68, 0.85); color: #fff; }
+        .card-badge-audio { background: rgba(139, 92, 246, 0.85); color: #fff; }
+        .card-badge-image { background: rgba(59, 130, 246, 0.85); color: #fff; }
+        .card-badge-doc { background: rgba(16, 185, 129, 0.85); color: #fff; }
         
         .duration-badge { 
             position: absolute; 
             bottom: 8px; 
             right: 8px; 
-            background: rgba(0, 0, 0, 0.85); 
+            background: rgba(0, 0, 0, 0.88); 
             color: var(--text-primary); 
-            padding: 3px 6px; 
-            border-radius: 4px; 
-            font-size: 0.7rem; 
+            padding: 3px 8px; 
+            border-radius: var(--radius-sm); 
+            font-size: 0.72rem; 
             font-weight: 600; 
-            z-index: 10;
+            z-index: 5;
             backdrop-filter: blur(4px);
+            font-variant-numeric: tabular-nums;
         }
         
         .card-info { 
-            padding: 0.75rem 0.25rem; 
+            padding: 0.85rem 1rem; 
             display: flex;
             gap: 0.75rem;
         }
         
-        .channel-avatar {
+        .card-avatar {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-green), #00a86b);
+            background: var(--accent-gradient);
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 8px var(--accent-green-glow);
         }
         
-        .channel-avatar i {
-            font-size: 1rem;
+        .card-avatar i {
+            font-size: 0.95rem;
             color: white;
         }
         
@@ -800,9 +919,9 @@ function googleTranslateElementInit() {
         }
         
         .card-title { 
-            font-size: 0.95rem; 
+            font-size: 0.92rem; 
             font-weight: 600; 
-            margin-bottom: 0.25rem; 
+            margin-bottom: 0.3rem; 
             line-height: 1.35; 
             display: -webkit-box; 
             -webkit-line-clamp: 2; 
@@ -815,12 +934,13 @@ function googleTranslateElementInit() {
             color: var(--text-tertiary); 
             font-size: 0.75rem; 
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        
-        .card-meta i {
-            font-size: 0.7rem;
-            margin-right: 2px;
-        }
+        .card-channel { color: var(--text-secondary); }
+        .card-sep { opacity: 0.4; }
+        .card-views i { font-size: 0.68rem; margin-right: 1px; }
 
     /* ============================================ */
     /* AUDIO-SPECIFIC STYLES — SPOTIFY INSPIRED */
@@ -1357,37 +1477,45 @@ function googleTranslateElementInit() {
         }
 
         /* ============================================ */
-        /* RESPONSIVE DESIGN */
+        /* RESPONSIVE DESIGN — MOBILE FIRST */
         /* ============================================ */
         @media (max-width: 1200px) {
             .media-grid {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 1rem;
+                gap: 1.25rem;
             }
         }
         
         @media (max-width: 1023px) {
             .sidebar {
                 transform: translateX(-100%);
+                box-shadow: none;
+                transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             }
             .sidebar.open {
                 transform: translateX(0);
+                box-shadow: 20px 0 60px rgba(0, 0, 0, 0.6);
             }
             .main-content {
                 margin-left: 0;
             }
             .media-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 1rem;
             }
         }
         
         @media (max-width: 768px) {
             .navbar {
                 height: 56px;
+                padding: 0 0.75rem;
             }
             .sidebar {
                 top: 56px;
                 height: calc(100vh - 56px);
+                width: 280px;
+                background: var(--bg-secondary);
+                border-right: 1px solid var(--border-color);
             }
             .search-container {
                 display: none;
@@ -1410,13 +1538,46 @@ function googleTranslateElementInit() {
             }
             .media-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 0.875rem;
             }
             .main-content {
                 padding: 1rem;
             }
             .lang-selector-custom {
                 display: none !important;
+            }
+            /* Cards plus compacts sur mobile */
+            .card-info {
+                padding: 0.7rem 0.85rem;
+                gap: 0.6rem;
+            }
+            .card-avatar {
+                width: 32px;
+                height: 32px;
+            }
+            .card-avatar i { font-size: 0.85rem; }
+            .card-title {
+                font-size: 0.88rem;
+            }
+            .play-icon-wrap {
+                width: 52px;
+                height: 52px;
+            }
+            .play-icon-wrap i {
+                font-size: 1.4rem;
+            }
+            /* Sidebar overlay */
+            .sidebar::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            .sidebar.open::before {
+                opacity: 1;
             }
         }
         
@@ -1434,20 +1595,32 @@ function googleTranslateElementInit() {
         
         @media (max-width: 480px) {
             .main-content {
-                padding: 0.75rem;
+                padding: 0.625rem;
             }
             .media-grid {
                 gap: 0.75rem;
             }
             .card-title {
-                font-size: 0.85rem;
+                font-size: 0.82rem;
+                -webkit-line-clamp: 2;
             }
-            .channel-avatar {
-                width: 32px;
-                height: 32px;
+            .card-avatar {
+                width: 30px;
+                height: 30px;
             }
-            .channel-avatar i {
-                font-size: 0.85rem;
+            .card-info {
+                padding: 0.6rem 0.75rem;
+            }
+            .play-icon-wrap {
+                width: 44px;
+                height: 44px;
+            }
+            .play-icon-wrap i {
+                font-size: 1.2rem;
+            }
+            .card-badge {
+                font-size: 0.6rem;
+                padding: 3px 7px;
             }
         }
         
@@ -1469,7 +1642,7 @@ function googleTranslateElementInit() {
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
 
 <!-- Google Translate Container (caché) -->
 <div id="google_translate_element" style="display: none;"></div>
@@ -1495,12 +1668,12 @@ function googleTranslateElementInit() {
             </button>
             <a class="navbar-brand" href="<?= base_url('media') ?>">
                 <?php 
-                $site_logo = $this->Model->get_setting('site_logo');
-                if (!empty($site_logo)): 
-                ?>
-                    <img src="<?= base_url('attachments/Configurations/' . $site_logo) ?>" alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'NUFOTEC')) ?>" class="brand-logo">
+                            $site_logo = $this->Model->get_setting('site_logo');
+                            if (!empty($site_logo)): 
+                            ?>
+                    <img src="<?= base_url($site_logo) ?>" alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'A.G.F')) ?>" class="brand-logo">
                 <?php endif; ?>
-                <span class="brand-name"><?= htmlspecialchars($this->Model->get_setting('site_name', 'NUFOTEC')) ?></span>
+                <span class="brand-name"><?= htmlspecialchars($this->Model->get_setting('site_name', 'A.G.F')) ?></span>
                 <span class="brand-subname">Media</span>
             </a>
         </div>
@@ -1519,11 +1692,16 @@ function googleTranslateElementInit() {
                 <i class="bi bi-search"></i>
             </button>
             
+            <!-- Theme Toggle -->
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer de thème">
+                <i class="bi bi-moon-fill" id="themeIcon"></i>
+            </button>
+            
             <!-- Language Selector DESKTOP -->
             <div class="lang-selector-custom">
                 <button class="custom-language-btn" id="customLanguageBtn">
-                    <img src="https://flagcdn.com/w20/fr.png" alt="Français" id="currentLangFlag">
-                    <span id="currentLangLabel">Français</span>
+                    <img src="https://flagcdn.com/w20/us.png" alt="English" id="currentLangFlag">
+                    <span id="currentLangLabel">English</span>
                     <i class="bi bi-chevron-down"></i>
                 </button>
                 <div class="custom-language-dropdown" id="customLanguageDropdown">
@@ -1590,35 +1768,31 @@ function googleTranslateElementInit() {
 <!-- Sidebar Premium -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-section">
-        <a href="<?= base_url('media') ?>" class="sidebar-item <?= empty($current_type) && empty($search_query) ? 'active' : '' ?>">
-            <i class="bi bi-house-fill"></i><span>Accueil</span>
+        <a href="javascript:void(0)" class="sidebar-item <?= empty($current_type) && empty($search_query) ? 'active' : '' ?>" data-nav="home" onclick="spaNavigate('home', this)">
+            <i class="bi bi-house-fill"></i><span>Home</span>
         </a>
-        <a href="<?= base_url('media/trending') ?>" class="sidebar-item <?= (!empty($current_type) && $current_type === 'trending') ? 'active' : '' ?>">
+        <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === 'video') ? 'active' : '' ?>" data-nav="video" onclick="spaNavigate('video', this)">
             <i class="bi bi-fire"></i><span>Tendances</span>
         </a>
-        <a href="<?= base_url('media/news') ?>" class="sidebar-item <?= (!empty($current_type) && $current_type === 'news') ? 'active' : '' ?>">
-            <i class="bi bi-newspaper"></i><span>Actualités</span>
-        </a>
-        <a href="<?= base_url('media/temoignages') ?>" class="sidebar-item <?= !empty($show_temoignages) ? 'active' : '' ?>">
+        <a href="javascript:void(0)" class="sidebar-item" data-nav="temoignages" onclick="spaNavigate('temoignages', this)">
             <i class="bi bi-chat-quote-fill"></i><span>Témoignages</span>
         </a>
     </div>
 
     <div class="sidebar-section">
         <div class="sidebar-title">Catégories</div>
-        <?php
-        $types = [
-            'video'    => ['icon' => 'camera-video-fill',   'label' => 'Vidéos'],
-            'audio'    => ['icon' => 'music-note-beamed',   'label' => 'Audio'],
-            'image'    => ['icon' => 'image-fill',          'label' => 'Images'],
-            'book'     => ['icon' => 'book-fill',           'label' => 'Livres']
-        ];
-        ?>
-        <?php foreach ($types as $type => $info): ?>
-            <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === $type) ? 'active' : '' ?>" onclick="filterMedia('<?= $type ?>')">
-                <i class="bi bi-<?= $info['icon'] ?>"></i><span><?= $info['label'] ?></span>
-            </a>
-        <?php endforeach; ?>
+        <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === 'video') ? 'active' : '' ?>" data-nav="video" onclick="spaNavigate('video', this)">
+            <i class="bi bi-camera-video-fill"></i><span>Vidéos</span>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === 'audio') ? 'active' : '' ?>" data-nav="audio" onclick="spaNavigate('audio', this)">
+            <i class="bi bi-music-note-beamed"></i><span>Audio</span>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === 'image') ? 'active' : '' ?>" data-nav="image" onclick="spaNavigate('image', this)">
+            <i class="bi bi-image-fill"></i><span>Images</span>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-item <?= (!empty($current_type) && $current_type === 'book') ? 'active' : '' ?>" data-nav="book" onclick="spaNavigate('book', this)">
+            <i class="bi bi-book-fill"></i><span>Livres</span>
+        </a>
     </div>
 
     <!-- Language Selector MOBILE (dans le sidebar) -->
@@ -1628,8 +1802,8 @@ function googleTranslateElementInit() {
         </div>
         <div class="mobile-lang-selector" id="mobileLangSelector">
             <div class="current-mobile-lang" id="currentMobileLang" onclick="toggleMobileLangDropdown()">
-                <img src="https://flagcdn.com/w20/fr.png" alt="Français" id="mobileCurrentLangFlag">
-                <span id="mobileCurrentLangLabel">Français</span>
+                <img src="https://flagcdn.com/w20/us.png" alt="English" id="mobileCurrentLangFlag">
+                <span id="mobileCurrentLangLabel">English</span>
                 <i class="bi bi-chevron-down"></i>
             </div>
             <div class="mobile-lang-dropdown" id="mobileLangDropdown">
@@ -1706,7 +1880,7 @@ function googleTranslateElementInit() {
                                     <div class="card-details">
                                         <div class="card-title"><?= htmlspecialchars($t['titre'] ?? '') ?></div>
                                         <div class="card-meta">
-                                            <i class="bi bi-person"></i> NUFOTEC BURUNDI
+                                            <i class="bi bi-person"></i> A.G.F BURUNDI
                                         </div>
                                     </div>
                                 </div>
@@ -1721,44 +1895,6 @@ function googleTranslateElementInit() {
     <?php endif; ?>
 
     <div class="media-grid" id="mediaGrid">
-        <?php if (!empty($current_type) && $current_type === 'news' && !empty($articles)): ?>
-            <div class="news-section w-100 mb-4">
-                <h4 class="mb-3"><i class="bi bi-newspaper"></i> Actualités</h4>
-                <div class="row">
-                    <?php foreach ($articles as $article): ?>
-                        <div class="col-md-4 mb-4">
-                            <div class="news-card">
-                                <div class="news-thumb">
-                                    <?php if (!empty($article['image_principale']) && file_exists(FCPATH . $article['image_principale'])): ?>
-                                        <img src="<?= base_url($article['image_principale']) ?>" alt="<?= htmlspecialchars($article['titre']) ?>" loading="lazy">
-                                    <?php else: ?>
-                                        <div class="news-fallback">
-                                            <i class="bi bi-newspaper"></i>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if (!empty($article['categorie'])): ?>
-                                        <span class="news-category"><?= htmlspecialchars($article['categorie']) ?></span>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="news-body">
-                                    <span class="news-date">
-                                        <i class="bi bi-calendar3"></i>
-                                        <?= date('d/m/Y', strtotime($article['date_publication'] ?? '')) ?>
-                                    </span>
-                                    <a href="<?= base_url('actualite/' . ($article['slug'] ?? $article['id_actualite'])) ?>" class="text-decoration-none">
-                                        <h3 class="news-title mb-2"><?= htmlspecialchars($article['titre']) ?></h3>
-                                    </a>
-                                    <p class="news-excerpt"><?= character_limiter(strip_tags($article['resume'] ?? $article['contenu'] ?? ''), 110) ?></p>
-                                    <a href="<?= base_url('actualite/' . ($article['slug'] ?? $article['id_actualite'])) ?>" class="news-btn">
-                                        Lire plus <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
         <?php if (!empty($medias)): ?>
             <?php foreach ($medias as $media): ?>
                 <?= createMediaCard($media, $lang ?? 'fr') ?>
@@ -1777,12 +1913,133 @@ function googleTranslateElementInit() {
 
 <script>
 // ============================================
-// FONCTIONS PRINCIPALES
+// THEME TOGGLE — DARK / LIGHT
 // ============================================
-function openMedia(mediaSlug) {
-    window.location.href = '<?= base_url('media/detail/') ?>' + mediaSlug;
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('themeIcon');
+    const isLight = body.classList.toggle('light-mode');
+    localStorage.setItem('agf_theme', isLight ? 'light' : 'dark');
+    icon.className = isLight ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
 }
 
+(function() {
+    const saved = localStorage.getItem('agf_theme');
+    const icon = document.getElementById('themeIcon');
+    if (saved === 'dark') {
+        document.body.classList.remove('light-mode');
+        if (icon) icon.className = 'bi bi-moon-fill';
+    } else {
+        document.body.classList.add('light-mode');
+        if (icon) icon.className = 'bi bi-sun-fill';
+    }
+})();
+
+// ============================================
+// SPA NAVIGATION — NO PAGE RELOAD
+// ============================================
+const SPA_API = '<?= base_url("media/apiGrid") ?>';
+const BASE_URL = '<?= rtrim(base_url(), "/") ?>';
+let spaLoading = false;
+
+function spaNavigate(type, el) {
+    if (spaLoading) return;
+    
+    // Fermer le sidebar mobile
+    document.getElementById('sidebar').classList.remove('open');
+    
+    // Mettre à jour la sidebar active
+    document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+    if (el) el.classList.add('active');
+    
+    // Animation de sortie
+    const grid = document.getElementById('mediaGrid');
+    const emptyState = document.getElementById('emptyState');
+    grid.style.opacity = '0';
+    grid.style.transform = 'translateY(12px)';
+    
+    spaLoading = true;
+    
+    setTimeout(function() {
+        if (type === 'home') {
+            // Charger tout
+            fetch(SPA_API + '?type=all')
+                .then(r => r.json())
+                .then(data => renderGrid(data, ''))
+                .catch(() => { grid.style.opacity = '1'; grid.style.transform = 'none'; });
+            history.pushState({type: 'home'}, '', BASE_URL + '/media');
+        } else if (type === 'temoignages') {
+            // Les témoignages restent en reload car complexe
+            window.location.href = BASE_URL + '/media/temoignages';
+            return;
+        } else {
+            // Charger par type
+            fetch(SPA_API + '?type=' + encodeURIComponent(type))
+                .then(r => r.json())
+                .then(data => renderGrid(data, type))
+                .catch(() => { grid.style.opacity = '1'; grid.style.transform = 'none'; });
+            const slug = type === 'video' ? 'video' : type;
+            history.pushState({type: type}, '', BASE_URL + '/media/type/' + slug);
+        }
+    }, 180);
+}
+
+function renderGrid(data, type) {
+    const grid = document.getElementById('mediaGrid');
+    const emptyState = document.getElementById('emptyState');
+    
+    if (!data.success || !data.medias || data.medias.length === 0) {
+        grid.innerHTML = '';
+        emptyState.style.display = 'flex';
+        grid.style.opacity = '1';
+        grid.style.transform = 'none';
+        spaLoading = false;
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    let html = '';
+    data.medias.forEach(m => {
+        if (m.card_html) html += '<div class="media-card-wrapper">' + m.card_html + '</div>';
+    });
+    grid.innerHTML = html;
+    
+    // Animation d'entrée
+    requestAnimationFrame(() => {
+        grid.style.opacity = '1';
+        grid.style.transform = 'none';
+        // Stagger animation
+        grid.querySelectorAll('.media-card-wrapper').forEach((card, i) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'none';
+            }, i * 60);
+        });
+    });
+    
+    spaLoading = false;
+}
+
+function openMedia(mediaSlug) {
+    window.location.href = BASE_URL + '/media/detail/' + mediaSlug;
+}
+
+// Gestion du bouton retour du navigateur
+window.addEventListener('popstate', function(e) {
+    if (e.state && e.state.type) {
+        const sidebarItem = document.querySelector('[data-nav="' + e.state.type + '"]');
+        spaNavigate(e.state.type, sidebarItem);
+    } else {
+        location.reload();
+    }
+});
+
+// ============================================
+// MOBILE SEARCH
+// ============================================
 function openMobileSearch() {
     document.getElementById('mobileSearchOverlay').classList.add('active');
     document.getElementById('mobileSearchInput').focus();
@@ -1792,7 +2049,9 @@ function closeMobileSearch() {
     document.getElementById('mobileSearchOverlay').classList.remove('active');
 }
 
-/* ========== LIVE SEARCH ========== */
+// ============================================
+// LIVE SEARCH
+// ============================================
 (function() {
     const liveSearchUrl = '<?= base_url("media/liveSearch") ?>';
     let searchTimer = null;
@@ -1855,318 +2114,162 @@ function closeMobileSearch() {
 })();
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeMobileSearch();
-    }
+    if (e.key === 'Escape') closeMobileSearch();
 });
-
-function filterMedia(type) {
-    if (type === 'all') {
-        window.location.href = '<?= base_url('media') ?>';
-    } else {
-        window.location.href = '<?= base_url('media/type/') ?>' + type;
-    }
-}
 
 function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
 }
 
-function showToast(message, type = 'info') {
-    const container = document.getElementById('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = `toast align-items-center text-white bg-${type === 'success' ? 'success' : 'primary'} border-0`;
-    toast.setAttribute('role', 'alert');
-    toast.setAttribute('aria-live', 'assertive');
-    toast.setAttribute('aria-atomic', 'true');
-    toast.innerHTML = `
-        <div class="d-flex">
-            <div class="toast-body">${message}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-        </div>
-    `;
-    container.appendChild(toast);
-    const bsToast = new bootstrap.Toast(toast);
-    bsToast.show();
-    setTimeout(() => toast.remove(), 3000);
+function filterMedia(type) {
+    const el = document.querySelector('[data-nav="' + type + '"]');
+    spaNavigate(type, el);
 }
 
 // ============================================
-// LANGUAGE MANAGEMENT - VERSION CORRIGÉE
+// LANGUAGE MANAGEMENT
 // ============================================
-
-// Éléments DOM
 const langBtn = document.getElementById('customLanguageBtn');
 const langDropdown = document.getElementById('customLanguageDropdown');
 const currentLangFlag = document.getElementById('currentLangFlag');
 const currentLangLabel = document.getElementById('currentLangLabel');
 
-// Fonction pour supprimer tous les cookies googtrans
 function clearGoogtransCookies() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
+    document.cookie.split(';').forEach(cookie => {
         if (cookie.trim().startsWith('googtrans=')) {
-            const cookieName = cookie.trim().split('=')[0];
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+            const name = cookie.trim().split('=')[0];
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname + ';';
         }
-    }
+    });
 }
 
-// Fonction pour définir le cookie de langue
 function setLanguageCookie(langCode) {
     clearGoogtransCookies();
-    if (langCode !== 'fr') {
-        document.cookie = `googtrans=/fr/${langCode}; path=/; max-age=31536000`;
-        return true;
+    document.cookie = 'agf_lang=' + langCode + '; path=/; max-age=31536000';
+    if (langCode !== 'en') {
+        document.cookie = 'googtrans=/en/' + langCode + '; path=/; max-age=31536000';
     }
-    return false;
 }
 
-// Récupérer la langue sauvegardée
-const savedLang = localStorage.getItem('preferred_language');
-const savedFlag = localStorage.getItem('preferred_flag');
-const savedLabel = localStorage.getItem('preferred_label');
-
-// APPLIQUER LA LANGUE SAUVEGARDÉE AU CHARGEMENT (CRITIQUE)
-(function applySavedLanguage() {
-    if (savedLang && savedFlag && savedLabel && savedLang !== 'fr') {
-        // Vérifier si le cookie existe déjà
-        const cookieExists = document.cookie.indexOf(`googtrans=/fr/${savedLang}`) !== -1;
-        
-        if (!cookieExists) {
-            // Définir le cookie
-            setLanguageCookie(savedLang);
-            // Recharger la page pour appliquer
-            setTimeout(() => {
-                window.location.reload();
-            }, 50);
-            return;
-        }
-        
-        // Mettre à jour l'UI desktop
-        if (currentLangFlag && currentLangLabel) {
-            currentLangFlag.src = `https://flagcdn.com/w20/${savedFlag}.png`;
-            currentLangLabel.textContent = savedLabel;
-        }
-        
-        // Mettre à jour l'UI mobile
-        const mobileCurrentLangFlag = document.getElementById('mobileCurrentLangFlag');
-        const mobileCurrentLangLabel = document.getElementById('mobileCurrentLangLabel');
-        if (mobileCurrentLangFlag && mobileCurrentLangLabel) {
-            mobileCurrentLangFlag.src = `https://flagcdn.com/w20/${savedFlag}.png`;
-            mobileCurrentLangLabel.textContent = savedLabel;
-        }
+function buildLangUrl(lang) {
+    var VALID_LANGS = ['en','fr','sw','rn','zh-CN','es','hi','ar','bn','pt','ru','ur','id','de','ja','ms','tr','ko','vi','it','fa','ta','th','pl','nl','uk','el','he','am','so','yo','ha','ig','zu','af','km','ne','mr','te','kn','gu','pa','da','no','fi','cs','hu','sv','ro'];
+    var bp = (window.BASE_PATH || '').replace(/\/+$/, '');
+    var path = window.location.pathname;
+    var routePath = path.substring(bp.length) || '/';
+    var seg = routePath.split('/')[1];
+    if (seg && VALID_LANGS.indexOf(seg) !== -1) {
+        routePath = '/' + routePath.split('/').slice(2).join('/');
     }
-})();
+    if (routePath.charAt(0) !== '/') routePath = '/' + routePath;
+    if (lang === 'en') return window.location.origin + bp + routePath;
+    return window.location.origin + bp + '/' + lang + routePath;
+}
 
-// Fonction pour ouvrir/fermer le dropdown
-function toggleDropdown() {
-    if (langDropdown) {
+function changeLanguage(langCode, flagCode, label) {
+    if (currentLangFlag && currentLangLabel) {
+        currentLangFlag.src = 'https://flagcdn.com/w20/' + flagCode + '.png';
+        currentLangLabel.textContent = label;
+    }
+    localStorage.setItem('preferred_language', langCode);
+    localStorage.setItem('preferred_flag', flagCode);
+    localStorage.setItem('preferred_label', label);
+    setLanguageCookie(langCode);
+    window.location.href = buildLangUrl(langCode);
+}
+
+if (langBtn) {
+    langBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
         langDropdown.classList.toggle('active');
-    }
+    });
 }
 
-// Fermer le dropdown en cliquant ailleurs
-document.addEventListener('click', function(event) {
-    if (langBtn && langDropdown && !langBtn.contains(event.target) && !langDropdown.contains(event.target)) {
+document.addEventListener('click', function(e) {
+    if (langBtn && langDropdown && !langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
         langDropdown.classList.remove('active');
     }
 });
 
-// Ouvrir/fermer au clic sur le bouton
-if (langBtn) {
-    langBtn.addEventListener('click', function(event) {
-        event.stopPropagation();
-        toggleDropdown();
-    });
-}
-
-// FONCTION PRINCIPALE DE CHANGEMENT DE LANGUE
-function changeLanguage(langCode, flagCode, label) {
-    // Mettre à jour l'UI desktop
-    if (currentLangFlag && currentLangLabel) {
-        currentLangFlag.src = `https://flagcdn.com/w20/${flagCode}.png`;
-        currentLangLabel.textContent = label;
-    }
-    
-    // Sauvegarder dans localStorage
-    localStorage.setItem('preferred_language', langCode);
-    localStorage.setItem('preferred_flag', flagCode);
-    localStorage.setItem('preferred_label', label);
-    
-    // Définir le cookie
-    setLanguageCookie(langCode);
-    
-    // Recharger la page pour appliquer la traduction
-    setTimeout(() => {
-        window.location.reload();
-    }, 150);
-}
-
-// Événements pour les options de langue DESKTOP
 document.querySelectorAll('.lang-option').forEach(option => {
-    option.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const langCode = this.getAttribute('data-lang');
-        const flagCode = this.getAttribute('data-flag');
-        const label = this.getAttribute('data-label');
-        changeLanguage(langCode, flagCode, label);
-        
-        // Fermer le dropdown
-        if (langDropdown) {
-            langDropdown.classList.remove('active');
-        }
+    option.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        changeLanguage(this.dataset.lang, this.dataset.flag, this.dataset.label);
+        langDropdown.classList.remove('active');
     });
 });
 
-// ============================================
-// LANGUAGE MANAGEMENT - MOBILE
-// ============================================
-
-// Fonction pour ouvrir/fermer le dropdown mobile
+// Mobile Language
 function toggleMobileLangDropdown() {
-    const currentMobileLang = document.getElementById('currentMobileLang');
-    const mobileLangDropdown = document.getElementById('mobileLangDropdown');
-    
-    if (currentMobileLang && mobileLangDropdown) {
-        currentMobileLang.classList.toggle('active');
-        mobileLangDropdown.classList.toggle('active');
-    }
+    document.getElementById('currentMobileLang').classList.toggle('active');
+    document.getElementById('mobileLangDropdown').classList.toggle('active');
 }
 
-// Fonction de changement de langue pour mobile
 function changeLanguageMobile(langCode, flagCode, label) {
-    // Mettre à jour l'UI mobile
-    const mobileCurrentLangFlag = document.getElementById('mobileCurrentLangFlag');
-    const mobileCurrentLangLabel = document.getElementById('mobileCurrentLangLabel');
-    
-    if (mobileCurrentLangFlag && mobileCurrentLangLabel) {
-        mobileCurrentLangFlag.src = `https://flagcdn.com/w20/${flagCode}.png`;
-        mobileCurrentLangLabel.textContent = label;
-    }
-    
-    // Mettre à jour l'UI desktop aussi
-    if (currentLangFlag && currentLangLabel) {
-        currentLangFlag.src = `https://flagcdn.com/w20/${flagCode}.png`;
-        currentLangLabel.textContent = label;
-    }
-    
-    // Sauvegarder dans localStorage
+    const mf = document.getElementById('mobileCurrentLangFlag');
+    const ml = document.getElementById('mobileCurrentLangLabel');
+    if (mf) mf.src = 'https://flagcdn.com/w20/' + flagCode + '.png';
+    if (ml) ml.textContent = label;
+    if (currentLangFlag) currentLangFlag.src = 'https://flagcdn.com/w20/' + flagCode + '.png';
+    if (currentLangLabel) currentLangLabel.textContent = label;
     localStorage.setItem('preferred_language', langCode);
     localStorage.setItem('preferred_flag', flagCode);
     localStorage.setItem('preferred_label', label);
-    
-    // Définir le cookie
     setLanguageCookie(langCode);
-    
-    // Fermer le dropdown mobile
-    const currentMobileLang = document.getElementById('currentMobileLang');
-    const mobileLangDropdown = document.getElementById('mobileLangDropdown');
-    if (currentMobileLang) currentMobileLang.classList.remove('active');
-    if (mobileLangDropdown) mobileLangDropdown.classList.remove('active');
-    
-    // Recharger la page
-    setTimeout(() => {
-        window.location.reload();
-    }, 150);
+    document.getElementById('currentMobileLang').classList.remove('active');
+    document.getElementById('mobileLangDropdown').classList.remove('active');
+    window.location.href = buildLangUrl(langCode);
 }
 
-// Événements pour les options de langue MOBILE
 document.querySelectorAll('.mobile-lang-option').forEach(option => {
-    option.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const langCode = this.getAttribute('data-lang');
-        const flagCode = this.getAttribute('data-flag');
-        const label = this.getAttribute('data-label');
-        changeLanguageMobile(langCode, flagCode, label);
+    option.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        changeLanguageMobile(this.dataset.lang, this.dataset.flag, this.dataset.label);
     });
 });
 
-// Fermer le dropdown mobile en cliquant ailleurs
-document.addEventListener('click', function(event) {
-    const mobileLangSelector = document.getElementById('mobileLangSelector');
-    const currentMobileLang = document.getElementById('currentMobileLang');
-    const mobileLangDropdown = document.getElementById('mobileLangDropdown');
-    
-    if (mobileLangSelector && currentMobileLang && mobileLangDropdown && !mobileLangSelector.contains(event.target)) {
-        currentMobileLang.classList.remove('active');
-        mobileLangDropdown.classList.remove('active');
+document.addEventListener('click', function(e) {
+    const sel = document.getElementById('mobileLangSelector');
+    if (sel && !sel.contains(e.target)) {
+        document.getElementById('currentMobileLang').classList.remove('active');
+        document.getElementById('mobileLangDropdown').classList.remove('active');
     }
 });
 
 // ============================================
-// SUPPRESSION DE LA BARRE GOOGLE TRANSLATE
+// GOOGLE TRANSLATE CLEANUP
 // ============================================
-
 function removeGoogleTranslateBar() {
-    // Supprimer la bannière
-    const banner = document.querySelector('.goog-te-banner-frame');
-    if (banner) {
-        if (banner.parentNode) {
-            banner.parentNode.removeChild(banner);
-        }
-    }
-    
-    // Supprimer les iframes flottantes
-    const iframes = document.querySelectorAll('iframe');
-    iframes.forEach(iframe => {
-        if (iframe.src && (iframe.src.includes('translate') || iframe.src.includes('goog'))) {
-            iframe.remove();
-        }
-    });
-    
-    // Réinitialiser les marges du body
+    document.querySelector('.goog-te-banner-frame')?.remove();
+    document.querySelectorAll('iframe').forEach(f => { if (f.src && f.src.includes('translate')) f.remove(); });
     document.body.style.marginTop = '0';
     document.body.style.top = '0';
     document.body.style.position = 'relative';
-    document.body.style.paddingTop = '0';
-    
-    // Cacher l'élément Google Translate
-    const translateElement = document.getElementById('google_translate_element');
-    if (translateElement) {
-        translateElement.style.display = 'none';
-    }
+    document.getElementById('google_translate_element').style.display = 'none';
 }
-
-// Exécuter immédiatement
 removeGoogleTranslateBar();
+setInterval(removeGoogleTranslateBar, 200);
 
-// Exécuter plusieurs fois pour être sûr
-setInterval(removeGoogleTranslateBar, 100);
-setTimeout(removeGoogleTranslateBar, 500);
-setTimeout(removeGoogleTranslateBar, 1000);
-setTimeout(removeGoogleTranslateBar, 3000);
-
-// ============================================
-// FORCER L'APPLICATION DE LA LANGUE AU CHARGEMENT
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    const savedLanguage = localStorage.getItem('preferred_language');
-    const savedFlagCode = localStorage.getItem('preferred_flag');
-    const savedLabelText = localStorage.getItem('preferred_label');
-    
-    if (savedLanguage && savedLanguage !== 'fr') {
-        // Vérifier si la page est déjà traduite
-        const htmlLang = document.documentElement.getAttribute('lang');
-        
-        if (htmlLang !== savedLanguage) {
-            // Vérifier si le cookie est présent
-            const hasCookie = document.cookie.indexOf(`googtrans=/fr/${savedLanguage}`) !== -1;
-            
-            if (!hasCookie) {
-                // Recréer le cookie
-                setLanguageCookie(savedLanguage);
-                // Recharger
-                setTimeout(() => {
-                    window.location.reload();
-                }, 100);
-            }
+// Applied saved language
+(function() {
+    const sl = localStorage.getItem('preferred_language');
+    const sf = localStorage.getItem('preferred_flag');
+    const slabel = localStorage.getItem('preferred_label');
+    if (sl && sf && slabel && sl !== 'en') {
+        if (currentLangFlag) { currentLangFlag.src = 'https://flagcdn.com/w20/' + sf + '.png'; }
+        if (currentLangLabel) { currentLangLabel.textContent = slabel; }
+        const mff = document.getElementById('mobileCurrentLangFlag');
+        const mll = document.getElementById('mobileCurrentLangLabel');
+        if (mff) mff.src = 'https://flagcdn.com/w20/' + sf + '.png';
+        if (mll) mll.textContent = slabel;
+        if (document.cookie.indexOf('googtrans=/en/' + sl) === -1) {
+            setLanguageCookie(sl);
+            setTimeout(() => location.reload(), 50);
         }
     }
-});
+})();
 </script>
 
 <?php
@@ -2274,7 +2377,7 @@ function createMediaCard($media, $lang) {
     
     $duration = $media['duration_formatted'] ?? '0:00';
     $title = htmlspecialchars($media['titre'] ?? 'Sans titre');
-    $channel = htmlspecialchars($media['credits'] ?? $media['categorie'] ?? 'NUFOTEC BURUNDI');
+    $channel = htmlspecialchars($media['credits'] ?? $media['categorie'] ?? 'A.G.F BURUNDI');
     $views = number_format($media['views_count'] ?? 0);
     
     return '

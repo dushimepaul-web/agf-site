@@ -37,8 +37,8 @@ class Consultation_model extends Model
     public function get_horaires($medecin_id)
     {
         $this->db->where('horaires_medecins.medecin_id', $medecin_id);
-        $this->db->where('horaires_medecins.disponible', 1);
-        $this->db->order_by('horaires_medecins.jour', 'ASC');
+        $this->db->where('horaires_medecins.est_actif', 1);
+        $this->db->order_by('horaires_medecins.jour_semaine', 'ASC');
         $this->db->order_by('horaires_medecins.heure_debut', 'ASC');
         $q = $this->db->get('horaires_medecins');
         $results = ($q !== false) ? $q->result_array() : [];
@@ -46,8 +46,8 @@ class Consultation_model extends Model
         // Tri manuel des jours en français
         $jourOrder = ['lundi'=>1,'mardi'=>2,'mercredi'=>3,'jeudi'=>4,'vendredi'=>5,'samedi'=>6,'dimanche'=>7];
         usort($results, function($a, $b) use ($jourOrder) {
-            $oa = $jourOrder[$a['jour']] ?? 99;
-            $ob = $jourOrder[$b['jour']] ?? 99;
+            $oa = $jourOrder[$a['jour_semaine']] ?? 99;
+            $ob = $jourOrder[$b['jour_semaine']] ?? 99;
             return $oa <=> $ob ?: strcmp($a['heure_debut'], $b['heure_debut']);
         });
         return $results;

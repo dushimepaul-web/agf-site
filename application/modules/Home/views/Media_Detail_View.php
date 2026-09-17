@@ -1,694 +1,422 @@
-<!DOCTYPE html>
-<html lang="<?= $lang ?? 'fr' ?>">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title><?= htmlspecialchars($media['titre'] ?? t('media_detail_title')) ?> - <?= $this->Model->get_setting('site_name', 'NUFOTEC') ?></title>
+    <title><?= htmlspecialchars($media['titre'] ?? 'Media') ?> - <?= $this->Model->get_setting('site_name', 'A.G.F') ?></title>
     <meta property="og:title" content="<?= htmlspecialchars($media['titre'] ?? '') ?>">
     <meta property="og:description" content="<?= htmlspecialchars($media['description'] ?? $media['credits'] ?? '') ?>">
     <meta property="og:image" content="<?= $media['thumbnail_url'] ?? base_url('assets/images/default-share.jpg') ?>">
     <meta property="og:url" content="<?= current_url() ?>">
     <meta property="og:type" content="video.other">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="theme-color" content="#0a0a0a">
-    <link rel="icon" href="<?= base_url('attachments/Configurations/' . $this->Model->get_setting('favicon_ico', 'assets/fro.png')) ?>" type="image/png">
+    <meta name="theme-color" content="#09090b">
+    <link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico', 'assets/fro.png')) ?>" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
+    <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
+
     <style>
-        /* ============================================
-           VARIABLES PREMIUM
-        ============================================ */
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --bg-tertiary: #1a1a1a;
-            --bg-card: #1e1e1e;
-            --bg-hover: #2a2a2a;
-            --bg-glass: rgba(26, 26, 26, 0.95);
-            --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --text-tertiary: #717171;
-            --accent-green: #00d084;
-            --accent-blue: #3ea6ff;
-            --accent-red: #ff0000;
-            --border-color: #2a2a2a;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-fast: all 0.15s ease;
-            --border-radius-sm: 8px;
-            --border-radius-md: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
+            --bg-primary: #09090b;
+            --bg-secondary: #111113;
+            --bg-tertiary: #18181b;
+            --bg-card: #1c1c1f;
+            --bg-hover: #27272a;
+            --bg-glass: rgba(17, 17, 19, 0.88);
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            --accent-green: #10b981;
+            --accent-green-glow: rgba(16, 185, 129, 0.25);
+            --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.2);
+            --accent-red: #ef4444;
+            --accent-gradient: linear-gradient(135deg, #10b981, #059669);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+            --shadow: 0 4px 20px rgba(0,0,0,0.5);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+            --shadow-glow: 0 0 30px rgba(16, 185, 129, 0.12);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.18s ease;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: var(--bg-primary); 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.5;
             top: 0 !important;
-            margin-top: 0 !important;
-            padding-top: 0 !important;
         }
-
-        /* Scrollbar Premium */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-tertiary); }
         ::-webkit-scrollbar-thumb { background: var(--text-tertiary); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
-        /* Cacher Google Translate */
         .goog-te-banner-frame, .goog-te-banner, .skiptranslate {
-            display: none !important;
-            height: 0 !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            position: absolute !important;
-            top: -9999px !important;
+            display: none !important; height: 0 !important; visibility: hidden !important;
+            position: absolute !important; top: -9999px !important;
         }
-        body { top: 0 !important; position: relative !important; }
 
-        /* ============================================
-           NAVBAR PREMIUM
-        ============================================ */
+        /* NAVBAR */
         .navbar {
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            height: 64px;
-            padding: 0 1.5rem;
+            position: sticky; top: 0; z-index: 1000; height: 60px; padding: 0 1.25rem;
         }
-        
         .navbar .container-fluid {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
-            gap: 1rem;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 100%; max-width: 1600px; margin: 0 auto; gap: 1rem;
         }
-        
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
+        .navbar-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+        .navbar-brand img { height: 32px; width: auto; }
+        .brand-name { font-weight: 700; font-size: 1.15rem; color: var(--text-primary); letter-spacing: -0.5px; }
+        .brand-badge {
+            background: var(--accent-gradient); padding: 2px 10px; border-radius: 20px;
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
         }
-        
-        .navbar-brand img { height: 36px; width: auto; }
-        .brand-name { font-weight: 700; font-size: 1.25rem; color: var(--text-primary); letter-spacing: -0.5px; }
-        .brand-badge { 
-            background: linear-gradient(135deg, var(--accent-green), #00a86b);
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        /* Nav Right Group */
-        .nav-right-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Home Button */
+        .nav-right-group { display: flex; align-items: center; gap: 8px; }
         .nav-home-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 7px 16px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            transition: var(--transition-fast);
-            white-space: nowrap;
+            display: flex; align-items: center; gap: 6px; padding: 7px 14px;
+            background: var(--bg-tertiary); border: 1px solid var(--border-color);
+            border-radius: 30px; color: var(--text-primary); text-decoration: none;
+            font-size: 12px; font-weight: 500; transition: var(--transition-fast);
         }
-        .nav-home-btn i { font-size: 15px; }
-        .nav-home-btn:hover {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: #fff;
-            transform: translateY(-1px);
-        }
+        .nav-home-btn:hover { background: var(--accent-blue); border-color: var(--accent-blue); color: #fff; transform: translateY(-1px); }
+        .nav-home-btn i { font-size: 14px; }
 
-        /* Language Selector */
-        .lang-selector-custom { position: relative; margin-left: 8px; }
-        .custom-language-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-            transition: var(--transition-fast);
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: var(--bg-tertiary); border: 1px solid var(--border-color);
+            color: var(--text-primary); cursor: pointer; transition: var(--transition-fast);
+            font-size: 0.95rem;
         }
-        .custom-language-btn:hover { border-color: var(--accent-blue); background: var(--bg-hover); transform: translateY(-1px); }
-        .custom-language-btn img { width: 20px; height: 15px; border-radius: 3px; }
+        .theme-toggle:hover { background: var(--bg-hover); transform: rotate(20deg); }
+
+        /* Light Theme */
+        body.light-mode {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f3f5;
+            --bg-card: #ffffff;
+            --bg-hover: #e9ecef;
+            --bg-glass: rgba(255, 255, 255, 0.88);
+            --text-primary: #1a1a1a;
+            --text-secondary: #495057;
+            --text-tertiary: #868e96;
+            --accent-green: #059669;
+            --accent-green-glow: rgba(5, 150, 105, 0.15);
+            --accent-blue: #2563eb;
+            --accent-blue-glow: rgba(37, 99, 235, 0.12);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-light: rgba(0, 0, 0, 0.12);
+            --shadow: 0 4px 16px rgba(0,0,0,0.08);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        body.light-mode .description-box { background: #fff; border-color: rgba(0,0,0,0.08); }
+        body.light-mode .description-text { color: #495057; }
+        body.light-mode .related-title-sm { color: #1a1a1a; }
+        body.light-mode .related-meta { color: #868e96; }
+        body.light-mode .video-wrapper { box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+        body.light-mode .image-viewer { box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+        body.light-mode .not-found-box { background: #fff; border-color: rgba(0,0,0,0.08); }
+        body.light-mode .action-btn { background: #f1f3f5; border-color: rgba(0,0,0,0.08); color: #495057; }
+        body.light-mode .action-btn:hover { background: #e9ecef; color: #1a1a1a; }
+
+        /* Language */
+        .lang-selector-custom { position: relative; }
+        .custom-language-btn {
+            display: flex; align-items: center; gap: 6px; padding: 7px 10px;
+            background: var(--bg-tertiary); border: 1px solid var(--border-color);
+            border-radius: 30px; cursor: pointer; font-size: 12px; font-weight: 500;
+            color: var(--text-primary); transition: var(--transition-fast);
+        }
+        .custom-language-btn:hover { border-color: var(--accent-blue); background: var(--bg-hover); }
+        .custom-language-btn img { width: 18px; height: 14px; border-radius: 3px; }
         .custom-language-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background: var(--bg-tertiary);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-md);
-            padding: 8px;
-            min-width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-            max-height: 400px;
-            overflow-y: auto;
+            position: absolute; top: 100%; right: 0; margin-top: 8px;
+            background: var(--bg-tertiary); border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg); padding: 6px; min-width: 200px;
+            opacity: 0; visibility: hidden; transform: translateY(-8px);
+            transition: var(--transition); z-index: 1000; border: 1px solid var(--border-color);
+            max-height: 380px; overflow-y: auto;
         }
         .custom-language-dropdown.active { opacity: 1; visibility: visible; transform: translateY(0); }
         .lang-option {
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 10px;
-            width: 100%;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-primary);
-            transition: var(--transition-fast);
+            display: flex !important; align-items: center !important; gap: 10px;
+            padding: 8px 12px; border-radius: 8px; width: 100%; border: none;
+            background: transparent; cursor: pointer; font-size: 12px; font-weight: 500;
+            color: var(--text-primary); transition: var(--transition-fast);
         }
-        .lang-option:hover { background: var(--bg-hover); color: var(--accent-blue); transform: translateX(4px); }
-        .lang-option img { width: 22px; height: 16px; border-radius: 3px; }
+        .lang-option:hover { background: var(--bg-hover); color: var(--accent-blue); }
+        .lang-option img { width: 20px; height: 15px; border-radius: 3px; }
 
-        /* ============================================
-           MAIN CONTENT
-        ============================================ */
+        /* MAIN */
         .main-content { max-width: 1600px; margin: 0 auto; padding: 1.5rem; }
-        
-        .watch-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
+        .watch-layout { display: flex; flex-direction: column; gap: 1.5rem; }
         @media (min-width: 1024px) {
             .watch-layout { flex-direction: row; }
             .video-column { flex: 2.5; min-width: 0; }
             .suggestions-column { flex: 1.2; min-width: 0; }
         }
 
-        /* ============================================
-           VIDEO PLAYER PREMIUM
-        ============================================ */
+        /* VIDEO WRAPPER */
         .video-wrapper {
-            position: relative;
-            background: #000;
-            border-radius: var(--border-radius-xl);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            aspect-ratio: 16 / 9;
+            position: relative; background: #000; border-radius: var(--radius-xl);
+            overflow: hidden; box-shadow: var(--shadow-lg); aspect-ratio: 16 / 9;
         }
-        
         .video-wrapper iframe, .video-wrapper video {
-            width: 100%;
-            height: 100%;
-            border: none;
-            object-fit: contain;
+            width: 100%; height: 100%; border: none; object-fit: contain;
         }
-        
-        .video-controls-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 1rem;
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .video-wrapper:hover .video-controls-overlay { opacity: 1; }
-        
         .download-floating {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 10;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(8px);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition-fast);
+            position: absolute; bottom: 1rem; right: 1rem; z-index: 10;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            border: none; border-radius: 50%; width: 42px; height: 42px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; cursor: pointer; transition: var(--transition-fast);
             opacity: 0;
         }
-        
         .video-wrapper:hover .download-floating { opacity: 1; }
-        .download-floating:hover { background: var(--accent-blue); transform: scale(1.05); }
+        .download-floating:hover { background: var(--accent-green); transform: scale(1.08); }
 
-        /* ============================================
-           VIDEO INFO PREMIUM
-        ============================================ */
+        /* IMAGE VIEWER */
+        .image-viewer {
+            background: #000; border-radius: var(--radius-xl); overflow: hidden;
+            box-shadow: var(--shadow-lg); position: relative; display: flex;
+            align-items: center; justify-content: center; min-height: 400px;
+            max-height: 70vh;
+        }
+        .image-viewer img {
+            max-width: 100%; max-height: 70vh; object-fit: contain;
+            transition: transform 0.4s ease; cursor: zoom-in;
+        }
+        .image-viewer:hover img { transform: scale(1.02); }
+        .image-toolbar {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 1.25rem; display: flex; align-items: center; justify-content: space-between;
+            opacity: 0; transition: var(--transition);
+        }
+        .image-viewer:hover .image-toolbar { opacity: 1; }
+        .image-toolbar-actions { display: flex; gap: 8px; }
+        .image-toolbar-btn {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            padding: 8px 16px; background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 30px;
+            color: white; font-size: 13px; font-weight: 500; cursor: pointer;
+            transition: var(--transition-fast); text-decoration: none;
+        }
+        .image-toolbar-btn:hover { background: var(--accent-green); border-color: var(--accent-green); color: #fff; }
+        .image-toolbar-btn i { font-size: 14px; }
+
+        /* VIDEO INFO */
         .video-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 1rem 0 0.75rem;
-            line-height: 1.3;
+            font-size: 1.4rem; font-weight: 700; margin: 1.25rem 0 0.5rem;
+            line-height: 1.35; letter-spacing: -0.3px;
         }
-        
         .video-meta-bar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
             margin-bottom: 1rem;
         }
-        
         .video-stats {
-            display: flex;
-            gap: 1rem;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
+            display: flex; gap: 1rem; color: var(--text-secondary); font-size: 0.85rem;
         }
-        
-        .video-stats i { margin-right: 0.25rem; }
-        
-        .action-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
+        .video-stats i { margin-right: 0.25rem; font-size: 0.8rem; }
+        .action-buttons { display: flex; gap: 6px; flex-wrap: wrap; }
         .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: transparent;
-            border: none;
-            border-radius: 40px;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-fast);
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; background: var(--bg-tertiary);
+            border: 1px solid var(--border-color); border-radius: 30px;
+            color: var(--text-secondary); font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: var(--transition-fast);
         }
-        
-        .action-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .action-btn.active { color: var(--accent-blue); }
-        .action-btn.disliked { color: var(--accent-blue); }
+        .action-btn:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-light); }
+        .action-btn i { font-size: 14px; }
 
-        /* Channel Info Premium */
-        .channel-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 1rem;
-        }
-        
-        .channel-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .channel-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-green), #00a86b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .channel-avatar i { font-size: 1.5rem; color: white; }
-        
-        .channel-details h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .channel-details p { font-size: 0.75rem; color: var(--text-tertiary); }
-        
-        .subscribe-btn {
-            background: var(--accent-green);
-            color: #0a0a0a;
-            border: none;
-            padding: 0.5rem 1.25rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: var(--transition-fast);
-        }
-        
-        .subscribe-btn:hover { transform: scale(1.02); background: #00e896; }
-
-        /* Description Premium */
+        /* DESCRIPTION */
         .description-box {
-            background: var(--bg-card);
-            border-radius: var(--border-radius-md);
-            padding: 1rem;
-            margin: 1rem 0;
-            cursor: pointer;
-            transition: var(--transition-fast);
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); padding: 1rem; margin: 1rem 0;
+            cursor: pointer; transition: var(--transition-fast);
         }
-        
-        .description-box:hover { background: var(--bg-hover); }
+        .description-box:hover { background: var(--bg-hover); border-color: var(--border-light); }
         .description-text {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.5;
+            color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;
         }
         .description-text:not(.expanded) {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            display: -webkit-box; -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; overflow: hidden;
         }
         .description-text.expanded { white-space: normal; }
-
-        /* ============================================
-           COMMENTS SECTION
-        ============================================ */
-        .comments-section { margin-top: 1.5rem; }
-        .comments-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        
-        .comment-form { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
-        .comment-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--bg-hover);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .comment-input-wrapper { flex: 1; }
-        .comment-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.5rem 0;
-            font-size: 0.875rem;
-        }
-        .comment-input:focus { outline: none; border-bottom-color: var(--accent-blue); }
-        .comment-submit {
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
+        .description-toggle {
+            display: inline-flex; align-items: center; gap: 4px;
+            margin-top: 0.5rem; color: var(--text-tertiary); font-size: 0.8rem; font-weight: 600;
             transition: var(--transition-fast);
         }
-        .comment-submit:hover { opacity: 0.9; }
-        
-        .comment-item { display: flex; gap: 1rem; margin-bottom: 1rem; padding: 0.5rem 0; }
-        .comment-author { font-weight: 600; font-size: 0.8125rem; margin-bottom: 0.25rem; }
-        .comment-text { font-size: 0.875rem; line-height: 1.4; word-break: break-word; }
+        .description-toggle:hover { color: var(--accent-blue); }
 
-        /* ============================================
-           SUGGESTIONS PREMIUM
-        ============================================ */
-        .suggestions-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .related-item {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-            cursor: pointer;
-            transition: var(--transition-fast);
-            padding: 0.5rem;
-            border-radius: var(--border-radius-sm);
-        }
-        
-        .related-item:hover { background: var(--bg-hover); transform: translateX(4px); }
-        
-        .related-thumb {
-            width: 168px;
-            height: 94px;
-            border-radius: var(--border-radius-sm);
-            background-size: cover;
-            background-position: center;
-            flex-shrink: 0;
-        }
-        
-        .related-info { flex: 1; min-width: 0; }
-        .related-title-sm {
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .related-meta { font-size: 0.75rem; color: var(--text-tertiary); }
-        .related-meta i { font-size: 0.65rem; margin-right: 2px; }
-
-        /* Audio Player Premium */
+        /* AUDIO PLAYER */
         .audio-player {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: var(--border-radius-lg);
-            padding: 2rem;
-            text-align: center;
+            border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center;
+            box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
+        }
+        .audio-player::before {
+            content: ''; position: absolute; top: -40%; right: -20%;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12), transparent 70%);
+            border-radius: 50%; pointer-events: none;
         }
         .audio-cover {
-            width: 200px;
-            height: 200px;
-            border-radius: var(--border-radius-md);
-            margin: 0 auto 1rem;
-            background-size: cover;
-            background-position: center;
-            box-shadow: var(--shadow-md);
+            width: 180px; height: 180px; border-radius: var(--radius-lg);
+            margin: 0 auto 1.25rem; background-size: cover; background-position: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4); position: relative; z-index: 1;
         }
-        .audio-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; }
+        .audio-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; position: relative; z-index: 1; }
+        .audio-artist { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+        .audio-controls { display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 1.5rem 0; position: relative; z-index: 1; }
         .audio-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition-fast);
+            width: 48px; height: 48px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); border: none; color: white;
+            cursor: pointer; transition: var(--transition-fast); font-size: 1.2rem;
+            display: flex; align-items: center; justify-content: center;
         }
-        .audio-btn:hover { transform: scale(1.05); background: rgba(255,255,255,0.2); }
-        .audio-btn.play-pause { width: 56px; height: 56px; background: var(--accent-blue); }
-        .progress { cursor: pointer; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
-        .progress-bar { background: var(--accent-blue); height: 100%; width: 0%; transition: width 0.1s linear; }
+        .audio-btn:hover { transform: scale(1.1); background: rgba(255,255,255,0.15); }
+        .audio-btn.play-pause { width: 56px; height: 56px; background: var(--accent-green); font-size: 1.5rem; }
+        .audio-btn.play-pause:hover { background: #059669; box-shadow: 0 0 25px var(--accent-green-glow); }
+        .progress-container { position: relative; z-index: 1; max-width: 400px; margin: 0 auto; }
+        .progress-bar-track {
+            width: 100%; height: 4px; background: rgba(255,255,255,0.15);
+            border-radius: 2px; cursor: pointer; overflow: hidden;
+        }
+        .progress-bar-fill {
+            background: var(--accent-green); height: 100%; width: 0%;
+            transition: width 0.1s linear; border-radius: 2px;
+        }
+        .progress-time { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-tertiary); margin-top: 6px; font-variant-numeric: tabular-nums; }
 
-        /* Toast */
+        /* SUGGESTIONS */
+        .suggestions-title {
+            font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 8px; color: var(--text-primary);
+        }
+        .suggestions-title i { color: var(--accent-green); }
+        .related-item {
+            display: flex; gap: 0.75rem; margin-bottom: 0.75rem; cursor: pointer;
+            transition: var(--transition-fast); padding: 8px; border-radius: var(--radius-md);
+        }
+        .related-item:hover { background: var(--bg-hover); transform: translateX(4px); }
+        .related-thumb {
+            width: 168px; height: 94px; border-radius: var(--radius-sm);
+            background-size: cover; background-position: center; flex-shrink: 0;
+        }
+        .related-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+        .related-title-sm {
+            font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; line-height: 1.3;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .related-meta { font-size: 0.72rem; color: var(--text-tertiary); display: flex; align-items: center; gap: 4px; }
+        .related-meta i { font-size: 0.65rem; }
+
+        /* TOAST */
         .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 9999; }
         .toast-custom {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: var(--border-radius-sm);
-            margin-top: 0.5rem;
-            animation: slideIn 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: var(--shadow-sm);
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            color: white; padding: 10px 16px; border-radius: var(--radius-sm);
+            margin-top: 8px; animation: slideIn 0.3s ease; display: flex;
+            align-items: center; gap: 8px; font-size: 13px; font-weight: 500;
+            box-shadow: var(--shadow);
         }
         @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .navbar { padding: 0 1rem; height: 56px; }
+        /* NOT FOUND */
+        .not-found-box {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl); padding: 4rem 2rem; text-align: center;
+            max-width: 480px; margin: 3rem auto;
+        }
+        .not-found-box i { font-size: 4rem; color: var(--text-tertiary); opacity: 0.5; }
+        .not-found-box h3 { margin-top: 1rem; font-weight: 700; }
+        .not-found-box p { color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.9rem; }
+        .btn-back {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-top: 1.5rem; padding: 10px 24px;
+            background: var(--accent-gradient); color: #fff; border: none;
+            border-radius: 30px; font-size: 0.875rem; font-weight: 600;
+            text-decoration: none; transition: var(--transition-fast);
+        }
+        .btn-back:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); color: #fff; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1023px) {
             .main-content { padding: 1rem; }
-            .video-title { font-size: 1.125rem; }
-            .action-btn span:not(.count) { display: none; }
-            .action-btn { padding: 0.5rem; }
+            .video-title { font-size: 1.2rem; }
             .related-item { flex-direction: column; }
             .related-thumb { width: 100%; aspect-ratio: 16/9; height: auto; }
-            .channel-left { flex: 1; }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 1rem; height: 56px; }
+            .main-content { padding: 0.75rem; }
+            .video-title { font-size: 1.05rem; margin-top: 0.75rem; }
+            .action-btn span { display: none; }
+            .action-btn { padding: 8px 12px; }
+            .video-wrapper { border-radius: var(--radius-lg); }
+            .image-viewer { border-radius: var(--radius-lg); min-height: 280px; }
+            .audio-player { padding: 1.5rem 1rem; }
+            .audio-cover { width: 140px; height: 140px; }
             .brand-badge { display: none; }
-            .navbar-brand img { height: 28px; }
+            .navbar-brand img { height: 26px; }
             .brand-name { font-size: 1rem; }
             .nav-home-btn span { display: none; }
             .nav-home-btn { padding: 7px 10px; }
+            .suggestions-title { font-size: 0.85rem; }
+            .related-title-sm { font-size: 0.8rem; }
+            .video-meta-bar { gap: 0.75rem; }
+            .video-stats { font-size: 0.8rem; gap: 0.75rem; }
         }
-        
         @media (max-width: 480px) {
-            .video-stats { font-size: 0.75rem; gap: 0.75rem; }
-            .channel-avatar { width: 36px; height: 36px; }
-            .channel-avatar i { font-size: 1rem; }
-            .subscribe-btn { padding: 0.35rem 1rem; font-size: 0.75rem; }
+            .main-content { padding: 0.5rem; }
+            .video-title { font-size: 0.95rem; }
+            .audio-cover { width: 120px; height: 120px; }
+            .audio-controls { gap: 1rem; }
+            .action-btn { padding: 6px 10px; font-size: 0.8rem; }
         }
 
-        .alert-secondary { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-md); padding: 1rem; }
-        .alert-secondary a { color: var(--accent-blue); text-decoration: none; }
-        .btn-outline-secondary { border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary); border-radius: 30px; padding: 0.5rem 1rem; font-size: 0.875rem; transition: var(--transition-fast); }
-        .btn-outline-secondary:hover { background: var(--bg-hover); border-color: var(--accent-blue); color: var(--text-primary); }
-        /* ============================================
-           DOCUMENT / BOOK READER PREMIUM
-        ============================================ */
-        .document-viewer {
-            background: var(--bg-card);
-            border-radius: var(--border-radius-lg);
-            padding: 0;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .doc-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0.75rem 1rem;
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-        .doc-toolbar-title {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            min-width: 0;
-            font-weight: 600;
-        }
-        .doc-toolbar-title i { color: var(--accent-green); font-size: 1.1rem; }
-        .doc-title {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 0.9rem;
-        }
-        .doc-type-badge {
-            background: linear-gradient(135deg, var(--accent-green), #00a86b);
-            color: #0a0a0a;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .doc-size {
-            color: var(--text-tertiary);
-            font-size: 0.75rem;
-            font-weight: 400;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1px 8px;
-            white-space: nowrap;
-        }
-        .doc-toolbar-actions { display: flex; gap: 0.5rem; }
-        .doc-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            background: var(--bg-hover);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-primary);
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-        .doc-btn:hover {
-            color: var(--accent-blue);
-            border-color: var(--accent-blue);
-            transform: translateY(-1px);
-        }
-        .document-viewer.fullscreen-mode {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            border-radius: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        .document-viewer.fullscreen-mode iframe { flex: 1; height: 100%; min-height: 0; }
+        .watch-layout > * { animation: fadeInUp 0.5s ease forwards; }
+        .suggestions-column { animation-delay: 0.15s; }
     </style>
 
     <script type="text/javascript">
-function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-        pageLanguage: 'fr',
-        includedLanguages: 'fr,en,rn,sw,ar,de,es,pt,it,zh-CN,ru,nl,pl,tr,ja,ko,hi,vi,th,el,he,sv,da,no,fi,cs,hu,ro,uk',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-    }, 'google_translate_element');
-    
-    // Forcer l'application de la langue sauvegardée après initialisation
-    setTimeout(function() {
-        const savedLang = localStorage.getItem('preferred_language');
-        if (savedLang && savedLang !== 'fr') {
-            // Vérifier si le cookie est défini
-            const hasCookie = document.cookie.indexOf(`googtrans=/fr/${savedLang}`) !== -1;
-            if (!hasCookie) {
-                document.cookie = `googtrans=/fr/${savedLang}; path=/; max-age=31536000`;
-                window.location.reload();
-                return;
-            }
-            
-            // Forcer le sélecteur Google Translate
-            const selectElement = document.querySelector('.goog-te-combo');
-            if (selectElement && selectElement.value !== savedLang) {
-                selectElement.value = savedLang;
-                selectElement.dispatchEvent(new Event('change'));
-            }
-        }
-    }, 500);
-}
-</script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en,fr,rn,sw,ar,de,es,pt,it,zh-CN,ru,nl,pl,tr,ja,ko,hi,vi',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
+
 <script>
-// Injection automatique du jeton CSRF dans les requêtes fetch POST
 (function() {
     var CSRF_NAME = '<?= $this->security->get_csrf_token_name() ?>';
     var CSRF_HASH = '<?= $this->security->get_csrf_hash() ?>';
@@ -710,33 +438,30 @@ function googleTranslateElementInit() {
 })();
 </script>
 
-<!-- Google Translate Container -->
 <div id="google_translate_element" style="display: none;"></div>
 
-<!-- Navbar Premium -->
+<!-- Navbar -->
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="<?= base_url('media') ?>">
-            <?php 
-            $site_logo = $this->Model->get_setting('site_logo');
-            if (!empty($site_logo)): ?>
-                <img src="<?= base_url('attachments/Configurations/' . $site_logo) ?>" alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'NUFOTEC')) ?>">
+            <?php $site_logo = $this->Model->get_setting('site_logo'); if (!empty($site_logo)): ?>
+                <img src="<?= base_url($site_logo) ?>" alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'A.G.F')) ?>">
             <?php endif; ?>
-            <span class="brand-name"><?= htmlspecialchars($this->Model->get_setting('site_name', 'NUFOTEC')) ?></span>
+            <span class="brand-name"><?= htmlspecialchars($this->Model->get_setting('site_name', 'A.G.F')) ?></span>
             <span class="brand-badge">MEDIA</span>
         </a>
 
         <div class="nav-right-group">
             <a href="<?= base_url('media') ?>" class="nav-home-btn">
                 <i class="bi bi-house-fill"></i>
-                <span>Accueil</span>
+                <span>Home</span>
             </a>
 
             <div class="lang-selector-custom">
                 <button class="custom-language-btn" id="customLanguageBtn">
-                    <img src="https://flagcdn.com/w20/fr.png" alt="Français" id="currentLangFlag">
-                    <span class="d-none d-sm-inline" id="currentLangLabel">FR</span>
-                    <i class="bi bi-chevron-down"></i>
+                    <img src="https://flagcdn.com/w20/us.png" alt="EN" id="currentLangFlag">
+                    <span class="d-none d-sm-inline" id="currentLangLabel">EN</span>
+                    <i class="bi bi-chevron-down" style="font-size:10px;"></i>
                 </button>
                 <div class="custom-language-dropdown" id="customLanguageDropdown">
                     <button class="lang-option" data-lang="fr" data-flag="fr" data-label="Français"><img src="https://flagcdn.com/w20/fr.png"> Français</button>
@@ -757,7 +482,7 @@ function googleTranslateElementInit() {
 </nav>
 
 <main class="main-content">
-    <?php 
+    <?php
     function formatFileSize($bytes) {
         if (!$bytes) return '';
         if ($bytes >= 1073741824) return number_format($bytes / 1073741824, 1) . ' Go';
@@ -765,49 +490,47 @@ function googleTranslateElementInit() {
         if ($bytes >= 1024) return number_format($bytes / 1024, 1) . ' Ko';
         return $bytes . ' octets';
     }
-    
-    if ($media): 
+
+    if ($media):
         $mediaSlug = !empty($media['slug']) ? $media['slug'] : $media['id_media'];
         $type = $media['type'] ?? 'autre';
         $fichier = $media['fichier_url'] ?? '';
         $youtube_id = $media['youtube_id'] ?? '';
         $lien = $media['lien'] ?? '';
-        
+
         if (!empty($fichier) && !preg_match('/^https?:\/\//', $fichier)) {
             $fichier = base_url($fichier);
         }
-        
+
         if (empty($youtube_id) && !empty($lien)) {
             preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $lien, $matches);
             $youtube_id = $matches[1] ?? '';
         }
-        
-        // Detection automatique du type si celui-ci n'est pas renseigne (ex: PDF/book)
+
         if (empty($type) || $type === 'autre') {
             $mime = strtolower((string)($media['mime_type'] ?? ''));
             $ext = strtolower(pathinfo(parse_url($fichier, PHP_URL_PATH) ?: '', PATHINFO_EXTENSION));
-            if (($media['sous_type'] ?? '') === 'book' || strpos($mime, 'pdf') !== false || in_array($ext, array('pdf', 'doc', 'docx', 'rtf', 'ppt', 'pptx', 'xls', 'xlsx', 'epub'))) {
+            if (($media['sous_type'] ?? '') === 'book' || strpos($mime, 'pdf') !== false || in_array($ext, ['pdf','doc','docx','rtf','ppt','pptx','xls','xlsx','epub'])) {
                 $type = 'document';
-            } elseif (strpos($mime, 'image') !== false || in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp'))) {
+            } elseif (strpos($mime, 'image') !== false || in_array($ext, ['jpg','jpeg','png','gif','webp','svg','bmp'])) {
                 $type = 'image';
-            } elseif (strpos($mime, 'audio') !== false || in_array($ext, array('mp3', 'wav', 'ogg', 'm4a', 'aac', 'flac'))) {
+            } elseif (strpos($mime, 'audio') !== false || in_array($ext, ['mp3','wav','ogg','m4a','aac','flac'])) {
                 $type = 'audio';
-            } elseif (strpos($mime, 'video') !== false || in_array($ext, array('mp4', 'webm', 'avi', 'mov', 'm4v'))) {
+            } elseif (strpos($mime, 'video') !== false || in_array($ext, ['mp4','webm','avi','mov','m4v'])) {
                 $type = 'video';
             }
         }
 
         $is_youtube_link = !empty($youtube_id);
-        $is_downloadable = in_array($type, ['video', 'audio', 'image', 'document']) && !empty($media['fichier']);
+        $is_downloadable = in_array($type, ['video','audio','image','document']) && !empty($media['fichier']);
     ?>
         <div class="watch-layout">
             <div class="video-column">
-                <!-- Lecteur Vidéo Premium -->
                 <?php if ($is_youtube_link): ?>
                     <div class="video-wrapper">
-                        <iframe src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($youtube_id) ?>?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&fs=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($youtube_id) ?>?autoplay=1&rel=0&modestbranding=1&controls=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
-                    
+
                 <?php elseif ($type === 'video' && !empty($fichier)): ?>
                     <div class="video-wrapper">
                         <video controls autoplay playsinline>
@@ -817,92 +540,91 @@ function googleTranslateElementInit() {
                             <i class="bi bi-download"></i>
                         </button>
                     </div>
-                    
+
                 <?php elseif ($type === 'audio' && !empty($fichier)): ?>
                     <div class="audio-player">
                         <div class="audio-cover" style="background-image: url('<?= htmlspecialchars($media['cover_url'] ?? base_url('assets/backend/images/defaut-mignature-audio.jpeg')) ?>')"></div>
                         <div class="audio-title"><?= htmlspecialchars($media['titre']) ?></div>
                         <div class="audio-artist"><?= htmlspecialchars($media['artist'] ?? $media['credits'] ?? 'Artiste') ?></div>
-                        <button class="btn-outline-secondary" style="margin-bottom: 1rem;" onclick="downloadMedia('<?= htmlspecialchars($mediaSlug) ?>')">
-                            <i class="bi bi-download"></i> Télécharger
-                        </button>
-                        <audio id="audioElement" src="<?= htmlspecialchars($fichier) ?>" preload="auto" autoplay></audio>
+                        <audio id="audioElement" src="<?= htmlspecialchars($fichier) ?>" preload="auto"></audio>
                         <div class="audio-controls">
                             <button class="audio-btn" onclick="previousTrack()"><i class="bi bi-skip-backward-fill"></i></button>
                             <button class="audio-btn play-pause" id="playPauseBtn" onclick="togglePlay()"><i class="bi bi-play-fill"></i></button>
                             <button class="audio-btn" onclick="nextTrack()"><i class="bi bi-skip-forward-fill"></i></button>
                         </div>
-                        <div class="progress-bar-custom">
-                            <div class="d-flex justify-content-between small mb-1">
+                        <div class="progress-container">
+                            <div class="progress-bar-track" onclick="seekAudio(event)">
+                                <div class="progress-bar-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-time">
                                 <span id="currentTime">0:00</span>
                                 <span id="totalTime">0:00</span>
                             </div>
-                            <div class="progress" onclick="seekAudio(event)"><div class="progress-bar" id="progressFill"></div></div>
                         </div>
-                    </div>
-                    
-                <?php elseif ($type === 'image' && !empty($fichier)): ?>
-                    <div class="image-viewer" style="text-align: center; background: #000; border-radius: var(--border-radius-lg); padding: 2rem; position: relative;">
-                        <img src="<?= htmlspecialchars($fichier) ?>" alt="<?= htmlspecialchars($media['titre']) ?>" style="max-width: 100%; max-height: 500px; border-radius: var(--border-radius-md);">
-                        <button class="download-floating" style="position: absolute; top: 1rem; right: 1rem;" onclick="downloadMedia('<?= htmlspecialchars($mediaSlug) ?>')">
-                            <i class="bi bi-download"></i>
-                        </button>
                     </div>
 
-                                <?php elseif ($type === 'document' && !empty($fichier)): ?>
-                    <div class="document-viewer" id="documentViewer">
-                        <div class="doc-toolbar">
-                            <div class="doc-toolbar-title">
-                                <i class="bi bi-book"></i>
-                                <span class="doc-title"><?= htmlspecialchars($media['titre']) ?></span>
-                                <?php if (($media['sous_type'] ?? '') === 'book'): ?><span class="doc-type-badge">Book</span><?php endif; ?>
-                                <?php if (!empty($media['taille'])): ?><span class="doc-size"><?= formatFileSize((int)$media['taille']) ?></span><?php endif; ?>
+                <?php elseif ($type === 'image' && !empty($fichier)): ?>
+                    <div class="image-viewer">
+                        <img src="<?= htmlspecialchars($fichier) ?>" alt="<?= htmlspecialchars($media['titre']) ?>" id="detailImage">
+                        <div class="image-toolbar">
+                            <div style="color:rgba(255,255,255,0.8);font-size:13px;">
+                                <i class="bi bi-image"></i> <?= htmlspecialchars($media['titre']) ?>
                             </div>
-                            <div class="doc-toolbar-actions">
-                                <button class="doc-btn" title="Plein &eacute;cran" onclick="toggleDocFullscreen()"><i class="bi bi-arrows-fullscreen"></i></button>
-                                <button class="doc-btn" title="T&eacute;l&eacute;charger" onclick="downloadMedia('<?= htmlspecialchars($mediaSlug) ?>')"><i class="bi bi-download"></i></button>
-                                <a class="doc-btn" href="<?= htmlspecialchars($fichier) ?>" target="_blank" rel="noopener" title="Ouvrir dans un nouvel onglet"><i class="bi bi-box-arrow-up-right"></i></a>
+                            <div class="image-toolbar-actions">
+                                <a href="<?= htmlspecialchars($fichier) ?>" download class="image-toolbar-btn">
+                                    <i class="bi bi-download"></i> Télécharger
+                                </a>
+                                <button class="image-toolbar-btn" onclick="shareMedia()">
+                                    <i class="bi bi-share"></i>
+                                </button>
                             </div>
                         </div>
-                        <iframe id="docFrame" src="<?= htmlspecialchars($fichier) ?>#toolbar=1&navpanes=1&view=FitH" style="width: 100%; height: 78vh; min-height: 480px; border: none; background: #fff;" loading="eager"></iframe>
+                    </div>
+
+                <?php elseif ($type === 'document' && !empty($fichier)): ?>
+                    <div class="document-viewer" id="documentViewer" style="background:var(--bg-card);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);">
+                        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg-tertiary);border-bottom:1px solid var(--border-color);flex-wrap:wrap;gap:8px;">
+                            <div style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:14px;">
+                                <i class="bi bi-file-earmark-text" style="color:var(--accent-green);"></i>
+                                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><?= htmlspecialchars($media['titre']) ?></span>
+                            </div>
+                            <div style="display:flex;gap:6px;">
+                                <button onclick="toggleDocFullscreen()" title="Plein écran" style="width:32px;height:32px;border-radius:8px;background:var(--bg-hover);border:1px solid var(--border-color);color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="bi bi-arrows-fullscreen"></i></button>
+                                <button onclick="downloadMedia('<?= htmlspecialchars($mediaSlug) ?>')" title="Télécharger" style="width:32px;height:32px;border-radius:8px;background:var(--bg-hover);border:1px solid var(--border-color);color:var(--text-primary);cursor:pointer;display:flex;align-items:center;justify-content:center;"><i class="bi bi-download"></i></button>
+                                <a href="<?= htmlspecialchars($fichier) ?>" target="_blank" title="Ouvrir" style="width:32px;height:32px;border-radius:8px;background:var(--bg-hover);border:1px solid var(--border-color);color:var(--text-primary);display:flex;align-items:center;justify-content:center;text-decoration:none;"><i class="bi bi-box-arrow-up-right"></i></a>
+                            </div>
+                        </div>
+                        <iframe id="docFrame" src="<?= htmlspecialchars($fichier) ?>#toolbar=1&navpanes=1&view=FitH" style="width:100%;height:75vh;min-height:400px;border:none;background:#fff;" loading="eager"></iframe>
                     </div>
                     <script>
                     function toggleDocFullscreen() {
                         var el = document.getElementById('documentViewer');
                         if (!el) return;
                         if (!document.fullscreenElement) {
-                            if (el.requestFullscreen) el.requestFullscreen();
-                            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+                            (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
                         } else {
-                            if (document.exitFullscreen) document.exitFullscreen();
-                            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
                         }
                     }
                     </script>
-
                 <?php endif; ?>
-                <!-- Informations Vidéo -->
+
+                <!-- Title + Meta -->
                 <h1 class="video-title"><?= htmlspecialchars($media['titre']) ?></h1>
-                
                 <div class="video-meta-bar">
                     <div class="video-stats">
                         <span><i class="bi bi-eye"></i> <?= number_format($media['views_count'] ?? 0) ?> vues</span>
-                        <span><i class="bi bi-hand-thumbs-up"></i> <?= number_format($media['likes_count'] ?? 0) ?></span>
-                        <span><i class="bi bi-chat"></i> <?= number_format($media['comments_count'] ?? 0) ?> commentaires</span>
+                        <?php if (!empty($media['date_media'])): ?>
+                            <span><i class="bi bi-calendar3"></i> <?= date('d M Y', strtotime($media['date_media'])) ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="action-buttons">
-                        <button class="action-btn <?= ($media['user_like_action'] ?? '') === 'like' ? 'active' : '' ?>" onclick="toggleLike(<?= (int)$media['id_media'] ?>)">
-                            <i class="bi bi-hand-thumbs-up"></i> <span id="likeCount"><?= (int)($media['likes_count'] ?? 0) ?></span>
-                        </button>
-                        <button class="action-btn <?= ($media['user_like_action'] ?? '') === 'dislike' ? 'disliked' : '' ?>" onclick="toggleDislike(<?= (int)$media['id_media'] ?>)">
-                            <i class="bi bi-hand-thumbs-down"></i> <span id="dislikeCount"><?= (int)($media['dislikes_count'] ?? 0) ?></span>
-                        </button>
                         <button class="action-btn" onclick="shareMedia()">
-                            <i class="bi bi-share"></i> <span class="d-none d-md-inline">Partager</span>
+                            <i class="bi bi-share"></i> <span>Partager</span>
                         </button>
-                        <?php if ($is_downloadable && $type !== 'audio'): ?>
+                        <?php if ($is_downloadable): ?>
                             <button class="action-btn" onclick="downloadMedia('<?= htmlspecialchars($mediaSlug) ?>')">
-                                <i class="bi bi-download"></i> <span class="d-none d-md-inline">Télécharger</span>
+                                <i class="bi bi-download"></i> <span>Télécharger</span>
                             </button>
                         <?php endif; ?>
                     </div>
@@ -913,73 +635,18 @@ function googleTranslateElementInit() {
                     <div class="description-text" id="descriptionText">
                         <?= nl2br(htmlspecialchars($media['description'] ?? 'Aucune description')) ?>
                     </div>
-                    <small class="text-secondary mt-1 d-block" id="descriptionToggle">Afficher plus</small>
-                </div>
-                
-                <!-- Commentaires -->
-                <div class="comments-section">
-                    <div class="comments-title"><i class="bi bi-chat-dots"></i> <?= (int)($media['comments_count'] ?? 0) ?> commentaires</div>
-                    
-                    <?php if (isset($user) && $user): ?>
-                    <div class="comment-form">
-                        <div class="comment-avatar">
-                            <?php if (!empty($user['photo'])): ?>
-                                <img src="<?= base_url('attachments/Users/' . $user['photo']) ?>" alt="Avatar">
-                            <?php else: ?>
-                                <div style="width: 100%; height: 100%; background: var(--accent-green); display: flex; align-items: center; justify-content: center;">
-                                    <?= strtoupper(substr($user['prenom'] ?? 'U', 0, 1)) ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="comment-input-wrapper">
-                            <textarea class="comment-input" id="commentText" rows="1" placeholder="Ajouter un commentaire..."></textarea>
-                            <button class="comment-submit d-none" id="commentSubmit" onclick="addComment(<?= (int)$media['id_media'] ?>)">Commenter</button>
-                        </div>
-                    </div>
-                    <?php else: ?>
-                    <div class="alert-secondary">
-                        <i class="bi bi-info-circle"></i> 
-                        <a href="<?= base_url('Auth') ?>">Connectez-vous</a> pour commenter
-                    </div>
-                    <?php endif; ?>
-                    
-                    <div class="comment-list" id="commentList">
-                        <?php if (!empty($comments)): ?>
-                            <?php foreach($comments as $comment): ?>
-                                <div class="comment-item">
-                                    <div class="comment-avatar">
-                                        <?php if (!empty($comment['photo'])): ?>
-                                            <img src="<?= base_url('attachments/Users/' . $comment['photo']) ?>" alt="Avatar">
-                                        <?php else: ?>
-                                            <div style="width: 100%; height: 100%; background: var(--accent-green); display: flex; align-items: center; justify-content: center;">
-                                                <?= strtoupper(substr($comment['prenom'] ?? $comment['author_name'] ?? 'V', 0, 1)) ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="comment-content">
-                                        <div class="comment-author">
-                                            <?= htmlspecialchars(($comment['prenom'] ?? '') . ' ' . ($comment['nom'] ?? $comment['author_name'] ?? 'Visiteur')) ?>
-                                            <span class="text-secondary ms-2"><?= $comment['created_at_formatted'] ?? date('d/m/Y H:i', strtotime($comment['created_at'])) ?></span>
-                                        </div>
-                                        <div class="comment-text"><?= nl2br(htmlspecialchars($comment['comment'])) ?></div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <div class="text-center text-secondary py-4">
-                                <i class="bi bi-chat display-6"></i>
-                                <p class="mt-2">Aucun commentaire pour le moment</p>
-                            </div>
-                        <?php endif; ?>
+                    <div class="description-toggle" id="descriptionToggle">
+                        <span>Afficher plus</span>
+                        <i class="bi bi-chevron-down" style="font-size:10px;"></i>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Suggestions -->
             <div class="suggestions-column">
                 <div class="suggestions-title"><i class="bi bi-collection-play"></i> À regarder ensuite</div>
                 <?php if (!empty($recommended)): ?>
-                    <?php foreach($recommended as $related): 
+                    <?php foreach($recommended as $related):
                         $relatedSlug = !empty($related['slug']) ? $related['slug'] : $related['id_media'];
                     ?>
                         <div class="related-item" onclick="window.location.href='<?= base_url('media/detail/'.$relatedSlug) ?>'">
@@ -987,27 +654,28 @@ function googleTranslateElementInit() {
                             <div class="related-info">
                                 <p class="related-title-sm"><?= htmlspecialchars($related['titre']) ?></p>
                                 <div class="related-meta">
-                                    <i class="bi bi-person"></i> <?= htmlspecialchars($related['credits'] ?? 'NUFOTEC') ?> • 
+                                    <i class="bi bi-person"></i> <?= htmlspecialchars($related['credits'] ?? 'A.G.F') ?>
+                                    &bull;
                                     <i class="bi bi-eye"></i> <?= number_format($related['views_count'] ?? 0) ?>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="text-center text-secondary py-4">
-                        <i class="bi bi-collection-play display-6"></i>
-                        <p class="mt-2">Aucune suggestion</p>
+                    <div style="text-align:center;padding:3rem 1rem;color:var(--text-tertiary);">
+                        <i class="bi bi-collection-play" style="font-size:2.5rem;opacity:0.4;display:block;margin-bottom:0.75rem;"></i>
+                        <p style="font-size:0.85rem;">Aucune suggestion</p>
                     </div>
                 <?php endif; ?>
             </div>
         </div>
-        
+
     <?php else: ?>
-        <div class="text-center p-5" style="background: var(--bg-card); border-radius: var(--border-radius-lg);">
-            <i class="bi bi-exclamation-triangle display-1" style="opacity: 0.5;"></i>
-            <h3 class="mt-3">Média non trouvé</h3>
-            <p class="text-secondary">Le média que vous recherchez n'existe pas ou a été supprimé.</p>
-            <a href="<?= base_url('media') ?>" class="btn-outline-secondary" style="display: inline-block; margin-top: 1rem; text-decoration: none;">
+        <div class="not-found-box">
+            <i class="bi bi-exclamation-triangle"></i>
+            <h3>Média non trouvé</h3>
+            <p>Le média que vous recherchez n'existe pas ou a été supprimé.</p>
+            <a href="<?= base_url('media') ?>" class="btn-back">
                 <i class="bi bi-house"></i> Retour à l'accueil
             </a>
         </div>
@@ -1017,19 +685,16 @@ function googleTranslateElementInit() {
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// Configuration
 const mediaId = <?= (int)($media['id_media'] ?? 0) ?>;
 const mediaSlug = '<?= htmlspecialchars($mediaSlug ?? '') ?>';
 const baseUrl = '<?= rtrim(base_url(), '/') ?>';
 
-// Playlist pour prev/next
 const playlist = <?= json_encode($playlist ?? [], JSON_UNESCAPED_UNICODE) ?>;
 let currentTrackIndex = -1;
 playlist.forEach((item, i) => {
     if (String(item.slug || item.id_media) === String(mediaSlug)) currentTrackIndex = i;
 });
 
-// Audio Player
 let audioElement = document.getElementById('audioElement');
 let isPlaying = false;
 
@@ -1037,24 +702,13 @@ if (audioElement) {
     audioElement.addEventListener('timeupdate', updateProgress);
     audioElement.addEventListener('ended', () => { isPlaying = false; updatePlayButton(); nextTrack(); });
     audioElement.addEventListener('loadedmetadata', () => {
-        const totalTimeSpan = document.getElementById('totalTime');
-        if (totalTimeSpan) totalTimeSpan.textContent = formatTime(audioElement.duration);
+        const t = document.getElementById('totalTime');
+        if (t) t.textContent = formatTime(audioElement.duration);
     });
     audioElement.addEventListener('canplay', function onCanPlay() {
         audioElement.removeEventListener('canplay', onCanPlay);
-        audioElement.play().then(() => {
-            isPlaying = true;
-            updatePlayButton();
-        }).catch(() => {
-            // Autoplay bloqué par le navigateur — on attend un clic n'importe où
-            const unlock = () => {
-                audioElement.play().then(() => {
-                    isPlaying = true;
-                    updatePlayButton();
-                }).catch(() => {});
-                document.removeEventListener('click', unlock);
-                document.removeEventListener('touchstart', unlock);
-            };
+        audioElement.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() => {
+            const unlock = () => { audioElement.play().then(() => { isPlaying = true; updatePlayButton(); }).catch(() =>{}); document.removeEventListener('click', unlock); document.removeEventListener('touchstart', unlock); };
             document.addEventListener('click', unlock);
             document.addEventListener('touchstart', unlock);
         });
@@ -1063,400 +717,144 @@ if (audioElement) {
 
 function togglePlay() {
     if (!audioElement) return;
-    if (isPlaying) audioElement.pause();
-    else audioElement.play();
+    if (isPlaying) audioElement.pause(); else audioElement.play();
     isPlaying = !isPlaying;
     updatePlayButton();
 }
-
 function updatePlayButton() {
     const btn = document.getElementById('playPauseBtn');
     if (btn) btn.innerHTML = isPlaying ? '<i class="bi bi-pause-fill"></i>' : '<i class="bi bi-play-fill"></i>';
 }
-
 function updateProgress() {
     if (!audioElement) return;
-    const percent = (audioElement.currentTime / audioElement.duration) * 100;
+    const pct = (audioElement.currentTime / audioElement.duration) * 100;
     const fill = document.getElementById('progressFill');
-    if (fill) fill.style.width = percent + '%';
-    const currentTimeSpan = document.getElementById('currentTime');
-    if (currentTimeSpan) currentTimeSpan.textContent = formatTime(audioElement.currentTime);
+    if (fill) fill.style.width = pct + '%';
+    const ct = document.getElementById('currentTime');
+    if (ct) ct.textContent = formatTime(audioElement.currentTime);
 }
-
-function formatTime(seconds) {
-    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+function formatTime(s) {
+    if (isNaN(s) || !isFinite(s)) return '0:00';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return m + ':' + sec.toString().padStart(2, '0');
 }
-
 function seekAudio(e) {
     if (!audioElement) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const percent = (e.clientX - rect.left) / rect.width;
-    audioElement.currentTime = percent * audioElement.duration;
+    const r = e.currentTarget.getBoundingClientRect();
+    audioElement.currentTime = ((e.clientX - r.left) / r.width) * audioElement.duration;
 }
-
 function previousTrack() {
-    if (playlist.length === 0) return;
-    const idx = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
-    const item = playlist[idx];
+    if (!playlist.length) return;
+    const i = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
+    const item = playlist[i];
     if (item) window.location.href = baseUrl + '/media/detail/' + (item.slug || item.id_media);
 }
-
 function nextTrack() {
-    if (playlist.length === 0) return;
-    const idx = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
-    const item = playlist[idx];
+    if (!playlist.length) return;
+    const i = currentTrackIndex < playlist.length - 1 ? currentTrackIndex + 1 : 0;
+    const item = playlist[i];
     if (item) window.location.href = baseUrl + '/media/detail/' + (item.slug || item.id_media);
 }
 
 function downloadMedia(identifier) {
-    const isNumeric = !isNaN(identifier) && !isNaN(parseFloat(identifier));
-    const paramName = isNumeric ? 'id' : 'slug';
-    const downloadUrl = baseUrl + '/media/downloader?' + paramName + '=' + encodeURIComponent(identifier);
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.setAttribute('download', '');
-    link.click();
+    const isNum = !isNaN(identifier) && !isNaN(parseFloat(identifier));
+    const p = isNum ? 'id' : 'slug';
+    const a = document.createElement('a');
+    a.href = baseUrl + '/media/downloader?' + p + '=' + encodeURIComponent(identifier);
+    a.setAttribute('download', '');
+    a.click();
     showToast('Téléchargement démarré', 'success');
-}
-
-function toggleLike(mediaId) {
-    const btn = document.querySelector('[onclick*="toggleLike"]');
-    if (!btn) return;
-    const isLiked = btn.classList.contains('active');
-    
-    fetch(baseUrl + '/media/apiToggleLike', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `id_media=${mediaId}&action=${isLiked ? 'remove' : 'like'}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('likeCount').textContent = data.likes;
-            document.getElementById('dislikeCount').textContent = data.dislikes;
-            btn.classList.toggle('active', !isLiked);
-            const dislikeBtn = document.querySelector('[onclick*="toggleDislike"]');
-            if (dislikeBtn) dislikeBtn.classList.remove('disliked');
-            showToast(isLiked ? 'Like retiré' : 'Like ajouté', 'success');
-        } else if (data.need_login) {
-            showToast('Veuillez vous connecter', 'warning');
-            setTimeout(() => window.location.href = baseUrl + '/Auth', 1500);
-        }
-    })
-    .catch(() => showToast('Erreur', 'error'));
-}
-
-function toggleDislike(mediaId) {
-    const btn = document.querySelector('[onclick*="toggleDislike"]');
-    if (!btn) return;
-    const isDisliked = btn.classList.contains('disliked');
-    
-    fetch(baseUrl + '/media/apiToggleLike', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `id_media=${mediaId}&action=${isDisliked ? 'remove' : 'dislike'}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('likeCount').textContent = data.likes;
-            document.getElementById('dislikeCount').textContent = data.dislikes;
-            btn.classList.toggle('disliked', !isDisliked);
-            const likeBtn = document.querySelector('[onclick*="toggleLike"]');
-            if (likeBtn) likeBtn.classList.remove('active');
-            showToast(isDisliked ? 'Dislike retiré' : 'Dislike ajouté', 'success');
-        } else if (data.need_login) {
-            showToast('Veuillez vous connecter', 'warning');
-            setTimeout(() => window.location.href = baseUrl + '/Auth', 1500);
-        }
-    })
-    .catch(() => showToast('Erreur', 'error'));
-}
-
-function addComment(mediaId) {
-    const commentText = document.getElementById('commentText');
-    const comment = commentText?.value.trim();
-    
-    if (!comment) {
-        showToast('Veuillez écrire un commentaire', 'warning');
-        return;
-    }
-    
-    fetch(baseUrl + '/media/apiAddComment', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: `id_media=${mediaId}&comment=${encodeURIComponent(comment)}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showToast('Commentaire ajouté', 'success');
-            commentText.value = '';
-            setTimeout(() => location.reload(), 1000);
-        } else if (data.need_login) {
-            showToast('Veuillez vous connecter', 'warning');
-            setTimeout(() => window.location.href = baseUrl + '/Auth', 1500);
-        } else {
-            showToast(data.message || 'Erreur', 'error');
-        }
-    })
-    .catch(() => showToast('Erreur', 'error'));
 }
 
 function shareMedia() {
     if (navigator.share) {
-        navigator.share({ title: '<?= htmlspecialchars($media['titre'] ?? '') ?>', url: window.location.href })
-            .catch(() => copyToClipboard());
-    } else {
-        copyToClipboard();
-    }
+        navigator.share({ title: '<?= htmlspecialchars($media["titre"] ?? "") ?>', url: window.location.href }).catch(() => copyToClipboard());
+    } else { copyToClipboard(); }
 }
-
 function copyToClipboard() {
     navigator.clipboard.writeText(window.location.href);
     showToast('Lien copié !', 'success');
 }
 
-let descriptionExpanded = false;
+let descExpanded = false;
 function toggleDescription() {
-    const desc = document.getElementById('descriptionText');
-    const toggle = document.getElementById('descriptionToggle');
-    if (!desc) return;
-    descriptionExpanded = !descriptionExpanded;
-    desc.classList.toggle('expanded', descriptionExpanded);
-    toggle.textContent = descriptionExpanded ? 'Afficher moins' : 'Afficher plus';
+    const d = document.getElementById('descriptionText');
+    const t = document.getElementById('descriptionToggle');
+    if (!d) return;
+    descExpanded = !descExpanded;
+    d.classList.toggle('expanded', descExpanded);
+    t.querySelector('span').textContent = descExpanded ? 'Afficher moins' : 'Afficher plus';
+    t.querySelector('i').style.transform = descExpanded ? 'rotate(180deg)' : 'none';
 }
 
-function showToast(message, type = 'info') {
-    const container = document.getElementById('toastContainer');
-    if (!container) return;
-    const toast = document.createElement('div');
-    toast.className = 'toast-custom';
-    let icon = type === 'success' ? 'bi-check-circle-fill' : (type === 'error' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill');
-    let bgColor = type === 'success' ? '#2e7d32' : (type === 'error' ? '#c62828' : '#1e1e1e');
-    toast.style.background = bgColor;
-    toast.innerHTML = `<i class="bi ${icon}"></i><span>${message}</span>`;
-    container.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-}
-
-const commentTextarea = document.getElementById('commentText');
-if (commentTextarea) {
-    commentTextarea.addEventListener('input', function() {
-        const submit = document.getElementById('commentSubmit');
-        if (submit) submit.classList.toggle('d-none', !this.value.trim());
-    });
+function showToast(msg, type) {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast-custom';
+    const icon = type === 'success' ? 'bi-check-circle-fill' : 'bi-info-circle-fill';
+    const bg = type === 'success' ? '#059669' : 'var(--bg-card)';
+    t.style.background = bg;
+    t.innerHTML = '<i class="bi ' + icon + '"></i><span>' + msg + '</span>';
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
 }
 
 if (mediaId) {
-    fetch(baseUrl + '/media/apiTrackView', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: `id_media=${mediaId}` }).catch(() => {});
+    fetch(baseUrl + '/media/apiTrackView', { method: 'POST', headers: {'Content-Type': 'application/x-www-form-urlencoded'}, body: 'id_media=' + mediaId }).catch(() => {});
 }
 
-// ============================================
-// LANGUAGE MANAGEMENT - VERSION CORRIGÉE
-// ============================================
-
-// Éléments DOM
+// Language
 const langBtn = document.getElementById('customLanguageBtn');
 const langDropdown = document.getElementById('customLanguageDropdown');
-const currentLangFlag = document.getElementById('currentLangFlag');
-const currentLangLabel = document.getElementById('currentLangLabel');
 
-// Fonction pour supprimer tous les cookies googtrans
 function clearGoogtransCookies() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        if (cookie.trim().startsWith('googtrans=')) {
-            const cookieName = cookie.trim().split('=')[0];
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname};`;
+    document.cookie.split(';').forEach(c => {
+        if (c.trim().startsWith('googtrans=')) {
+            const n = c.trim().split('=')[0];
+            document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
-    }
-}
-
-// Fonction pour définir le cookie de langue
-function setLanguageCookie(langCode) {
-    clearGoogtransCookies();
-    if (langCode !== 'fr') {
-        document.cookie = `googtrans=/fr/${langCode}; path=/; max-age=31536000`;
-        return true;
-    }
-    return false;
-}
-
-// Récupérer la langue sauvegardée
-const savedLang = localStorage.getItem('preferred_language');
-const savedFlag = localStorage.getItem('preferred_flag');
-const savedLabel = localStorage.getItem('preferred_label');
-
-// APPLIQUER LA LANGUE SAUVEGARDÉE AU CHARGEMENT (EXÉCUTION IMMÉDIATE)
-(function applySavedLanguage() {
-    if (savedLang && savedFlag && savedLabel && savedLang !== 'fr') {
-        // Vérifier si le cookie existe déjà
-        const cookieExists = document.cookie.indexOf(`googtrans=/fr/${savedLang}`) !== -1;
-        
-        if (!cookieExists) {
-            // Définir le cookie
-            setLanguageCookie(savedLang);
-            // Recharger la page pour appliquer
-            setTimeout(() => {
-                window.location.reload();
-            }, 50);
-            return;
-        }
-        
-        // Mettre à jour l'UI desktop
-        if (currentLangFlag && currentLangLabel) {
-            currentLangFlag.src = `https://flagcdn.com/w20/${savedFlag}.png`;
-            currentLangLabel.textContent = savedLabel;
-        }
-    }
-})();
-
-// Fonction pour ouvrir/fermer le dropdown
-function toggleDropdown() {
-    if (langDropdown) {
-        langDropdown.classList.toggle('active');
-    }
-}
-
-// Fermer le dropdown en cliquant ailleurs
-document.addEventListener('click', function(event) {
-    if (langBtn && langDropdown && !langBtn.contains(event.target) && !langDropdown.contains(event.target)) {
-        langDropdown.classList.remove('active');
-    }
-});
-
-// Ouvrir/fermer au clic sur le bouton
-if (langBtn) {
-    langBtn.addEventListener('click', function(event) {
-        event.stopPropagation();
-        toggleDropdown();
     });
 }
-
-// FONCTION PRINCIPALE DE CHANGEMENT DE LANGUE
+function setLanguageCookie(lang) {
+    clearGoogtransCookies();
+    if (lang !== 'en') document.cookie = 'googtrans=/en/' + lang + '; path=/; max-age=31536000';
+}
 function changeLanguage(langCode, flagCode, label) {
-    // Mettre à jour l'UI
-    if (currentLangFlag && currentLangLabel) {
-        currentLangFlag.src = `https://flagcdn.com/w20/${flagCode}.png`;
-        currentLangLabel.textContent = label;
-    }
-    
-    // Sauvegarder dans localStorage
+    document.getElementById('currentLangFlag').src = 'https://flagcdn.com/w20/' + flagCode + '.png';
+    document.getElementById('currentLangLabel').textContent = label;
     localStorage.setItem('preferred_language', langCode);
     localStorage.setItem('preferred_flag', flagCode);
     localStorage.setItem('preferred_label', label);
-    
-    // Définir le cookie
     setLanguageCookie(langCode);
-    
-    // Fermer le dropdown
-    if (langDropdown) {
-        langDropdown.classList.remove('active');
-    }
-    
-    // Afficher un message de chargement
-    showToast('Changement de langue en cours...', 'info');
-    
-    // Recharger la page pour appliquer la traduction
-    setTimeout(() => {
-        window.location.reload();
-    }, 200);
+    langDropdown.classList.remove('active');
+    setTimeout(() => location.reload(), 150);
 }
 
-// Événements pour les options de langue
-document.querySelectorAll('.lang-option').forEach(option => {
-    option.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const langCode = this.getAttribute('data-lang');
-        const flagCode = this.getAttribute('data-flag');
-        const label = this.getAttribute('data-label');
-        changeLanguage(langCode, flagCode, label);
-    });
+if (langBtn) langBtn.addEventListener('click', e => { e.stopPropagation(); langDropdown.classList.toggle('active'); });
+document.addEventListener('click', e => { if (langBtn && langDropdown && !langBtn.contains(e.target) && !langDropdown.contains(e.target)) langDropdown.classList.remove('active'); });
+document.querySelectorAll('.lang-option').forEach(o => {
+    o.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); changeLanguage(this.dataset.lang, this.dataset.flag, this.dataset.label); });
 });
 
-// ============================================
-// FORCER L'APPLICATION DE LA LANGUE APRÈS CHARGEMENT
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    const savedLanguage = localStorage.getItem('preferred_language');
-    const savedFlagCode = localStorage.getItem('preferred_flag');
-    const savedLabelText = localStorage.getItem('preferred_label');
-    
-    if (savedLanguage && savedLanguage !== 'fr') {
-        // Vérifier si le cookie googtrans est correctement défini
-        const hasCookie = document.cookie.indexOf(`googtrans=/fr/${savedLanguage}`) !== -1;
-        
-        if (!hasCookie) {
-            // Recréer le cookie
-            setLanguageCookie(savedLanguage);
-            // Recharger
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-            return;
-        }
-        
-        // Vérifier si la page est déjà traduite en regardant l'attribut lang du html
-        const htmlLang = document.documentElement.getAttribute('lang');
-        
-        // Si l'attribut lang n'est pas à jour, on recharge
-        if (htmlLang && htmlLang !== savedLanguage && htmlLang !== 'fr') {
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
-        }
+(function() {
+    const sl = localStorage.getItem('preferred_language');
+    const sf = localStorage.getItem('preferred_flag');
+    const slabel = localStorage.getItem('preferred_label');
+    if (sl && sf && slabel && sl !== 'en') {
+        if (document.cookie.indexOf('googtrans=/en/' + sl) === -1) { setLanguageCookie(sl); setTimeout(() => location.reload(), 50); return; }
+        document.getElementById('currentLangFlag').src = 'https://flagcdn.com/w20/' + sf + '.png';
+        document.getElementById('currentLangLabel').textContent = slabel;
     }
-});
-
-// ============================================
-// SUPPRESSION DE LA BARRE GOOGLE TRANSLATE
-// ============================================
+})();
 
 function removeGoogleTranslateBar() {
-    // Supprimer la bannière
-    const banner = document.querySelector('.goog-te-banner-frame');
-    if (banner) {
-        if (banner.parentNode) {
-            banner.parentNode.removeChild(banner);
-        }
-    }
-    
-    // Supprimer les iframes flottantes
-    const iframes = document.querySelectorAll('iframe');
-    iframes.forEach(iframe => {
-        if (iframe.src && (iframe.src.includes('translate') || iframe.src.includes('goog'))) {
-            iframe.remove();
-        }
-    });
-    
-    // Réinitialiser les marges du body
+    document.querySelector('.goog-te-banner-frame')?.remove();
     document.body.style.marginTop = '0';
     document.body.style.top = '0';
-    document.body.style.position = 'relative';
-    document.body.style.paddingTop = '0';
-    
-    // Cacher l'élément Google Translate
-    const translateElement = document.getElementById('google_translate_element');
-    if (translateElement) {
-        translateElement.style.display = 'none';
-    }
+    document.getElementById('google_translate_element').style.display = 'none';
 }
-
-// Exécuter immédiatement
 removeGoogleTranslateBar();
-
-// Exécuter plusieurs fois pour être sûr
-setInterval(removeGoogleTranslateBar, 100);
-setTimeout(removeGoogleTranslateBar, 500);
-setTimeout(removeGoogleTranslateBar, 1000);
-setTimeout(removeGoogleTranslateBar, 3000);
-
+setInterval(removeGoogleTranslateBar, 200);
 </script>
 </body>
 </html>

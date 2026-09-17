@@ -592,98 +592,166 @@ h1.ud-hero-title {
 }
 </style>
 
+<!-- UD HERO -->
+<section class="ud-hero" style="background-image: url('<?= base_url('attachments/Parametres/slide_helo.jpg'); ?>');">
+  <div class="container ud-hero-content">
+    <h1 class="ud-hero-title">Investor Commitment</h1>
+    <p class="ud-hero-slogan">Investor Commitment — A.G.F</p>
+    <a href="<?= base_url(); ?>" class="ud-hero-btn">
+      <i class="fas fa-home"></i> Back to Home
+    </a>
+  </div>
+</section>
+
+<!-- CONTENT -->
 <main class="agf-main">
+  <section class="agf-about" style="padding:80px 0;">
+    <div class="container">
+      <div class="agf-sh mb-4">
+        <h2>Investor <span>Commitment &amp; Returns</span></h2>
+      </div>
 
-<div class="ud-hero" style="background: url('<?= base_url('attachments/Parametres/slide_helo.jpg') ?>')">
-  <div class="container">
-    <div class="ud-hero-content">
-      <h1 class="ud-hero-title">Implementation &amp; Approval</h1>
-      <p class="ud-hero-slogan">"The 60-month project implementation timeline and the credit committee approval note."</p>
-      <a href="<?= base_url('about') ?>" class="ud-hero-btn"><i class="fas fa-arrow-left-long"></i> Back to About</a>
-    </div>
-  </div>
-</div>
+      <!-- S1: INVESTMENT THESIS -->
+      <div class="s1-hero-box mb-4">
+        <h3>Investment Thesis</h3>
+        <p>The investment thesis combines secured project foundations, pilot operations, controlled feedstock development, advanced technologies, scientific quality infrastructure, scalable manufacturing capacity, diversified routes to market and projected export-oriented cash generation.</p>
+      </div>
 
+      <!-- S2: 10-YEAR STRATEGIC TARGETS -->
+      <div class="agf-sh mb-4">
+        <h2>10-Year Strategic <span>Targets</span> (2026–2035)</h2>
+      </div>
+      <div class="s4-advantage-grid mb-4">
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-dollar-sign"></i></div>
+          <h5>$196.9M+</h5>
+          <p>Cumulative Net Profit</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-globe"></i></div>
+          <h5>$100M+</h5>
+          <p>Annual Export Revenue</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-users"></i></div>
+          <h5>50,000+</h5>
+          <p>Sustainable Jobs Created</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-seedling"></i></div>
+          <h5>5,000+</h5>
+          <p>Contract Farmers</p>
+        </div>
+      </div>
+      <div class="s1-platform-grid mb-4">
+        <div class="s1-platform-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Scalable industrial, agricultural, technological and export capacity</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Vertically integrated operational model from farm to finished product</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Diversified product portfolio across food, nutraceutical and agricultural categories</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-check-circle"></i>
+          <span>Multiple market channels: domestic, regional and international</span>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#999; font-style:italic; margin-bottom:40px;">These are project objectives and financial-model projections, not historical performance or current sales.</p>
 
+      <!-- S3: FINANCIAL RETURNS -->
+      <div class="agf-sh mb-4">
+        <h2>Financial <span>Returns Profile</span></h2>
+      </div>
+      <div class="s4-advantage-grid mb-4">
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-chart-bar"></i></div>
+          <h5>$30.65M</h5>
+          <p>Net Present Value (NPV)</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-percentage"></i></div>
+          <h5>15.78%</h5>
+          <p>Internal Rate of Return (IRR)</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-balance-scale"></i></div>
+          <h5>1.48</h5>
+          <p>Profitability Index</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-calendar-check"></i></div>
+          <h5>Year 9</h5>
+          <p>Discounted Payback Period</p>
+        </div>
+      </div>
 
-<!-- S1: 60-MONTH IMPLEMENTATION SCHEDULE -->
-<section class="agf-about" id="s1">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>60-Month Implementation <span>Schedule</span></h2>
-    </div>
-    <div class="s1-hero-box mb-4">
-      <h3>Total project duration: 60 months (5 years).</h3>
-    </div>
-    <div class="s1-product-grid">
-      <div class="s1-product-card">
-        <div class="s1-num">01</div>
-        <h5>Financial Closing &amp; Mobilization</h5>
-        <p>Months 1–2: Financing closure, SPV creation, governance framework, executive recruitment, project controls deployment, and AI-powered ERP systems.</p>
+      <!-- S4: 10-YEAR NET PROFIT -->
+      <div class="s3-table-box mb-4">
+        <div class="s3-header">
+          <i class="fas fa-chart-line"></i>
+          <h4>10-Year Net Profit Projection — Total: USD 196,912,896</h4>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="agf-table">
+            <thead>
+              <tr><th>Year</th><th>Net Profit (USD)</th><th>Cumulative (USD)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Year 1</strong></td><td style="color:#dc3545;">-21,752,471</td><td style="color:#dc3545;">-21,752,471</td></tr>
+              <tr><td><strong>Year 2</strong></td><td style="color:#28a745;">12,713,372</td><td style="color:#dc3545;">-9,039,099</td></tr>
+              <tr><td><strong>Year 3</strong></td><td style="color:#28a745;">13,035,818</td><td style="color:#28a745;">3,996,719</td></tr>
+              <tr><td><strong>Year 4</strong></td><td style="color:#28a745;">14,637,734</td><td style="color:#28a745;">18,634,453</td></tr>
+              <tr><td><strong>Year 5</strong></td><td style="color:#28a745;">15,695,786</td><td style="color:#28a745;">34,330,239</td></tr>
+              <tr><td><strong>Year 6</strong></td><td style="color:#28a745;">20,647,306</td><td style="color:#28a745;">54,977,545</td></tr>
+              <tr><td><strong>Year 7</strong></td><td style="color:#28a745;">25,389,778</td><td style="color:#28a745;">80,367,323</td></tr>
+              <tr><td><strong>Year 8</strong></td><td style="color:#28a745;">31,018,268</td><td style="color:#28a745;">111,385,591</td></tr>
+              <tr><td><strong>Year 9</strong></td><td style="color:#28a745;">37,844,836</td><td style="color:#28a745;">149,230,427</td></tr>
+              <tr><td><strong>Year 10</strong></td><td style="color:#28a745;">47,682,468</td><td style="color:#28a745;">196,912,895</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="s1-product-card">
-        <div class="s1-num">02</div>
-        <h5>EPC — Core Industrial Infrastructure</h5>
-        <p>Months 2–12: Detailed engineering, EPC contractor mobilization, manufacturing facility construction, utilities, logistics infrastructure, warehousing, and GMP-compliant production environments.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">03</div>
-        <h5>Agricultural Production Infrastructure</h5>
-        <p>Months 2–9: Land acquisition and titration (up to 2,002 ha), site preparation, nursery establishment, hydraulic ram irrigation system, estate development, and regenerative agriculture infrastructure deployment.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">04</div>
-        <h5>Livestock &amp; Bio-Resources Systems</h5>
-        <p>Months 2–10: Cattle (150 initial) and swine (150 initial) production unit development, breeding stock procurement, biosafety and nutrition systems installation, and bio-resources valorization infrastructure.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">05</div>
-        <h5>Equipment Procurement &amp; Commissioning</h5>
-        <p>Months 2–15: Procurement, installation, calibration, validation, commissioning, performance testing, technical training, and operational technology transfer.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">06</div>
-        <h5>Supply Chain &amp; Working Capital</h5>
-        <p>Months 2–12: Raw material procurement, supplier qualification, packaging and consumables procurement, traceability systems implementation, and working capital deployment for production ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">07</div>
-        <h5>Pilot Production &amp; Certification</h5>
-        <p>Months 10–15: Pilot manufacturing trials, process optimization, product validation, quality assurance certification, regulatory approvals, product registration, and GMP/HACCP/ISO compliance.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">08</div>
-        <h5>Commercial Operations Deployment</h5>
-        <p>Months 15–24: Full-scale production launch, domestic commercialization, retail and wholesale distribution, health channel penetration, and agricultural inputs market expansion.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">09</div>
-        <h5>Export Entry &amp; Certification</h5>
-        <p>Months 24–48: Export registration, ISO certification completion, international compliance alignment, regional market entry, distribution partnerships, and export commercialization ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">10</div>
-        <h5>Expansion &amp; Optimization</h5>
-        <p>Months 48–60: Capacity scaling, product portfolio diversification, ACIDS-driven operational optimization, continuous R&amp;D, efficiency improvement, and export growth acceleration.</p>
-      </div>
-    </div>
-    <p class="mt-3" style="font-size:13px; color:#999; font-style:italic;">Commercialization is subject to construction completion, equipment commissioning, qualification/validation, applicable regulatory approvals and defined commercial-launch criteria.</p>
-  </div>
-</section>
 
-<!-- S2: APPROVAL NOTE -->
-<section style="background:#F2F3F5; padding:80px 0;" id="s2">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>Approval <span>Note</span></h2>
-    </div>
-    <div class="s1-hero-box" style="border-left: 4px solid #116E63;">
-      <h3><i class="fas fa-check-circle" style="color:#dcbb07; margin-right:10px;"></i> Credit Committee Recommendation</h3>
-      <p>Following review of the projected financial performance, cash flow profile, debt repayment capacity and strategic development merits of the project, the credit committee considers the proposed financing of USD 63,135,792 — covering pre-operating expenses, CAPEX and OPEX — as fully sustainable and recommends its in-principle approval.</p>
-      <p class="mt-3">The transaction demonstrates strong bankability, substantial long-term value creation potential, and a resilient repayment profile, making it a highly attractive and transformative development financing opportunity.</p>
-    </div>
-  </div>
-</section>
+      <!-- S5: INVESTOR PROTECTIONS -->
+      <div class="agf-sh mb-4">
+        <h2>Investor <span>Protections</span></h2>
+      </div>
+      <div class="s5-vm-grid mb-4">
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-university"></i> Security</div>
+          <h3>SBLC Backing</h3>
+          <p>Standby Letter of Credit through Absa Bank Zambia Plc as primary credit-enhancement mechanism.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-piggy-bank"></i> Security</div>
+          <h3>DSRA Reserve</h3>
+          <p>Dedicated Debt Service Reserve Account providing additional liquidity protection.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-lock"></i> Security</div>
+          <h3>Escrow Account</h3>
+          <p>Controlled project-fund account for transparent fund management.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-list-check"></i> Security</div>
+          <h3>Milestone Disbursements</h3>
+          <p>Disbursement against verified implementation milestones.</p>
+        </div>
+      </div>
 
+      <!-- S6: DUE DILIGENCE -->
+      <div class="s1-hero-box">
+        <h3>Due Diligence &amp; Verification</h3>
+        <p>All material technical, financial, legal, environmental, social, regulatory, market and implementation assumptions remain subject to independent lender/investor due diligence and third-party verification where required.</p>
+        <p class="mt-3">Independent technical, financial and project audits will be conducted throughout the project lifecycle.</p>
+      </div>
+    </div>
+  </section>
 </main>
+
 <?php include VIEWPATH.'includes/frontend/Footer.php'; ?>

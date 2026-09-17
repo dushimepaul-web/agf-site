@@ -1,42 +1,42 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accueil | A.G.F Limited — Mémorandum de financement</title>
-<meta name="description" content="Mémorandum exécutif de financement de projet — African Green Farmers (A.G.F) Limited, USD 63 209 692.">
+<title>Home | A.G.F Limited — Project Financing Memorandum</title>
+<meta name="description" content="Executive Project Financing Memorandum — African Green Farmers (A.G.F) Limited, USD 63,209,692.">
 <link rel="icon" href="img/logo-agf-cover.jpeg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<a class="skip-link" href="#main">Aller au contenu principal</a>
+<a class="skip-link" href="#main">Skip to main content</a>
 <div class="topbar">
   <div class="wrap">
-    <span><span class="tag">A.G.F LIMITED</span> — Mémorandum exécutif de financement de projet</span>
-    <span>USD 63 209 692 &nbsp;•&nbsp; Septembre 2026</span>
+    <span><span class="tag">A.G.F LIMITED</span> — Executive Project Financing Memorandum</span>
+    <span>USD 63,209,692 &nbsp;•&nbsp; September 2026</span>
   </div>
 </div>
 <header class="site-header">
   <div class="wrap nav-row">
     <a class="brand" href="index.html">
-      <img src="img/logo-agf-cover.jpeg" alt="Logo African Green Farmers Limited">
+      <img src="img/logo-agf-cover.jpeg" alt="African Green Farmers Limited Logo">
       <span class="brand-text">
         <span class="name">African Green Farmers Ltd</span>
-        <span class="sub">ANINOVA INDUSTRIES — PLATEFORME AGRO-INDUSTRIELLE</span>
+        <span class="sub">ANINOVA INDUSTRIES — AGRO-INDUSTRIAL PLATFORM</span>
       </span>
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="mainnav">Menu ☰</button>
     <nav class="mainnav" id="mainnav">
       <ul>
-        <li><a href="index.html" class="active">Accueil</a></li>
-        <li><a href="profil-societe.html">Profil de la société</a></li>
-        <li><a href="strategie-investissement.html">Stratégie & investissement</a></li>
-        <li><a href="produits.html">Produits & innovation</a></li>
-        <li><a href="commercialisation.html">Commercialisation & financement</a></li>
-        <li><a href="risques-viabilite.html">Risques & viabilité</a></li>
-        <li><a href="impact.html">Impact stratégique</a></li>
-        <li><a href="projections.html">Projections financières</a></li>
-        <li><a href="mise-en-oeuvre.html">Mise en œuvre & approbation</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="profil-societe.html">Company Profile</a></li>
+        <li><a href="strategie-investissement.html">Strategy & Investment</a></li>
+        <li><a href="produits.html">Products & Innovation</a></li>
+        <li><a href="commercialisation.html">Commercialization & Financing</a></li>
+        <li><a href="risques-viabilite.html">Risks & Viability</a></li>
+        <li><a href="impact.html">Strategic Impact</a></li>
+        <li><a href="projections.html">Financial Projections</a></li>
+        <li><a href="mise-en-oeuvre.html">Implementation & Approval</a></li>
       </ul>
     </nav>
   </div>
@@ -45,49 +45,49 @@
 
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">MÉMORANDUM EXÉCUTIF DE FINANCEMENT DE PROJET — SEPTEMBRE 2026</div>
+    <div class="eyebrow">EXECUTIVE PROJECT FINANCING MEMORANDUM — SEPTEMBER 2026</div>
     <h1>African Green Farmers (A.G.F) Limited</h1>
-    <p class="lede">Plateforme agro-industrielle et bioéconomique circulaire, activée par le système ACIDS, dédiée à la fabrication de produits nutraceutiques, alimentaires et d'intrants biologiques certifiés GMP en Zambie — via la division industrielle ANINOVA INDUSTRIES.</p>
+    <p class="lede">Agro-industrial and circular bio-economy platform, activated by the ACIDS system, dedicated to GMP-certified nutraceutical, food, and organic input manufacturing in Zambia — through the ANINOVA INDUSTRIES industrial division.</p>
     <div class="stat-row">
-      <div class="stat-card"><div class="num">USD 63,2 M</div><div class="lbl">Investissement total du projet</div></div>
-      <div class="stat-card"><div class="num">USD 196,9 M</div><div class="lbl">Bénéfice net cumulé sur 10 ans</div></div>
-      <div class="stat-card"><div class="num">15,78 %</div><div class="lbl">Taux de rentabilité interne (TRI)</div></div>
-      <div class="stat-card"><div class="num">USD 30,65 M</div><div class="lbl">Valeur actuelle nette (VAN)</div></div>
+      <div class="stat-card"><div class="num">USD 63.2M</div><div class="lbl">Total Project Investment</div></div>
+      <div class="stat-card"><div class="num">USD 196.9M</div><div class="lbl">10-Year Cumulative Net Profit</div></div>
+      <div class="stat-card"><div class="num">15.78%</div><div class="lbl">Internal Rate of Return (IRR)</div></div>
+      <div class="stat-card"><div class="num">USD 30.65M</div><div class="lbl">Net Present Value (NPV)</div></div>
     </div>
     <p style="margin-top:28px;">
-      <a class="btn btn-accent" href="projections.html">Voir les projections financières</a>
-      &nbsp; <a class="btn btn-outline" href="produits.html">Explorer les 11 produits phares</a>
+      <a class="btn btn-accent" href="projections.html">View Financial Projections</a>
+      &nbsp; <a class="btn btn-outline" href="produits.html">Explore 11 Flagship Products</a>
     </p>
   </div>
 </section>
 
 <div class="wrap">
   <div class="sec-index">
-    <div class="label">SECTIONS DE CE SITE — 23 au total (Fiche projet 0 à Section 22)</div>
+    <div class="label">SECTIONS ON THIS SITE — 23 Total (Project Sheet 0 to Section 22)</div>
     <ol>
-      <li><a href="#fiche"><span class="n">0</span>Fiche projet</a></li>
-      <li><a href="profil-societe.html#s1"><span class="n">1</span>Résumé exécutif</a></li>
-      <li><a href="profil-societe.html#s2"><span class="n">2</span>Résumé exécutif du crédit</a></li>
-      <li><a href="profil-societe.html#s3"><span class="n">3</span>Profil de la société</a></li>
-      <li><a href="profil-societe.html#s4"><span class="n">4</span>Contexte & justification</a></li>
-      <li><a href="profil-societe.html#s5"><span class="n">5</span>Énoncé de vision</a></li>
-      <li><a href="profil-societe.html#s6"><span class="n">6</span>Énoncé de mission</a></li>
-      <li><a href="strategie-investissement.html#s7"><span class="n">7</span>Justification stratégique</a></li>
-      <li><a href="strategie-investissement.html#s8"><span class="n">8</span>Objectifs à 10 ans</a></li>
-      <li><a href="strategie-investissement.html#s9"><span class="n">9</span>Besoin d'investissement</a></li>
-      <li><a href="strategie-investissement.html#s10"><span class="n">10</span>Maturité du projet</a></li>
-      <li><a href="produits.html#s11"><span class="n">11</span>Portefeuille de produits</a></li>
-      <li><a href="produits.html#s12"><span class="n">12</span>Pipeline d'innovation</a></li>
-      <li><a href="commercialisation.html#s13"><span class="n">13</span>Commercialisation & revenus</a></li>
-      <li><a href="commercialisation.html#s14"><span class="n">14</span>Transparence & financement</a></li>
-      <li><a href="commercialisation.html#s15"><span class="n">15</span>Stratégie de remboursement</a></li>
-      <li><a href="risques-viabilite.html#s16"><span class="n">16</span>Risques & atténuation</a></li>
-      <li><a href="risques-viabilite.html#s17"><span class="n">17</span>Capacité de remboursement</a></li>
-      <li><a href="risques-viabilite.html#s18"><span class="n">18</span>Plan de sécurisation des flux</a></li>
-      <li><a href="impact.html#s19"><span class="n">19</span>Impact stratégique</a></li>
-      <li><a href="projections.html#s20"><span class="n">20</span>Projections financières</a></li>
-      <li><a href="mise-en-oeuvre.html#s21"><span class="n">21</span>Calendrier de mise en œuvre</a></li>
-      <li><a href="mise-en-oeuvre.html#s22"><span class="n">22</span>Note d'approbation du comité</a></li>
+      <li><a href="#fiche"><span class="n">0</span>Project Sheet</a></li>
+      <li><a href="profil-societe.html#s1"><span class="n">1</span>Executive Summary</a></li>
+      <li><a href="profil-societe.html#s2"><span class="n">2</span>Credit Executive Summary</a></li>
+      <li><a href="profil-societe.html#s3"><span class="n">3</span>Company Profile</a></li>
+      <li><a href="profil-societe.html#s4"><span class="n">4</span>Strategic Context & Rationale</a></li>
+      <li><a href="profil-societe.html#s5"><span class="n">5</span>Vision Statement</a></li>
+      <li><a href="profil-societe.html#s6"><span class="n">6</span>Mission Statement</a></li>
+      <li><a href="strategie-investissement.html#s7"><span class="n">7</span>Strategic Rationale</a></li>
+      <li><a href="strategie-investissement.html#s8"><span class="n">8</span>10-Year Objectives</a></li>
+      <li><a href="strategie-investissement.html#s9"><span class="n">9</span>Investment Requirement</a></li>
+      <li><a href="strategie-investissement.html#s10"><span class="n">10</span>Project Maturity</a></li>
+      <li><a href="produits.html#s11"><span class="n">11</span>Product Portfolio</a></li>
+      <li><a href="produits.html#s12"><span class="n">12</span>Innovation Pipeline</a></li>
+      <li><a href="commercialisation.html#s13"><span class="n">13</span>Commercialization & Revenue</a></li>
+      <li><a href="commercialisation.html#s14"><span class="n">14</span>Transparency & Financing</a></li>
+      <li><a href="commercialisation.html#s15"><span class="n">15</span>Debt Repayment Strategy</a></li>
+      <li><a href="risques-viabilite.html#s16"><span class="n">16</span>Risks & Mitigation</a></li>
+      <li><a href="risques-viabilite.html#s17"><span class="n">17</span>Repayment Capacity</a></li>
+      <li><a href="risques-viabilite.html#s18"><span class="n">18</span>Cash Flow Security Plan</a></li>
+      <li><a href="impact.html#s19"><span class="n">19</span>Strategic Impact</a></li>
+      <li><a href="projections.html#s20"><span class="n">20</span>Financial Projections</a></li>
+      <li><a href="mise-en-oeuvre.html#s21"><span class="n">21</span>Implementation Timeline</a></li>
+      <li><a href="mise-en-oeuvre.html#s22"><span class="n">22</span>Committee Approval Note</a></li>
     </ol>
   </div>
 </div>
@@ -98,68 +98,68 @@
       <div class="sec-num">0</div>
       <div>
         <span class="sec-kicker">SECTION 0</span>
-        <h2>Fiche projet</h2>
+        <h2>Project Sheet</h2>
       </div>
     </div>
 
     <div class="grid grid-2">
       <table class="factsheet">
-        <caption>I. Projet et promoteur</caption>
-        <tr><th>Titre du projet</th><td>Système intégré de transformation agro-industrielle des aliments & de fabrication d'engrais organiques</td></tr>
-        <tr><th>Site pilote de transformation agroalimentaire</th><td>AFOOPROC — Agrofood Processing And Organic Processing Centre</td></tr>
-        <tr><th>Installation certifiée GMP</th><td>ABIPROF (Agrofood & Bio-Inputs Processing Facility) INDUSTRIES</td></tr>
-        <tr><th>Entité promotrice</th><td>African Green Farmers (A.G.F) Limited</td></tr>
-        <tr><th>Date de constitution</th><td>12 mars 2025</td></tr>
+        <caption>I. Project & Promoter</caption>
+        <tr><th>Project Title</th><td>Integrated Agro-Industrial Food Processing & Organic Fertilizer Manufacturing System</td></tr>
+        <tr><th>Pilot Food Processing Site</th><td>AFOOPROC — Agrofood Processing And Organic Processing Centre</td></tr>
+        <tr><th>GMP Certified Facility</th><td>ABIPROF (Agrofood & Bio-Inputs Processing Facility) INDUSTRIES</td></tr>
+        <tr><th>Promoting Entity</th><td>African Green Farmers (A.G.F) Limited</td></tr>
+        <tr><th>Date of Incorporation</th><td>12 March 2025</td></tr>
         <tr><th>TPIN</th><td>2003675243</td></tr>
-        <tr><th>Zone centrale de production</th><td>Plateforme industrielle de production organique activée par ACIDS, s'étendant sur plus de 2 000 hectares</td></tr>
-        <tr><th>Coopératives d'agriculteurs locaux fournisseurs sous contrat (projeté)</th><td>…..</td></tr>
-        <tr><th>Licence d'investissement</th><td>ZDA/59004/10/2025 (Zambia Development Agency)</td></tr>
-        <tr><th>Incitations fiscales (5 ans)</th><td>Réf. ZDA/DG/DUTY, 22 janvier 2026 (Ministère des Finances)</td></tr>
-        <tr><th>Localisation</th><td>Zone de Keembe, le long de Mungule Road, Plot No. 20, village de Chibombo, chefferie de Liteta, district de Chibombo, Province Centrale, Zambie</td></tr>
-        <tr><th>Directeur général</th><td>Harimenshi Alexis</td></tr>
+        <tr><th>Central Production Zone</th><td>ACIDS-activated organic industrial production platform extending over 2,000+ hectares</td></tr>
+        <tr><th>Local Contract Farmer Cooperatives (Projected)</th><td>…..</td></tr>
+        <tr><th>Investment License</th><td>ZDA/59004/10/2025 (Zambia Development Agency)</td></tr>
+        <tr><th>Tax Incentives (5 years)</th><td>Ref. ZDA/DG/DUTY, 22 January 2026 (Ministry of Finance)</td></tr>
+        <tr><th>Location</th><td>Keembe Area, along Mungule Road, Plot No. 20, Chibombo Village, Liteta Chiefdom, Chibombo District, Central Province, Zambia</td></tr>
+        <tr><th>Managing Director</th><td>Harimenshi Alexis</td></tr>
         <tr><th>WhatsApp</th><td>+260 777 844 844</td></tr>
-        <tr><th>Cellulaire</th><td>+260 764 346 468</td></tr>
+        <tr><th>Mobile</th><td>+260 764 346 468</td></tr>
         <tr><th>Email</th><td>agfcompany2026@gmail.com</td></tr>
-        <tr><th>Personne de contact</th><td>…..</td></tr>
-        <tr><th>Plateforme</th><td>Système intégré de transformation agro-industrielle des aliments & de fabrication d'engrais organiques</td></tr>
+        <tr><th>Contact Person</th><td>…..</td></tr>
+        <tr><th>Platform</th><td>Integrated Agro-Industrial Food Processing & Organic Fertilizer Manufacturing System</td></tr>
       </table>
 
       <table class="factsheet">
-        <caption>II. Aperçu de l'investissement & du profit</caption>
-        <tr><th>Investissement total du projet</th><td>USD 63 209 692,00</td></tr>
-        <tr><th>Type de prêt proposé</th><td>Prêt-projet concessionnel à long terme</td></tr>
-        <tr><th>Objectif du prêt</th><td>Extension de l'unité pilote AFOOPROC vers ABIPROF INDUSTRIES</td></tr>
-        <tr><th>Période de grâce proposée</th><td>5 ans</td></tr>
-        <tr><th>Principal dispositif de sécurité</th><td>SBLC, DSRA</td></tr>
-        <tr><th>Durée de remboursement proposée</th><td>25 ans</td></tr>
-        <tr><th>Taux d'actualisation proposé</th><td>10,00 %</td></tr>
-        <tr><th>Résultat net Année 1</th><td class="neg">USD -21 752 471,40 (phase de déploiement du capital)</td></tr>
-        <tr><th>Bénéfice net Année 2</th><td class="pos">USD 12 713 372,31</td></tr>
-        <tr><th>Bénéfice net Année 3</th><td class="pos">USD 13 035 818,24</td></tr>
-        <tr><th>Bénéfice net Année 4</th><td class="pos">USD 14 637 734,08</td></tr>
-        <tr><th>Bénéfice net Année 5</th><td class="pos">USD 15 695 786,06</td></tr>
-        <tr><th>Bénéfice net Année 6</th><td class="pos">USD 20 647 306,06</td></tr>
-        <tr><th>Bénéfice net Année 7</th><td class="pos">USD 25 389 778,06</td></tr>
-        <tr><th>Bénéfice net Année 8</th><td class="pos">USD 31 018 268,06</td></tr>
-        <tr><th>Bénéfice net Année 9</th><td class="pos">USD 37 844 836,06</td></tr>
-        <tr><th>Bénéfice net Année 10</th><td class="pos">USD 47 682 468,06</td></tr>
-        <tr><th>Bénéfice net total sur 10 ans</th><td class="pos"><strong>USD 196 912 895,60</strong></td></tr>
-        <tr><th>VAN (Valeur actuelle nette)</th><td>USD 30 647 214,15</td></tr>
-        <tr><th>TRI (Taux de rentabilité interne)</th><td>15,78 %</td></tr>
-        <tr><th>IP (Indice de profitabilité)</th><td>1,48</td></tr>
+        <caption>II. Investment & Profit Overview</caption>
+        <tr><th>Total Project Investment</th><td>USD 63,209,692.00</td></tr>
+        <tr><th>Proposed Loan Type</th><td>Long-Term Concessional Project Loan</td></tr>
+        <tr><th>Loan Purpose</th><td>Expansion from AFOOPROC Pilot Unit to ABIPROF INDUSTRIES</td></tr>
+        <tr><th>Proposed Grace Period</th><td>5 years</td></tr>
+        <tr><th>Primary Security Mechanism</th><td>SBLC, DSRA</td></tr>
+        <tr><th>Proposed Repayment Period</th><td>25 years</td></tr>
+        <tr><th>Proposed Discount Rate</th><td>10.00%</td></tr>
+        <tr><th>Year 1 Net Profit</th><td class="neg">USD -21,752,471.40 (capital deployment phase)</td></tr>
+        <tr><th>Year 2 Net Profit</th><td class="pos">USD 12,713,372.31</td></tr>
+        <tr><th>Year 3 Net Profit</th><td class="pos">USD 13,035,818.24</td></tr>
+        <tr><th>Year 4 Net Profit</th><td class="pos">USD 14,637,734.08</td></tr>
+        <tr><th>Year 5 Net Profit</th><td class="pos">USD 15,695,786.06</td></tr>
+        <tr><th>Year 6 Net Profit</th><td class="pos">USD 20,647,306.06</td></tr>
+        <tr><th>Year 7 Net Profit</th><td class="pos">USD 25,389,778.06</td></tr>
+        <tr><th>Year 8 Net Profit</th><td class="pos">USD 31,018,268.06</td></tr>
+        <tr><th>Year 9 Net Profit</th><td class="pos">USD 37,844,836.06</td></tr>
+        <tr><th>Year 10 Net Profit</th><td class="pos">USD 47,682,468.06</td></tr>
+        <tr><th>10-Year Total Net Profit</th><td class="pos"><strong>USD 196,912,895.60</strong></td></tr>
+        <tr><th>NPV (Net Present Value)</th><td>USD 30,647,214.15</td></tr>
+        <tr><th>IRR (Internal Rate of Return)</th><td>15.78%</td></tr>
+        <tr><th>PI (Profitability Index)</th><td>1.48</td></tr>
       </table>
     </div>
 
     <div class="callout" style="margin-top:24px;">
-      <p><strong>A.G.F LIMITED — Unités stratégiques de gestion (SBUs) : </strong>ABIPROF Agro-Estates, ABIPROF Industries, CERIQA Laboratories, ABIPROF Livestock & Bioresources, et le réseau Natural Health Food Supermarkets forment un écosystème intégré : origines durables, innovation, science & qualité, bio-ressources circulaires, accès au marché.</p>
+      <p><strong>A.G.F LIMITED — Strategic Business Units (SBUs):</strong> ABIPROF Agro-Estates, ABIPROF Industries, CERIQA Laboratories, ABIPROF Livestock & Bioresources, and the Natural Health Food Supermarkets network form an integrated ecosystem: sustainable sourcing, innovation, science & quality, circular bio-resources, market access.</p>
     </div>
 
     <div class="logo-strip" style="margin-top:20px;">
-      <img src="img/logo-abiprof-industries.jpeg" alt="Logo ABIPROF Industries">
-      <img src="img/logo-ceriqa-labs.jpeg" alt="Logo CERIQA Laboratories">
-      <img src="img/logo-abiprof-agroestates.jpeg" alt="Logo ABIPROF Agro-Estates">
-      <img src="img/logo-abiprof-livestock.jpeg" alt="Logo ABIPROF Livestock & Bioresources">
-      <img src="img/logo-natural-health.jpeg" alt="Logo Natural Health Supermarkets">
+      <img src="img/logo-abiprof-industries.jpeg" alt="ABIPROF Industries Logo">
+      <img src="img/logo-ceriqa-labs.jpeg" alt="CERIQA Laboratories Logo">
+      <img src="img/logo-abiprof-agroestates.jpeg" alt="ABIPROF Agro-Estates Logo">
+      <img src="img/logo-abiprof-livestock.jpeg" alt="ABIPROF Livestock & Bioresources Logo">
+      <img src="img/logo-natural-health.jpeg" alt="Natural Health Supermarkets Logo">
     </div>
   </div>
 </section>
@@ -170,29 +170,29 @@
       <div>
         <h4>African Green Farmers (A.G.F) Limited</h4>
         <p style="color:#c9d5ea;font-size:.88rem;max-width:42ch;">
-          Plot No. 20, le long de Mungule Road, zone de Keembe, village de Chibombo,
-          chefferie de Liteta, district de Chibombo, Province Centrale, Zambie.
+          Plot No. 20, along Mungule Road, Keembe Area, Chibombo Village,
+          Liteta Chiefdom, Chibombo District, Central Province, Zambia.
         </p>
       </div>
       <div>
         <h4>Contacts</h4>
-        <p style="font-size:.88rem;margin-bottom:.4em;">Directeur général : Harimenshi Alexis</p>
+        <p style="font-size:.88rem;margin-bottom:.4em;">Managing Director: Harimenshi Alexis</p>
         <p style="font-size:.88rem;margin-bottom:.4em;">
           <a href="mailto:agfcompany2026@gmail.com">agfcompany2026@gmail.com</a>
         </p>
-        <p style="font-size:.88rem;margin-bottom:.4em;">WhatsApp : +260 777 844 844</p>
-        <p style="font-size:.88rem;">Cell. +260 764 346 468</p>
+        <p style="font-size:.88rem;margin-bottom:.4em;">WhatsApp: +260 777 844 844</p>
+        <p style="font-size:.88rem;">Cell: +260 764 346 468</p>
       </div>
       <div>
-        <h4>Références légales</h4>
-        <p style="font-size:.88rem;margin-bottom:.4em;">TPIN : 2003675243</p>
-        <p style="font-size:.88rem;margin-bottom:.4em;">Licence d'investissement : ZDA/59004/10/2025</p>
-        <p style="font-size:.88rem;">Incitations fiscales (5 ans) : ZDA/DG/DUTY, 22/01/2026</p>
+        <h4>Legal References</h4>
+        <p style="font-size:.88rem;margin-bottom:.4em;">TPIN: 2003675243</p>
+        <p style="font-size:.88rem;margin-bottom:.4em;">Investment License: ZDA/59004/10/2025</p>
+        <p style="font-size:.88rem;">Tax Incentives (5 years): ZDA/DG/DUTY, 22/01/2026</p>
       </div>
     </div>
     <div class="f-bottom">
-      <span>© 2026 African Green Farmers (A.G.F) Limited. Tous droits réservés.</span>
-      <span>Mémorandum exécutif de financement de projet — USD 63 209 692 — Septembre 2026</span>
+      <span>© 2026 African Green Farmers (A.G.F) Limited. All rights reserved.</span>
+      <span>Executive Project Financing Memorandum — USD 63,209,692 — September 2026</span>
     </div>
   </div>
 </footer>

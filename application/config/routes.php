@@ -5,6 +5,11 @@ $route['default_controller'] = 'Home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+// Language prefix routes (strip /en/ or /fr/ prefix)
+$langs = 'en|fr|sw|rn|zh-CN|es|hi|ar|bn|pt|ru|ur|id|de|ja|ms|tr|ko|vi|it|fa|ta|th|pl|nl|uk|el|he|am|so|yo|ha|ig|zu|af|km|ne|mr|te|kn|gu|pa|da|no|fi|cs|hu|sv|ro';
+$route['('.$langs.')'] = 'Home/Home/index';
+$route['('.$langs.')/(:any)'] = '$1';
+
 // Redirection pour /index -> Admin
 $route['index'] = 'Admin/index';
 $route['index/(:any)'] = 'Admin/index';
@@ -114,7 +119,13 @@ $route['Logs'] = 'Administration/Logs/index';
 $route['Logs/(:any)'] = 'Administration/Logs/$1';
 
 // Consultation
-$route['doctor'] = 'Consultation/Consultation/index';
+$route['doctor'] = 'Home/PatientForm/Medicin';
+$route['consultation'] = 'Home/PatientForm/Medicin';
+$route['patient-form'] = 'Home/PatientForm/index';
+$route['patient-form/create'] = 'Home/PatientForm/create';
+$route['patient-form/api_submit'] = 'Home/PatientForm/api_submit';
+$route['patient-form/changeDoctor'] = 'Home/PatientForm/changeDoctor';
+$route['patient-form/get_countries'] = 'Home/PatientForm/get_countries';
 $route['Consultation'] = 'Consultation/Consultation/index';
 $route['Consultation/formulaire/(:num)'] = 'Consultation/Consultation/formulaire/$1';
 $route['Consultation/(:any)'] = 'Consultation/Consultation/$1';
@@ -136,12 +147,18 @@ $route['mise-en-oeuvre'] = 'Home/About/mise_en_oeuvre';
 
 // Investment
 $route['investissement'] = 'Home/About/investissement';
+$route['partnerships'] = 'Home/About/partnerships';
 $route['investment-projection'] = 'Home/About/investment_projection';
 $route['investor-commitment'] = 'Home/About/investor_commitment';
 $route['strategic-partnerships'] = 'Home/About/strategic_partnerships';
+$route['relations'] = 'Home/About/relations';
 $route['broker-commission'] = 'Home/About/broker_commission';
 $route['broker'] = 'Home/About/broker';
+$route['broker/store'] = 'Home/About/broker_store';
+$route['api/pays/search'] = 'Home/About/api_pays_search';
+$route['api/detect-country'] = 'Home/About/api_detect_country';
 $route['investor'] = 'Home/About/investor';
+$route['investor/store'] = 'Home/About/investor_store';
 $route['Investors-form'] = 'Home/About/investors_form';
 
 // Frontend pages — Products
@@ -150,8 +167,22 @@ $route['Products/detail/(:any)'] = 'Produits/Produits/detail/$1';
 $route['Products/(:any)'] = 'Produits/Produits/$1';
 
 // Frontend pages — Media & Contact
-$route['media'] = 'Home/About/index';
-$route['Home/Media'] = 'Home/About/index';
-$route['Home/Contact'] = 'Home/About/index';
-$route['contact'] = 'Home/About/index';
-
+$route['media'] = 'Home/Media/index';
+$route['media/trending'] = 'Home/Media/trending';
+$route['media/news'] = 'Home/Media/news';
+$route['media/temoignages'] = 'Home/Media/temoignages';
+$route['media/type/(:any)'] = 'Home/Media/type/$1';
+$route['media/detail/(:any)'] = 'Home/Media/detail/$1';
+$route['media/apiSearch'] = 'Home/Media/apiSearch';
+$route['media/liveSearch'] = 'Home/Media/liveSearch';
+$route['media/apiTrackView'] = 'Home/Media/apiTrackView';
+$route['media/apiGrid'] = 'Home/Media/apiGrid';
+$route['media/downloader/(:any)'] = 'Home/Media/downloader/$1';
+$route['Home/Media'] = 'Home/Media/index';
+$route['Home/Contact'] = 'Home/Contact/index';
+$route['contact'] = 'Home/Contact/index';
+$route['shop'] = 'Home/Shop/index';
+$route['shop/category/(:any)'] = 'Home/Shop/category/$1';
+$route['shop/detail/(:any)'] = 'Home/Shop/detail/$1';
+$route['shop/apiProducts'] = 'Home/Shop/apiProducts';
+$route['search/ajax_search'] = 'Home/Search/ajax_search';

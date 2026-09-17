@@ -204,7 +204,7 @@ html body {
 <script type="text/javascript">
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
-        pageLanguage: 'fr',
+        pageLanguage: 'en',
         includedLanguages: 'fr,en,rn,sw,ar,de,es,pt,it,zh-CN,ru',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
         autoDisplay: false
@@ -274,8 +274,8 @@ const savedFlag = localStorage.getItem('preferred_flag');
 const savedLabel = localStorage.getItem('preferred_label');
 
 // Appliquer la langue sauvegardée au chargement
-if (savedLang && savedFlag && savedLabel && savedLang !== 'fr') {
-    document.cookie = `googtrans=/fr/${savedLang}; path=/; max-age=31536000`;
+if (savedLang && savedFlag && savedLabel && savedLang !== 'en') {
+    document.cookie = `googtrans=/en/${savedLang}; path=/; max-age=31536000`;
 }
 
 // Fonction pour ouvrir/fermer le dropdown
@@ -308,7 +308,7 @@ function changeLanguage(langCode, flagCode, label) {
     localStorage.setItem('preferred_flag', flagCode);
     localStorage.setItem('preferred_label', label);
     
-    document.cookie = `googtrans=/fr/${langCode}; path=/; max-age=31536000`;
+    document.cookie = `googtrans=/en/${langCode}; path=/; max-age=31536000`;
     window.location.reload();
 }
 

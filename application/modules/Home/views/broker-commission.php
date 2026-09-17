@@ -1,7 +1,7 @@
 ﻿<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
 
 <style>
-/* UD HERO — Same as profil-societe */
+/* UD HERO â€” Same as profil-societe */
 .ud-hero {
   position: relative;
   background-size: cover !important;
@@ -147,7 +147,7 @@ h1.ud-hero-title {
 .agf-callout { background: #116E63; color: #fff; padding: 30px; border-radius: 16px; margin-top: 30px; }
 .agf-callout p { color: #fff !important; margin: 0; }
 
-/* Enhanced Section 1 — Executive Summary */
+/* Enhanced Section 1 â€” Executive Summary */
 .s1-hero-box {
   background: #19232B;
   border-radius: 20px;
@@ -302,7 +302,7 @@ h1.ud-hero-title {
   margin: 0;
 }
 
-/* Platform List — Cards */
+/* Platform List â€” Cards */
 .s1-platform-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -336,7 +336,7 @@ h1.ud-hero-title {
   line-height: 1.4;
 }
 
-/* Section 2 — Credit Executive Summary */
+/* Section 2 â€” Credit Executive Summary */
 .s2-hero-box {
   background: #19232B;
   border-radius: 20px;
@@ -385,7 +385,7 @@ h1.ud-hero-title {
   font-size: 16px;
 }
 
-/* Section 3 — Company Profile */
+/* Section 3 â€” Company Profile */
 .s3-table-box {
   background: #fff;
   border-radius: 20px;
@@ -451,7 +451,7 @@ h1.ud-hero-title {
   align-items: center;
 }
 
-/* Section 4 — Strategic Context */
+/* Section 4 â€” Strategic Context */
 .s4-hero-box {
   background: #19232B;
   border-radius: 20px;
@@ -534,7 +534,7 @@ h1.ud-hero-title {
   line-height: 1.5;
 }
 
-/* Section 5&6 — Vision & Mission Statement */
+/* Section 5&6 â€” Vision & Mission Statement */
 .s5-vm-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -589,101 +589,111 @@ h1.ud-hero-title {
 @media (max-width: 575px) {
   .s1-product-grid { grid-template-columns: 1fr; }
   .s4-advantage-grid { grid-template-columns: 1fr; }
-}
-</style>
+}</style>
 
+<!-- UD HERO -->
+<section class="ud-hero" style="background-image: url('<?= base_url('attachments/Parametres/slide_helo.jpg'); ?>');">
+  <div class="container ud-hero-content">
+    <h1 class="ud-hero-title">Broker Commission</h1>
+    <p class="ud-hero-slogan">Broker Commission — A.G.F</p>
+    <a href="<?= base_url(); ?>" class="ud-hero-btn">
+      <i class="fas fa-home"></i> Back to Home
+    </a>
+  </div>
+</section>
+
+<!-- CONTENT -->
 <main class="agf-main">
+  <section class="agf-about" style="padding:80px 0;">
+    <div class="container">
+      <div class="agf-sh mb-4">
+        <h2>Broker <span>Commission &amp; Debt Repayment</span></h2>
+      </div>
 
-<div class="ud-hero" style="background: url('<?= base_url('attachments/Parametres/slide_helo.jpg') ?>')">
-  <div class="container">
-    <div class="ud-hero-content">
-      <h1 class="ud-hero-title">Implementation &amp; Approval</h1>
-      <p class="ud-hero-slogan">"The 60-month project implementation timeline and the credit committee approval note."</p>
-      <a href="<?= base_url('about') ?>" class="ud-hero-btn"><i class="fas fa-arrow-left-long"></i> Back to About</a>
-    </div>
-  </div>
-</div>
+      <!-- S1: DEBT REPAYMENT -->
+      <div class="s1-hero-box mb-4">
+        <h3>Debt Repayment Strategy</h3>
+        <p>Debt service is designed around prospective operating cash flows following commercial launch from industrial manufacturing, agriculture, biological inputs, institutional/wholesale channels, owned retail, regional distribution and exports.</p>
+        <p class="mt-3">Debt-service capacity will be assessed against projected free cash flow and <span class="s1-highlight">Debt Service Coverage Ratio (DSCR)</span> under base-case, downside and sensitivity scenarios, with the DSRA providing additional liquidity protection.</p>
+      </div>
 
+      <!-- S2: 10-YEAR DSCR PROJECTION -->
+      <div class="agf-sh mb-4">
+        <h2>10-Year <span>DSCR Projection</span></h2>
+      </div>
+      <div class="s3-table-box mb-4">
+        <div class="s3-header">
+          <i class="fas fa-chart-line"></i>
+          <h4>Projected Debt Service Coverage Ratio (DSCR)</h4>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="agf-table">
+            <thead>
+              <tr><th>Year</th><th>Cash Flow Available (USD)</th><th>Debt Service (USD)</th><th>DSCR</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Year 1</strong></td><td style="color:#dc3545;">-21,752,471</td><td>0</td><td style="color:#dc3545;">N/A</td></tr>
+              <tr><td><strong>Year 2</strong></td><td style="color:#28a745;">12,713,372</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 3</strong></td><td style="color:#28a745;">13,035,818</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 4</strong></td><td style="color:#28a745;">14,637,734</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 5</strong></td><td style="color:#28a745;">15,695,786</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 6</strong></td><td style="color:#28a745;">20,647,306</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 7</strong></td><td style="color:#28a745;">25,389,778</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 8</strong></td><td style="color:#28a745;">31,018,268</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 9</strong></td><td style="color:#28a745;">37,844,836</td><td>0</td><td>N/A</td></tr>
+              <tr><td><strong>Year 10</strong></td><td style="color:#28a745;">47,682,468</td><td>0</td><td>N/A</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#999; font-style:italic; margin-bottom:40px;">Debt-service schedule is subject to final terms negotiation. DSCR to be calculated once debt terms are finalized. DSRA and cash-flow waterfall structure to be defined in definitive financing documentation.</p>
 
+      <!-- S3: CREDIT ENHANCEMENT -->
+      <div class="agf-sh mb-4">
+        <h2>Credit <span>Enhancement</span></h2>
+      </div>
+      <div class="s5-vm-grid mb-4">
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-university"></i> Primary</div>
+          <h3>SBLC — Standby Letter of Credit</h3>
+          <p>Primary credit-enhancement mechanism through Absa Bank Zambia Plc providing irrevocable commitment to honor drawing requests in the event of borrower default.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-lock"></i> Escrow</div>
+          <h3>Escrow Account</h3>
+          <p>Controlled project-fund account at receiving bank for transparent fund management, disbursement monitoring and repayment flow control.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-piggy-bank"></i> Reserve</div>
+          <h3>DSRA — Debt Service Reserve Account</h3>
+          <p>Dedicated debt-service liquidity protection providing additional buffer for scheduled principal and interest payments.</p>
+        </div>
+        <div class="s5-vm-card">
+          <div class="s5-vm-badge"><i class="fas fa-list-check"></i> Disbursement</div>
+          <h3>Milestone-Based Disbursement</h3>
+          <p>Capital deployment tied to verified project milestones ensuring repayment obligations align with revenue-generating capacity.</p>
+        </div>
+      </div>
 
-<!-- S1: 60-MONTH IMPLEMENTATION SCHEDULE -->
-<section class="agf-about" id="s1">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>60-Month Implementation <span>Schedule</span></h2>
-    </div>
-    <div class="s1-hero-box mb-4">
-      <h3>Total project duration: 60 months (5 years).</h3>
-    </div>
-    <div class="s1-product-grid">
-      <div class="s1-product-card">
-        <div class="s1-num">01</div>
-        <h5>Financial Closing &amp; Mobilization</h5>
-        <p>Months 1–2: Financing closure, SPV creation, governance framework, executive recruitment, project controls deployment, and AI-powered ERP systems.</p>
+      <!-- S4: BROKER COMMISSION -->
+      <div class="agf-sh mb-4">
+        <h2>Broker <span>Commission Structure</span></h2>
       </div>
-      <div class="s1-product-card">
-        <div class="s1-num">02</div>
-        <h5>EPC — Core Industrial Infrastructure</h5>
-        <p>Months 2–12: Detailed engineering, EPC contractor mobilization, manufacturing facility construction, utilities, logistics infrastructure, warehousing, and GMP-compliant production environments.</p>
+      <div class="s1-hero-box mb-4">
+        <h3>Intermediary &amp; Broker Arrangements</h3>
+        <p>Commission arrangements for intermediaries, brokers and placement agents engaged in the fund-raising process are subject to negotiation and documented under separate fee agreements.</p>
+        <p class="mt-3">All intermediary and broker fees are payable from the proceeds of the financing upon successful financial closing and are subject to applicable regulatory and compliance requirements.</p>
       </div>
-      <div class="s1-product-card">
-        <div class="s1-num">03</div>
-        <h5>Agricultural Production Infrastructure</h5>
-        <p>Months 2–9: Land acquisition and titration (up to 2,002 ha), site preparation, nursery establishment, hydraulic ram irrigation system, estate development, and regenerative agriculture infrastructure deployment.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">04</div>
-        <h5>Livestock &amp; Bio-Resources Systems</h5>
-        <p>Months 2–10: Cattle (150 initial) and swine (150 initial) production unit development, breeding stock procurement, biosafety and nutrition systems installation, and bio-resources valorization infrastructure.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">05</div>
-        <h5>Equipment Procurement &amp; Commissioning</h5>
-        <p>Months 2–15: Procurement, installation, calibration, validation, commissioning, performance testing, technical training, and operational technology transfer.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">06</div>
-        <h5>Supply Chain &amp; Working Capital</h5>
-        <p>Months 2–12: Raw material procurement, supplier qualification, packaging and consumables procurement, traceability systems implementation, and working capital deployment for production ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">07</div>
-        <h5>Pilot Production &amp; Certification</h5>
-        <p>Months 10–15: Pilot manufacturing trials, process optimization, product validation, quality assurance certification, regulatory approvals, product registration, and GMP/HACCP/ISO compliance.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">08</div>
-        <h5>Commercial Operations Deployment</h5>
-        <p>Months 15–24: Full-scale production launch, domestic commercialization, retail and wholesale distribution, health channel penetration, and agricultural inputs market expansion.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">09</div>
-        <h5>Export Entry &amp; Certification</h5>
-        <p>Months 24–48: Export registration, ISO certification completion, international compliance alignment, regional market entry, distribution partnerships, and export commercialization ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">10</div>
-        <h5>Expansion &amp; Optimization</h5>
-        <p>Months 48–60: Capacity scaling, product portfolio diversification, ACIDS-driven operational optimization, continuous R&amp;D, efficiency improvement, and export growth acceleration.</p>
-      </div>
-    </div>
-    <p class="mt-3" style="font-size:13px; color:#999; font-style:italic;">Commercialization is subject to construction completion, equipment commissioning, qualification/validation, applicable regulatory approvals and defined commercial-launch criteria.</p>
-  </div>
-</section>
 
-<!-- S2: APPROVAL NOTE -->
-<section style="background:#F2F3F5; padding:80px 0;" id="s2">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>Approval <span>Note</span></h2>
+      <!-- S5: FINANCIAL RECONCILIATION -->
+      <div class="s1-hero-box">
+        <h3>Financial Reconciliation Note</h3>
+        <p>Total project investment cost: <span class="s1-highlight">USD 63,209,692</span>. The complete Sources &amp; Uses schedule must reconcile exactly to this figure before lender/investor submission.</p>
+        <p class="mt-3">Final financing terms, including interest rates, repayment schedule, grace period, maturity and security package, will be defined in definitive financing documentation subject to due diligence and credit approval.</p>
+        <p class="mt-3">All material technical, financial, legal, environmental, social, regulatory, market and implementation assumptions remain subject to independent lender/investor due diligence and third-party verification where required.</p>
+      </div>
     </div>
-    <div class="s1-hero-box" style="border-left: 4px solid #116E63;">
-      <h3><i class="fas fa-check-circle" style="color:#dcbb07; margin-right:10px;"></i> Credit Committee Recommendation</h3>
-      <p>Following review of the projected financial performance, cash flow profile, debt repayment capacity and strategic development merits of the project, the credit committee considers the proposed financing of USD 63,135,792 — covering pre-operating expenses, CAPEX and OPEX — as fully sustainable and recommends its in-principle approval.</p>
-      <p class="mt-3">The transaction demonstrates strong bankability, substantial long-term value creation potential, and a resilient repayment profile, making it a highly attractive and transformative development financing opportunity.</p>
-    </div>
-  </div>
-</section>
-
+  </section>
 </main>
+
 <?php include VIEWPATH.'includes/frontend/Footer.php'; ?>

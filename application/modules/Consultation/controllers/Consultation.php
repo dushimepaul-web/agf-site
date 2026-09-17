@@ -50,11 +50,11 @@ class Consultation extends MY_Controller
 
         $insert = [
             'medecin_id' => (int)$data['medecin_id'],
-            'nom' => trim($data['nom']),
-            'prenom' => trim($data['prenom']),
-            'poids' => trim($data['poids'] ?? ''),
-            'taille' => trim($data['taille'] ?? ''),
-            'adresse' => trim($data['adresse'] ?? ''),
+            'patient_nom' => trim($data['nom']),
+            'patient_prenom' => trim($data['prenom']),
+            'patient_poids' => trim($data['poids'] ?? ''),
+            'patient_taille' => trim($data['taille'] ?? ''),
+            'patient_adresse' => trim($data['adresse'] ?? ''),
             'description_symptomes' => trim($data['description_symptomes']),
             'duree_symptomes' => trim($data['duree_symptomes'] ?? ''),
         ];
@@ -133,10 +133,10 @@ class Consultation extends MY_Controller
 
         $msg = "Nouvelle consultation\n";
         $msg .= "Médecin: Dr. {$m['prenom']} {$m['nom']}\n";
-        $msg .= "Patient: {$c['prenom']} {$c['nom']}\n";
-        if ($c['poids']) $msg .= "Poids: {$c['poids']}\n";
-        if ($c['taille']) $msg .= "Taille: {$c['taille']}\n";
-        if ($c['adresse']) $msg .= "Adresse: {$c['adresse']}\n";
+        $msg .= "Patient: {$c['patient_prenom']} {$c['patient_nom']}\n";
+        if ($c['patient_poids']) $msg .= "Poids: {$c['patient_poids']}\n";
+        if ($c['patient_taille']) $msg .= "Taille: {$c['patient_taille']}\n";
+        if ($c['patient_adresse']) $msg .= "Adresse: {$c['patient_adresse']}\n";
         $msg .= "Symptômes: {$c['description_symptomes']}\n";
         if ($c['duree_symptomes']) $msg .= "Durée: {$c['duree_symptomes']}\n";
 

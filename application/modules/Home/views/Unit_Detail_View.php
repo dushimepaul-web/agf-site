@@ -1,4 +1,4 @@
-<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
+﻿<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
 
 <style>
 /* ================================================================
@@ -303,7 +303,7 @@
     <div class="ud-sh">
       <h2 style="color:#fff !important;">Découvrez les autres <span>unités stratégiques</span>.</h2>
     </div>
-    <p style="color:rgba(255,255,255,.85) !important;">Cinq unités métier, un écosystème intégré pour un développement agro-industrial durable.</p>
+    <p style="color:rgba(255,255,255,.85) !important;">Five business units, an integrated ecosystem for sustainable agro-industrial development.</p>
     <a href="<?= base_url('about') ?>" class="ud-hero-btn">
       Toutes les unités <i class="fas fa-arrow-right-long"></i>
     </a>

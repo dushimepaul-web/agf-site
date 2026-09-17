@@ -592,98 +592,184 @@ h1.ud-hero-title {
 }
 </style>
 
+<!-- UD HERO -->
+<section class="ud-hero" style="background-image: url('<?= base_url('attachments/Parametres/slide_helo.jpg'); ?>');">
+  <div class="container ud-hero-content">
+    <h1 class="ud-hero-title">Investment Projections</h1>
+    <p class="ud-hero-slogan">Investment Projections — A.G.F</p>
+    <a href="<?= base_url(); ?>" class="ud-hero-btn">
+      <i class="fas fa-home"></i> Back to Home
+    </a>
+  </div>
+</section>
+
+<!-- CONTENT -->
 <main class="agf-main">
+  <section class="agf-about" style="padding:80px 0;">
+    <div class="container">
+      <div class="agf-sh mb-4">
+        <h2>Investment <span>Requirement &amp; Use of Funds</span></h2>
+      </div>
 
-<div class="ud-hero" style="background: url('<?= base_url('attachments/Parametres/slide_helo.jpg') ?>')">
-  <div class="container">
-    <div class="ud-hero-content">
-      <h1 class="ud-hero-title">Implementation &amp; Approval</h1>
-      <p class="ud-hero-slogan">"The 60-month project implementation timeline and the credit committee approval note."</p>
-      <a href="<?= base_url('about') ?>" class="ud-hero-btn"><i class="fas fa-arrow-left-long"></i> Back to About</a>
-    </div>
-  </div>
-</div>
+      <!-- S1: INVESTMENT OVERVIEW -->
+      <div class="s1-hero-box mb-4">
+        <h3>USD 63,209,692 Senior Secured Development Facility</h3>
+        <p>The requested USD 63,209,692 will finance industrial infrastructure, processing systems, GMP/ISO-controlled environments, laboratories, agriculture, livestock and bioresources, utilities, digital systems, regulatory compliance, commissioning and initial working capital.</p>
+        <p class="mt-3">Capital deployment is directed toward productive assets, industrial capacity, completion of the integrated production chain and commercial launch.</p>
+      </div>
 
+      <!-- S2: FUND ALLOCATION TABLE -->
+      <div class="s3-table-box mb-4">
+        <div class="s3-header">
+          <i class="fas fa-coins"></i>
+          <h4>Total Project Investment Cost (TPIC) — USD 63,209,692</h4>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-hard-hat"></i> Engineering, Procurement &amp; Construction (EPC)</div>
+          <div class="s3-row-value">USD 1,377,745 — 18%*</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-industry"></i> Industrial Manufacturing Infrastructure</div>
+          <div class="s3-row-value">USD 15,170,326 — 24%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-cogs"></i> Industrial Processing Line Systems</div>
+          <div class="s3-row-value">USD 13,274,035 — 21%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-microscope"></i> Research, Quality Assurance &amp; Innovation Laboratories</div>
+          <div class="s3-row-value">USD 3,792,581 — 6%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-seedling"></i> Agricultural Production Infrastructure</div>
+          <div class="s3-row-value">USD 5,056,775 — 8%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-leaf"></i> Livestock &amp; Bioresource Infrastructure</div>
+          <div class="s3-row-value">USD 2,528,388 — 4%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-bolt"></i> Utilities, Energy &amp; Water Systems</div>
+          <div class="s3-row-value">USD 3,160,485 — 5%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-laptop"></i> Digital Traceability, Automation &amp; ACIDS Systems</div>
+          <div class="s3-row-value">USD 1,264,194 — 2%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-clipboard-check"></i> Project Management, Regulatory Compliance &amp; Certification</div>
+          <div class="s3-row-value">USD 1,264,194 — 2%</div>
+        </div>
+        <div class="s3-row">
+          <div class="s3-row-label"><i class="fas fa-money-bill-wave"></i> Initial Working Capital &amp; Commercial Launch</div>
+          <div class="s3-row-value">USD 4,424,678 — 7%</div>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#999; font-style:italic; margin-bottom:40px;">Financial reconciliation required: The listed category amounts currently total USD 51,313,401, leaving USD 11,896,291 unreconciled. The EPC amount also does not correspond to 18% of the stated TPIC. Final Sources &amp; Uses must reconcile exactly to USD 63,209,692 / 100.00% before lender or investor submission.</p>
 
+      <!-- S3: FINANCIAL PROJECTIONS HIGHLIGHTS -->
+      <div class="agf-sh mb-4">
+        <h2>Financial <span>Projections Highlights</span></h2>
+      </div>
+      <div class="s4-advantage-grid mb-4">
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-dollar-sign"></i></div>
+          <h5>$196.9M</h5>
+          <p>Cumulative Net Profit (10 Years)</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-chart-bar"></i></div>
+          <h5>$30.65M</h5>
+          <p>Net Present Value (NPV)</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-percentage"></i></div>
+          <h5>15.78%</h5>
+          <p>Internal Rate of Return (IRR)</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-balance-scale"></i></div>
+          <h5>1.48</h5>
+          <p>Profitability Index</p>
+        </div>
+      </div>
+      <div class="s4-advantage-grid mb-4">
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-calendar-check"></i></div>
+          <h5>Year 9</h5>
+          <p>Discounted Payback</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-globe"></i></div>
+          <h5>$100M+</h5>
+          <p>Annual Export Earnings Target</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-users"></i></div>
+          <h5>50,000+</h5>
+          <p>Employment Opportunities Target</p>
+        </div>
+        <div class="s4-advantage-card">
+          <div class="s4-icon"><i class="fas fa-seedling"></i></div>
+          <h5>5,000+</h5>
+          <p>Contracted Farmers Target</p>
+        </div>
+      </div>
+      <p style="font-size:13px; color:#999; font-style:italic;">These are project objectives and financial-model projections, not historical performance or current sales.</p>
 
-<!-- S1: 60-MONTH IMPLEMENTATION SCHEDULE -->
-<section class="agf-about" id="s1">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>60-Month Implementation <span>Schedule</span></h2>
-    </div>
-    <div class="s1-hero-box mb-4">
-      <h3>Total project duration: 60 months (5 years).</h3>
-    </div>
-    <div class="s1-product-grid">
-      <div class="s1-product-card">
-        <div class="s1-num">01</div>
-        <h5>Financial Closing &amp; Mobilization</h5>
-        <p>Months 1–2: Financing closure, SPV creation, governance framework, executive recruitment, project controls deployment, and AI-powered ERP systems.</p>
+      <!-- S4: SENSITIVITY ANALYSIS -->
+      <div class="agf-sh mb-4 mt-5">
+        <h2>Sensitivity Analysis <span>Requirements</span></h2>
       </div>
-      <div class="s1-product-card">
-        <div class="s1-num">02</div>
-        <h5>EPC — Core Industrial Infrastructure</h5>
-        <p>Months 2–12: Detailed engineering, EPC contractor mobilization, manufacturing facility construction, utilities, logistics infrastructure, warehousing, and GMP-compliant production environments.</p>
+      <p class="mb-4">The financial model should be supported by lender-grade sensitivity and downside analysis covering:</p>
+      <div class="s1-platform-grid mb-4">
+        <div class="s1-platform-item">
+          <i class="fas fa-arrow-up"></i>
+          <span>Construction-cost escalation</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-clock"></i>
+          <span>Commissioning delays</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Production ramp-up and capacity utilization</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-tag"></i>
+          <span>Selling-price compression</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-industry"></i>
+          <span>Raw-material costs</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-exchange-alt"></i>
+          <span>Foreign-exchange movements</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-chart-area"></i>
+          <span>Operating-cost inflation</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-percent"></i>
+          <span>Interest-rate exposure</span>
+        </div>
+        <div class="s1-platform-item">
+          <i class="fas fa-money-check-alt"></i>
+          <span>Debt-service coverage</span>
+        </div>
       </div>
-      <div class="s1-product-card">
-        <div class="s1-num">03</div>
-        <h5>Agricultural Production Infrastructure</h5>
-        <p>Months 2–9: Land acquisition and titration (up to 2,002 ha), site preparation, nursery establishment, hydraulic ram irrigation system, estate development, and regenerative agriculture infrastructure deployment.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">04</div>
-        <h5>Livestock &amp; Bio-Resources Systems</h5>
-        <p>Months 2–10: Cattle (150 initial) and swine (150 initial) production unit development, breeding stock procurement, biosafety and nutrition systems installation, and bio-resources valorization infrastructure.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">05</div>
-        <h5>Equipment Procurement &amp; Commissioning</h5>
-        <p>Months 2–15: Procurement, installation, calibration, validation, commissioning, performance testing, technical training, and operational technology transfer.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">06</div>
-        <h5>Supply Chain &amp; Working Capital</h5>
-        <p>Months 2–12: Raw material procurement, supplier qualification, packaging and consumables procurement, traceability systems implementation, and working capital deployment for production ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">07</div>
-        <h5>Pilot Production &amp; Certification</h5>
-        <p>Months 10–15: Pilot manufacturing trials, process optimization, product validation, quality assurance certification, regulatory approvals, product registration, and GMP/HACCP/ISO compliance.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">08</div>
-        <h5>Commercial Operations Deployment</h5>
-        <p>Months 15–24: Full-scale production launch, domestic commercialization, retail and wholesale distribution, health channel penetration, and agricultural inputs market expansion.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">09</div>
-        <h5>Export Entry &amp; Certification</h5>
-        <p>Months 24–48: Export registration, ISO certification completion, international compliance alignment, regional market entry, distribution partnerships, and export commercialization ramp-up.</p>
-      </div>
-      <div class="s1-product-card">
-        <div class="s1-num">10</div>
-        <h5>Expansion &amp; Optimization</h5>
-        <p>Months 48–60: Capacity scaling, product portfolio diversification, ACIDS-driven operational optimization, continuous R&amp;D, efficiency improvement, and export growth acceleration.</p>
-      </div>
-    </div>
-    <p class="mt-3" style="font-size:13px; color:#999; font-style:italic;">Commercialization is subject to construction completion, equipment commissioning, qualification/validation, applicable regulatory approvals and defined commercial-launch criteria.</p>
-  </div>
-</section>
 
-<!-- S2: APPROVAL NOTE -->
-<section style="background:#F2F3F5; padding:80px 0;" id="s2">
-  <div class="container">
-    <div class="agf-sh mb-4">
-      <h2>Approval <span>Note</span></h2>
+      <!-- S5: DISCLAIMER -->
+      <div class="s1-hero-box">
+        <h3>Financial Reconciliation &amp; Commercial Status</h3>
+        <p>The complete Sources &amp; Uses schedule and financial model must reconcile exactly to <span class="s1-highlight">USD 63,209,692 / 100.00%</span> before lender/investor submission.</p>
+        <p class="mt-3">A.G.F. Limited is currently an <span class="s1-highlight">operational pilot-stage enterprise</span>, not an established industrial manufacturing or material revenue-generating enterprise. Industrial manufacturing, material sales, exports and associated operating cash flows are prospective and dependent on successful financing, implementation, commissioning, qualification, regulatory approvals and commercial launch.</p>
+        <p class="mt-3">Major industrial systems will be procured through qualified OEM/EPC counterparties under defined specifications, performance requirements, FAT/SAT, commissioning, qualification/validation, warranties, training, technology-transfer obligations and documented battery limits.</p>
+      </div>
     </div>
-    <div class="s1-hero-box" style="border-left: 4px solid #116E63;">
-      <h3><i class="fas fa-check-circle" style="color:#dcbb07; margin-right:10px;"></i> Credit Committee Recommendation</h3>
-      <p>Following review of the projected financial performance, cash flow profile, debt repayment capacity and strategic development merits of the project, the credit committee considers the proposed financing of USD 63,135,792 — covering pre-operating expenses, CAPEX and OPEX — as fully sustainable and recommends its in-principle approval.</p>
-      <p class="mt-3">The transaction demonstrates strong bankability, substantial long-term value creation potential, and a resilient repayment profile, making it a highly attractive and transformative development financing opportunity.</p>
-    </div>
-  </div>
-</section>
-
+  </section>
 </main>
+
 <?php include VIEWPATH.'includes/frontend/Footer.php'; ?>

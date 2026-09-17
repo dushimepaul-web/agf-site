@@ -736,7 +736,7 @@
             <p>Building an integrated agro-industrial platform: regenerative agriculture, industrial manufacturing, scientific laboratories and distribution — for a sustainable, resilient and export-oriented organic food and biological system.</p>
             <div class="agf-hero-btns justify-content-center">
               <a href="<?= base_url('doctor') ?>" class="agf-btn">Get Consulted<i class="fas fa-arrow-right-long"></i></a>
-              <a href="<?= base_url('Products') ?>" class="agf-btn agf-btn2">Our Products<i class="fas fa-arrow-right-long"></i></a>
+              <a href="<?= base_url('shop') ?>" class="agf-btn agf-btn2">Our Products<i class="fas fa-arrow-right-long"></i></a>
             </div>
           </div>
         </div>
@@ -946,21 +946,21 @@
           <div class="agf-pcard-img">
             <span class="agf-pcard-badge"><?= htmlspecialchars($prod['conditionnement'] ?? 'Product') ?></span>
             <div class="agf-pcard-actions">
-              <a href="<?= base_url('Products/detail/'.$prod['slug']) ?>" class="agf-pcard-action" title="Voir"><i class="fas fa-eye"></i></a>
+              <a href="<?= base_url('shop/detail/'.$prod['slug']) ?>" class="agf-pcard-action" title="View"><i class="fas fa-eye"></i></a>
             </div>
             <img src="<?= base_url($prod['image']) ?>" alt="<?= htmlspecialchars($prod['nom']) ?>">
           </div>
           <div class="agf-pcard-body">
-            <div class="agf-pcard-cat"><?= htmlspecialchars($prod['conditionnement'] ?? 'Produit') ?></div>
+            <div class="agf-pcard-cat"><?= htmlspecialchars($prod['conditionnement'] ?? 'Product') ?></div>
             <h4 class="agf-pcard-title"><?= htmlspecialchars($prod['nom']) ?></h4>
             <p class="agf-pcard-desc"><?= htmlspecialchars($prod['description']) ?></p>
             <div class="agf-pcard-footer">
               <?php if (!empty($prod['prix'])): ?>
                 <span class="agf-pcard-price"><?= htmlspecialchars($prod['prix']) ?></span>
               <?php else: ?>
-                <span class="agf-pcard-price">Sur demande</span>
+                <span class="agf-pcard-price">On request</span>
               <?php endif; ?>
-              <a href="<?= base_url('Products/detail/'.$prod['slug']) ?>" class="agf-pcard-btn">Détails <i class="fas fa-arrow-right-long"></i></a>
+              <a href="<?= base_url('shop/detail/'.$prod['slug']) ?>" class="agf-pcard-btn">Details <i class="fas fa-arrow-right-long"></i></a>
             </div>
           </div>
         </div>
@@ -968,7 +968,7 @@
       <?php endforeach; ?>
     </div>
     <div class="text-center mt-4">
-      <a href="<?= base_url('Products') ?>" class="agf-btn">View All Products<i class="fas fa-arrow-right-long"></i></a>
+      <a href="<?= base_url('shop') ?>" class="agf-btn">View All Products<i class="fas fa-arrow-right-long"></i></a>
     </div>
   </div>
 </div>
