@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $is_product_page = (isset($product) && !empty($product) && isset($product['title']));
 if ($is_product_page) {
-    $page_title = htmlspecialchars($product['title']) . ' - ' . htmlspecialchars($this->Model->get_setting('site_name','African Green Farmers'));
+    $page_title = htmlspecialchars($product['title']) . ' - ' . htmlspecialchars($this->Model->get_setting('site_name','African Green Farmers Limited'));
     $page_desc  = !empty($product['description']) ? substr(htmlspecialchars($product['description']),0,160) : 'Produit A.G.F';
     $page_image = base_url('attachments/Products/'.$product['main_image']);
     $page_url   = base_url('shop/detail/'.($product['slug'] ?? $product['id']));
@@ -14,11 +14,11 @@ if ($is_product_page) {
     // Title personnalisé par page (SEO) si fourni par le contrôleur
     $page_title = (!empty($site_title) && !in_array($site_title, ['Frontend', 'Admin Dashboard']))
         ? htmlspecialchars($site_title)
-        : htmlspecialchars($this->Model->get_setting('site_name','African Green Farmers'));
+        : htmlspecialchars($this->Model->get_setting('site_name','African Green Farmers Limited'));
     $page_desc  = !empty($site_description)
         ? htmlspecialchars($site_description)
-        : htmlspecialchars($this->Model->get_setting('agf_description_courte','Projet integre de transformation agro-alimentaire'));
-    $site_logo  = $this->Model->get_setting('site_logo','assets/fro.png');
+        : htmlspecialchars($this->Model->get_setting('agf_description_courte','Nutritional advisory service and functional plant products'));
+    $site_logo  = $this->Model->get_setting('site_logo','attachments/Parametres/african-green-farmers-logo.jpg');
     $page_image = !empty($site_image)
         ? $site_image
         : base_url($site_logo);
@@ -44,7 +44,7 @@ if ($logged_in && !empty($user_name)) {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="A.G.F">
-<link rel="apple-touch-icon" href="<?= base_url('assets/fro.png') ?>">
+<link rel="apple-touch-icon" href="<?= base_url('attachments/Parametres/african-green-farmers-logo.jpg') ?>">
 <title><?= $page_title ?></title>
 <meta name="description" content="<?= $page_desc ?>">
 <meta name="robots" content="index, follow">
@@ -57,7 +57,7 @@ if ($logged_in && !empty($user_name)) {
 <meta name="twitter:card"       content="summary_large_image">
 <meta name="twitter:title"      content="<?= $page_title ?>">
 <meta name="twitter:image"      content="<?= $page_image ?>">
-<link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico','assets/fro.png')) ?>" type="image/png">
+<link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico','attachments/Parametres/african-green-farmers-logo.jpg')) ?>" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -347,7 +347,7 @@ body { top:0!important; margin-top:0!important; }
   height:100%; padding:0 20px;
   display:flex; align-items:center; justify-content:space-between; gap:12px;
 }
-.nuf-menu { display:flex; align-items:center; gap:2px; list-style:none; flex:1; overflow-x:auto; scrollbar-width:none; }
+.nuf-menu { display:flex; align-items:center; gap:2px; list-style:none; flex:1; overflow:visible; }
 .nuf-menu::-webkit-scrollbar { display:none; }
 .nuf-menu-item { position:relative; flex-shrink:0; }
 .nuf-menu-link {
@@ -373,7 +373,7 @@ body { top:0!important; margin-top:0!important; }
   opacity:0; visibility:hidden; transform:translateY(-8px);
   transition:var(--tr); z-index:500;
 }
-.nuf-menu-item:hover .nuf-dropdown { opacity:1; visibility:visible; transform:translateY(0); }
+.nuf-menu-item:hover .nuf-dropdown, .nuf-menu-item:focus-within .nuf-dropdown { opacity:1; visibility:visible; transform:translateY(0); }
 .nuf-drop-item {
   display:flex; align-items:center; gap:10px;
   padding:11px 12px; border-radius:var(--r-sm);
@@ -384,17 +384,21 @@ body { top:0!important; margin-top:0!important; }
 .nuf-drop-item i { width:18px; text-align:center; color:var(--primary); font-size:15px; }
 
 /* Mega dropdown */
-.nuf-mega { position:static!important; }
+.nuf-mega { position:relative; }
 .nuf-mega-drop {
-  position:absolute; top:calc(100% + 6px);
-  left:50%; transform:translateX(-50%) translateY(-8px);
-  width:min(92vw, 900px);
+  position:absolute; top:calc(100% + 13px); left:0;
+  transform:translateY(-8px);
+  width:min(900px, calc(100vw - 40px));
   background:white; border-radius:var(--r-xl);
   box-shadow:var(--sh-xl); border:1px solid var(--gray-lt);
   padding:28px; max-height:68vh; overflow-y:auto;
   opacity:0; visibility:hidden; transition:var(--tr); z-index:500;
 }
-.nuf-mega:hover .nuf-mega-drop { opacity:1; visibility:visible; transform:translateX(-50%) translateY(0); }
+.nuf-mega:hover .nuf-mega-drop, .nuf-mega:focus-within .nuf-mega-drop { opacity:1; visibility:visible; transform:translateY(0); }
+/* Pont invisible : evite la coupure du survol entre le menu et le panneau */
+.nuf-mega-drop::before, .nuf-dropdown::before {
+  content:""; position:absolute; left:0; right:0; top:-22px; height:22px;
+}
 .nuf-mega-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:28px; }
 .nuf-mega-col h3 {
   font-size:11px; font-weight:700; text-transform:uppercase;
@@ -634,10 +638,10 @@ body { top:0!important; margin-top:0!important; }
   <div class="nuf-loader-ring">
     <div class="nuf-loader-ring-track"></div>
     <img class="nuf-loader-logo"
-         src="<?= base_url($this->Model->get_setting('site_logo','assets/fro.png')) ?>"
+         src="<?= base_url($this->Model->get_setting('site_logo','attachments/Parametres/african-green-farmers-logo.jpg')) ?>"
          alt="A.G.F" onerror="this.src='<?= base_url('assets/images/logo.png') ?>'">
   </div>
-  <div class="nuf-loader-text"><?= $this->Model->get_setting('site_name','African Green Farmers') ?></div>
+  <div class="nuf-loader-text"><?= $this->Model->get_setting('site_name','African Green Farmers Limited') ?></div>
 </div>-->
 
 <!-- GOOGLE TRANSLATE (caché) -->
@@ -661,20 +665,20 @@ function googleTranslateElementInit(){
 <div class="nuf-topbar" id="nufTopbar">
   <div class="nuf-topbar-inner">
     <div class="nuf-topbar-side">
-      <a href="tel:<?= $this->Model->get_setting('site_phone','+260 97 123 4567') ?>">
+      <a href="tel:<?= $this->Model->get_setting('site_phone','+260 777 844 844') ?>">
         <i class="bi bi-telephone-fill"></i>
-        <span class="d-none d-md-inline"><?= $this->Model->get_setting('site_phone','+260 97 123 4567') ?></span>
+        <span class="d-none d-md-inline"><?= $this->Model->get_setting('site_phone','+260 777 844 844') ?></span>
       </a>
       <div class="nuf-topbar-div d-none d-sm-block"></div>
-      <a href="mailto:<?= $this->Model->get_setting('contact_email_invest','info@africangreenfarmers.com') ?>">
+      <a href="mailto:<?= $this->Model->get_setting('contact_email_invest','agfcompany2026@gmail.com') ?>">
         <i class="bi bi-envelope-fill"></i>
-        <span class="d-none d-lg-inline"><?= $this->Model->get_setting('contact_email_invest','info@africangreenfarmers.com') ?></span>
+        <span class="d-none d-lg-inline"><?= $this->Model->get_setting('contact_email_invest','agfcompany2026@gmail.com') ?></span>
       </a>
     </div>
     <div class="nuf-topbar-side">
       <a href="#">
         <i class="bi bi-geo-alt-fill"></i>
-        <span class="d-none d-md-inline"><?= $this->Model->get_setting('adresse_siege','Lusaka, Zambie') ?></span>
+        <span class="d-none d-md-inline"><?= $this->Model->get_setting('adresse_siege','Plot No. 20, Chisoko Village, Along Mungule Road, Keembe Area, Liteta Chiefdom, Keembe Ward, Chibombo District, Central Province, Zambia') ?></span>
       </a>
       <div class="nuf-topbar-div d-none d-sm-block"></div>
       <a href="#">
@@ -692,11 +696,11 @@ function googleTranslateElementInit(){
     <!-- Brand -->
     <a href="<?= base_url() ?>" class="nuf-brand">
       <div class="nuf-brand-logo">
-        <img src="<?= base_url($this->Model->get_setting('site_logo','logo.png')) ?>"
+        <img src="<?= base_url($this->Model->get_setting('site_logo','attachments/Parametres/african-green-farmers-logo.jpg')) ?>"
              alt="A.G.F" onerror="this.src='<?= base_url('assets/images/logo.png') ?>'">
       </div>
       <div class="nuf-brand-text">
-        <h1><?= $this->Model->get_setting('site_name','African Green Farmers') ?></h1>
+        <h1><?= $this->Model->get_setting('site_name','African Green Farmers Limited') ?></h1>
         <span><?= $this->Model->get_setting('span_site_name','Agro-Industrial') ?></span>
       </div>
     </a>
@@ -720,7 +724,7 @@ function googleTranslateElementInit(){
       </button>
 
       <!-- Account -->
-      <a href="<?= $logged_in ? base_url('Dashboard') : base_url('auth') ?>"
+      <a href="<?= $logged_in ? base_url('Dashboard') : base_url('Admin') ?>"
          class="nuf-action-btn d-none d-lg-flex"
          title="<?= $logged_in ? 'My Account' : 'Sign In' ?>">
         <?php if ($logged_in && !empty($user_photo) && file_exists(FCPATH.'attachments/Users/'.$user_photo)): ?>
@@ -825,7 +829,7 @@ function googleTranslateElementInit(){
 
       <li class="nuf-menu-item nuf-mega">
         <a href="#" class="nuf-menu-link">
-          About
+          About Us
           <i class="bi bi-chevron-down"></i>
         </a>
         <div class="nuf-mega-drop">
@@ -833,24 +837,16 @@ function googleTranslateElementInit(){
             <div class="nuf-mega-col">
               <h3><i class="bi bi-building"></i> A.G.F Overview</h3>
               <ul class="nuf-mega-list">
-                <li><a href="<?= base_url('profil-societe') ?>"><i class="bi bi-chevron-right"></i> Company Profile</a></li>
-                <li><a href="<?= base_url('strategie-investissement') ?>"><i class="bi bi-chevron-right"></i> Strategy &amp; Investment</a></li>
-                <li><a href="<?= base_url('impact-strategique') ?>"><i class="bi bi-chevron-right"></i> Strategic Impact</a></li>
+                <li><a href="<?= base_url('about-us') ?>"><i class="bi bi-chevron-right"></i> Company Profile</a></li>
+                <li><a href="<?= base_url('aninova-industries') ?>"><i class="bi bi-chevron-right"></i> ANINOVA INDUSTRIES</a></li>
+                <li><a href="<?= base_url('seriqa-labo') ?>"><i class="bi bi-chevron-right"></i> SERIQA LABORATORIES</a></li>
               </ul>
             </div>
             <div class="nuf-mega-col">
               <h3><i class="bi bi-leaf"></i> Products & Markets</h3>
               <ul class="nuf-mega-list">
-                <li><a href="<?= base_url('produits-innovation') ?>"><i class="bi bi-chevron-right"></i> Products &amp; Innovation</a></li>
-                <li><a href="<?= base_url('commercialisation-financement') ?>"><i class="bi bi-chevron-right"></i> Commercialization &amp; Financing</a></li>
-                <li><a href="<?= base_url('projections-financieres') ?>"><i class="bi bi-chevron-right"></i> Financial Projections</a></li>
-              </ul>
-            </div>
-            <div class="nuf-mega-col">
-              <h3><i class="bi bi-gear-wide-connected"></i> Operations</h3>
-              <ul class="nuf-mega-list">
-                <li><a href="<?= base_url('risques-viabilite') ?>"><i class="bi bi-chevron-right"></i> Risks &amp; Viability</a></li>
-                <li><a href="<?= base_url('mise-en-oeuvre') ?>"><i class="bi bi-chevron-right"></i> Implementation &amp; Approval</a></li>
+                <li><a href="<?= base_url('our-Products') ?>"><i class="bi bi-chevron-right"></i> Our Products</a></li>
+                <li><a href="<?= base_url('agriculture-bioresources') ?>"><i class="bi bi-chevron-right"></i> Agriculture & Bioresources</a></li>
               </ul>
             </div>
           </div>
@@ -865,7 +861,7 @@ function googleTranslateElementInit(){
 
       <li class="nuf-menu-item">
         <a href="<?= base_url('doctor') ?>" class="nuf-menu-link">
-          Teleconsultation
+          Advisory Service
         </a>
       </li>
 
@@ -876,21 +872,15 @@ function googleTranslateElementInit(){
         </a>
         <div class="nuf-mega-drop">
           <div class="nuf-mega-grid">
+            
             <div class="nuf-mega-col">
-              <h3><i class="bi bi-handshake"></i> Partnerships</h3>
+              <h3><i class="bi bi-graph-up-arrow"></i> Investment Opportunities</h3>
               <ul class="nuf-mega-list">
-                <li><a href="<?= base_url('investment-projection') ?>"><i class="bi bi-chevron-right"></i> Investment Projections</a></li>
-                <li><a href="<?= base_url('investor-commitment') ?>"><i class="bi bi-chevron-right"></i> Investor Commitment</a></li>
-                <li><a href="<?= base_url('strategic-partnerships') ?>"><i class="bi bi-chevron-right"></i> Strategic Partnerships</a></li>
-              </ul>
-            </div>
-            <div class="nuf-mega-col">
-              <h3><i class="bi bi-bank"></i> Relations</h3>
-              <ul class="nuf-mega-list">
-                <li><a href="<?= base_url('relations') ?>"><i class="bi bi-chevron-right"></i> Transparency &amp; Funding Structure</a></li>
-                <li><a href="<?= base_url('broker-commission') ?>"><i class="bi bi-chevron-right"></i> Broker Commission</a></li>
+                <li><a href="<?= base_url('markets-partners') ?>"><i class="bi bi-chevron-right"></i> Markets & Partners</a></li>
+                <li><a href="<?= base_url('sustainability-impact') ?>"><i class="bi bi-chevron-right"></i> Sustainability & Impact</a></li>
                 <li><a href="<?= base_url('broker') ?>"><i class="bi bi-chevron-right"></i> Become a Broker</a></li>
                 <li><a href="<?= base_url('investor') ?>"><i class="bi bi-chevron-right"></i> Become an Investor</a></li>
+                <li><a href="<?= base_url('credit-summary') ?>"><i class="bi bi-chevron-right"></i> Executive Credit Summary</a></li>
               </ul>
             </div>
           </div>
@@ -949,26 +939,28 @@ function googleTranslateElementInit(){
         <li><a href="<?= base_url() ?>" class="nuf-panel-link"><i class="bi bi-house-door"></i><span>Home</span></a></li>
         <li>
           <button class="nuf-panel-link" data-sub="mob-about">
-            <i class="bi bi-building"></i><span>About</span><i class="bi bi-chevron-right ch"></i>
+            <i class="bi bi-building"></i><span>About Us</span><i class="bi bi-chevron-right ch"></i>
           </button>
           <div class="nuf-sub" id="nuf-sub-mob-about">
-            <a href="<?= base_url('vision-mission') ?>" class="nuf-sub-item">Vision &amp; Mission</a>
-            <a href="<?= base_url('corporate-structure-governance') ?>" class="nuf-sub-item">Governance</a>
-            <a href="<?= base_url('esg_Sustainability') ?>" class="nuf-sub-item">ESG Sustainability</a>
+            <a href="<?= base_url('about-us') ?>" class="nuf-sub-item">Company Profile</a>
+            <a href="<?= base_url('aninova-industries') ?>" class="nuf-sub-item">ANINOVA INDUSTRIES</a>
+            <a href="<?= base_url('seriqa-labo') ?>" class="nuf-sub-item">SERIQA LABORATORIES</a>
+            <a href="<?= base_url('our-Products') ?>" class="nuf-sub-item">Our Products</a>
+            <a href="<?= base_url('agriculture-bioresources') ?>" class="nuf-sub-item">Agriculture &amp; Bioresources</a>
           </div>
         </li>
         <li><a href="<?= base_url('shop') ?>" class="nuf-panel-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
-        <li><a href="<?= base_url('doctor') ?>" class="nuf-panel-link"><i class="bi bi-camera-video"></i><span>Teleconsultation</span></a></li>
+        <li><a href="<?= base_url('doctor') ?>" class="nuf-panel-link"><i class="bi bi-camera-video"></i><span>Advisory Service</span></a></li>
         <li>
           <button class="nuf-panel-link" data-sub="mob-invest">
             <i class="bi bi-bar-chart-line"></i><span>Investment</span><i class="bi bi-chevron-right ch"></i>
           </button>
           <div class="nuf-sub" id="nuf-sub-mob-invest">
-            <a href="<?= base_url('investment-projection') ?>" class="nuf-sub-item">Projections</a>
-            <a href="<?= base_url('strategic-partnerships') ?>" class="nuf-sub-item">Partnerships</a>
-            <a href="<?= base_url('broker-commission') ?>" class="nuf-sub-item">Broker Commission</a>
+            <a href="<?= base_url('markets-partners') ?>" class="nuf-sub-item">Markets &amp; Partners</a>
+            <a href="<?= base_url('sustainability-impact') ?>" class="nuf-sub-item">Sustainability &amp; Impact</a>
             <a href="<?= base_url('broker') ?>" class="nuf-sub-item">Become a Broker</a>
             <a href="<?= base_url('investor') ?>" class="nuf-sub-item">Become an Investor</a>
+            <a href="<?= base_url('credit-summary') ?>" class="nuf-sub-item">Executive Credit Summary</a>
           </div>
         </li>
         <li><a href="<?= base_url('media') ?>" class="nuf-panel-link"><i class="bi bi-collection-play"></i><span>Media</span></a></li>
@@ -1034,11 +1026,11 @@ function googleTranslateElementInit(){
       <i class="bi bi-headset"></i> Contact Us
     </a>
     <?php if (!$logged_in): ?>
-      <a href="<?= base_url('auth') ?>" class="nuf-panel-btn outline">
+      <a href="<?= base_url('Admin') ?>" class="nuf-panel-btn outline">
         <i class="bi bi-box-arrow-in-right"></i> Login
       </a>
     <?php else: ?>
-      <a href="<?= base_url('auth/logout') ?>" class="nuf-panel-btn outline">
+      <a href="<?= base_url('Admin/Logout') ?>" class="nuf-panel-btn outline">
         <i class="bi bi-box-arrow-right"></i> Logout
       </a>
     <?php endif; ?>
@@ -1051,10 +1043,10 @@ function googleTranslateElementInit(){
   <ul class="nuf-bottom-list">
     <li><a href="<?= base_url() ?>" class="nuf-bottom-link"><i class="bi bi-house-door"></i><span>Home</span></a></li>
     <li><a href="<?= base_url('shop') ?>" class="nuf-bottom-link"><i class="bi bi-box-seam"></i><span>Shop</span></a></li>
-    <li><a href="<?= base_url('doctor') ?>" class="nuf-bottom-link"><i class="bi bi-camera-video"></i><span>Consult</span></a></li>
+    <li><a href="<?= base_url('doctor') ?>" class="nuf-bottom-link"><i class="bi bi-camera-video"></i><span>Advisory</span></a></li>
     <li><a href="<?= base_url('media') ?>" class="nuf-bottom-link"><i class="bi bi-collection-play"></i><span>Media</span></a></li>
     <li>
-      <a href="<?= $logged_in ? base_url('Dashboard') : base_url('auth') ?>" class="nuf-bottom-link">
+      <a href="<?= $logged_in ? base_url('Dashboard') : base_url('Admin') ?>" class="nuf-bottom-link">
         <i class="bi bi-person"></i><span><?= $logged_in ? 'Account' : 'Login' ?></span>
       </a>
     </li>
@@ -1183,6 +1175,33 @@ function googleTranslateElementInit(){
 
 
 
+
+  /* ---------------------------------------------------------------
+     MEGA MENU — aligne le panneau sous l'element survole
+     et l'empeche de deborder hors de l'ecran
+  --------------------------------------------------------------- */
+  function nufClampMega(li) {
+    var drop = li.querySelector('.nuf-mega-drop');
+    if (!drop) return;
+    drop.style.left = '0px';
+    drop.style.width = '';
+    var base = drop.offsetWidth;
+    if (!base) return;
+    var liLeft = li.getBoundingClientRect().left;
+    var avail = window.innerWidth - liLeft - 16;
+    // On resserre le panneau pour qu'il reste aligne sur l'element survole
+    var w = Math.max(320, Math.min(base, avail));
+    if (w < base) drop.style.width = Math.floor(w) + 'px';
+  }
+  document.querySelectorAll('li.nuf-mega').forEach(function (li) {
+    li.addEventListener('mouseenter', function () { nufClampMega(li); });
+    li.addEventListener('focusin',    function () { nufClampMega(li); });
+  });
+  window.addEventListener('resize', function () {
+    document.querySelectorAll('li.nuf-mega-drop').forEach(function (d) {
+      d.style.left = ''; d.style.width = '';
+    });
+  });
 
   /* ---------------------------------------------------------------
      RECHERCHE

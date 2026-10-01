@@ -1,4 +1,4 @@
-﻿<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
+<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
 
 <style>
 .ud-hero{position:relative;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;padding:140px 0 80px;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1}

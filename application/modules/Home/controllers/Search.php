@@ -58,8 +58,8 @@ class Search extends MX_Controller {
             ['title' => 'Boutique (Shop)', 'url' => '/shop', 'icon' => 'bi-box-seam', 'group' => 'Shop'],
 
             // Teleconsultation
-            ['title' => 'Téléconsultation', 'url' => '/doctor', 'icon' => 'bi-camera-video', 'group' => 'Teleconsultation'],
-            ['title' => 'Choisir un Médecin', 'url' => '/consultation', 'icon' => 'bi-person-badge', 'group' => 'Teleconsultation'],
+['title' => 'Advisory Service', 'url' => '/doctor', 'icon' => 'bi-camera-video', 'group' => 'Advisory'],
+        ['title' => 'Choose an Expert', 'url' => '/consultation', 'icon' => 'bi-person-badge', 'group' => 'Advisory'],
 
             // Investment
             ['title' => 'Projections d\'Investissement', 'url' => '/investment-projection', 'icon' => 'bi-bar-chart', 'group' => 'Investment'],

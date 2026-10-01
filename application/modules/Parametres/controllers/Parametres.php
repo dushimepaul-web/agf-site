@@ -47,7 +47,7 @@ class Parametres extends MY_Controller {
     }
 
     public function api_upload_favicon() {
-        $res = $this->_handle_upload('favicon', ['png','ico','svg'], 5 * 1024 * 1024, 'favicon_app');
+        $res = $this->_handle_upload('favicon', ['png','ico','svg','jpg','jpeg','webp'], 5 * 1024 * 1024, 'favicon_ico');
         if ($res !== true) { $this->json_error($res); return; }
         $this->json_success(['path' => $this->_upload_result['path']], 'Favicon mis à jour');
     }

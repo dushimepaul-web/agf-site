@@ -15,8 +15,8 @@
   <meta property="og:image" content="<?= base_url($this->Model->get_setting('logo_app', 'assets/img/logo.png')) ?>">
   <meta property="og:type" content="website">
 
-  <link href="<?= base_url($this->Model->get_setting('favicon_app', 'assets/img/favicon.png')) ?>" rel="icon">
-  <link href="<?= base_url($this->Model->get_setting('logo_app', 'assets/img/apple-touch-icon.png')) ?>" rel="apple-touch-icon">
+  <link href="<?= base_url($this->Model->get_setting('favicon_ico', 'attachments/Parametres/african-green-farmers-logo.jpg')) ?>" rel="icon" type="image/jpeg">
+  <link href="<?= base_url($this->Model->get_setting('logo_app', 'attachments/Parametres/african-green-farmers-logo.jpg')) ?>" rel="apple-touch-icon" type="image/jpeg">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 

@@ -1,4 +1,4 @@
-﻿<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
+<?php include VIEWPATH.'includes/frontend/Header.php'; ?>
 
 <style>
 /* ================================================================

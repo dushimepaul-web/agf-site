@@ -2,7 +2,7 @@
 
 <style>
 /* ================================================================
-   AGF — ITN EXACT DESIGN (agf- prefix, no conflicts)
+   AGF - ITN EXACT DESIGN (agf- prefix, no conflicts)
    All CSS matches ITN style.css 1:1
 ============================================================ */
 .agf-main {
@@ -24,7 +24,7 @@
 .agf-main li { list-style: none; }
 .agf-main img { max-width: 100%; height: auto; transition: all 0.3s ease-out 0s; }
 
-/* === HERO — matches ITN exactly === */
+/* === HERO - matches ITN exactly === */
 .agf-hero-sec { position: relative; }
 .agf-hero-single {
   padding-top: 100px;
@@ -66,7 +66,7 @@
 }
 .agf-hero-btns { gap: 1rem; display: flex; margin-top: 35px; justify-content: start; }
 
-/* === BUTTONS — matches ITN exactly === */
+/* === BUTTONS - matches ITN exactly === */
 .agf-btn {
   font-size: 14px;
   color: #fff !important;
@@ -108,7 +108,7 @@
 .agf-btn2::before { background: #116E63; }
 .agf-btn2:hover { color: #fff !important; }
 
-/* === FEATURE AREA — matches ITN exactly === */
+/* === FEATURE AREA - matches ITN exactly === */
 .agf-feat-area { position: relative; z-index: 1; }
 .agf-feat-neg { margin-top: -150px; margin-right: 20px; }
 .agf-feat-wrapper { /* ITN has feature-wrapper but no specific CSS for it */ }
@@ -174,7 +174,7 @@
 .agf-sh h2 span { color: #dcbb07 !important; }
 .agf-sh p { margin-top: 15px; }
 
-/* === ABOUT — matches ITN exactly === */
+/* === ABOUT - matches ITN exactly === */
 .agf-about { position: relative; }
 .agf-about-left { margin-right: 20px; }
 .agf-about-img { display: flex; gap: 30px; position: relative; }
@@ -297,9 +297,9 @@
 .agf-cbox:hover .agf-cbox-icon::before { left: 0; top: 0; }
 .agf-cbox-num {
   display: block;
-  line-height: 1;
+  line-height: 1.1;
   color: #fff;
-  font-size: 50px;
+  font-size: clamp(26px, 3.2vw, 50px);
   font-weight: 600;
 }
 .agf-cbox-title {
@@ -369,7 +369,7 @@
 }
 .agf-readmore:hover { color: #fff; background: #116E63; }
 
-/* === PRODUCT CARD — E-COMMERCE PROFESSIONAL === */
+/* === PRODUCT CARD - E-COMMERCE PROFESSIONAL === */
 .agf-course { position: relative; }
 .agf-course-bg { background: #F2F3F5; }
 .agf-pcard {
@@ -666,10 +666,10 @@
   text-align: center;
 }
 .agf-choose-stat-num {
-  font-size: 36px;
+  font-size: clamp(20px, 2.4vw, 36px);
   font-weight: 800;
   color: #dcbb07;
-  line-height: 1;
+  line-height: 1.1;
 }
 .agf-choose-stat-label {
   font-size: 13px;
@@ -725,7 +725,7 @@
 
 <main class="agf-main">
 
-<!-- ========== HERO — EXACT ITN STRUCTURE ========== -->
+<!-- ========== HERO - EXACT ITN STRUCTURE ========== -->
 <div class="agf-hero-sec">
   <div class="agf-hero-single" style="background: url('<?= base_url('attachments/Parametres/slide_helo.jpg') ?>')">
     <div class="container">
@@ -733,9 +733,9 @@
         <div class="col-md-12 col-lg-8 mx-auto">
           <div class="agf-hero-content text-center">
             <h1 class="agf-hero-title">African Green <span>Farmers</span></h1>
-            <p>Building an integrated agro-industrial platform: regenerative agriculture, industrial manufacturing, scientific laboratories and distribution — for a sustainable, resilient and export-oriented organic food and biological system.</p>
+            <p>African Green Farmers Limited is a Zambian agro-industrial and advanced biomanufacturing enterprise seeking USD 63,209,692 in Senior Secured Development Financing to establish ANINOVA INDUSTRIES as its core industrial manufacturing operation, supported by agricultural, biological, scientific, utility, digital and commercialization infrastructure.</p>
             <div class="agf-hero-btns justify-content-center">
-              <a href="<?= base_url('doctor') ?>" class="agf-btn">Get Consulted<i class="fas fa-arrow-right-long"></i></a>
+              <a href="<?= base_url('doctor') ?>" class="agf-btn">Learn More<i class="fas fa-arrow-right-long"></i></a>
               <a href="<?= base_url('shop') ?>" class="agf-btn agf-btn2">Our Products<i class="fas fa-arrow-right-long"></i></a>
             </div>
           </div>
@@ -745,7 +745,7 @@
   </div>
 </div>
 
-<!-- ========== FEATURES — EXACT ITN STRUCTURE ========== -->
+<!-- ========== FEATURES - EXACT ITN STRUCTURE ========== -->
 <div class="agf-feat-area agf-feat-neg">
   <div class="col-xl-9 ms-auto">
     <div class="agf-feat-wrapper">
@@ -794,7 +794,7 @@
   </div>
 </div>
 
-<!-- ========== ABOUT — EXACT ITN STRUCTURE ========== -->
+<!-- ========== ABOUT - EXACT ITN STRUCTURE ========== -->
 <div class="agf-about py-120 p-4 mb-5">
   <div class="container">
     <div class="row g-4 align-items-center">
@@ -815,22 +815,22 @@
           <div class="agf-sh mb-3">
             <h2>Hands-On <span>Innovation</span>, Real-World <span>Impact</span>.</h2>
           </div>
-          <p>African Green Farmers Limited (A.G.F Limited) is a privately-owned Zambian agro-industrial investment company developing a circular bio-economy enterprise powered by ACIDS (Advanced Computational Intelligence & Decision Sciences), focused on high-value organic food, nutritional and agricultural solutions.</p>
+          <p>Incorporated on 12 March 2025, the Company holds ZDA Investment Licence No. ZDA/59004/10/2025, five-year Ministry of Finance investment incentives under Ref. No. ZDA/DG/DUTY dated 22 January 2026, and 97 ha of secured agricultural land in Chibombo District. Its confirmed foundation includes an operational AFOOPROF pilot food-processing unit, 12 developed flagship products, five ZBS-certified products within applicable scope, defined ANINOVA INDUSTRIES manufacturing architecture and documented commercial arrangements.</p>
           <div class="agf-about-content">
             <div class="row">
               <div class="col-md-12">
                 <div class="agf-about-item">
                   <div class="agf-about-item-icon"><i class="fas fa-seedling"></i></div>
                   <div class="agf-about-item-content">
-                    <h5>Regenerative Agriculture</h5>
-                    <p>Our platform combines organic agricultural production with industrial manufacturing for sustainable solutions.</p>
+                    <h5>Secured Feedstock Base</h5>
+                    <p>97 ha of agricultural land secured in Chibombo District, with phased expansion toward 2,000+ ha and a planned 5,000+ farmer contract-farming network.</p>
                   </div>
                 </div>
                 <div class="agf-about-item">
                   <div class="agf-about-item-icon"><i class="bi bi-globe-americas"></i></div>
                   <div class="agf-about-item-content">
-                    <h5>Global Standards, Local Impact</h5>
-                    <p>We connect international standards with local relevance, empowering solutions for Africa and beyond.</p>
+                    <h5>Export-Oriented Commercialization</h5>
+                    <p>Documented off-take and distribution arrangements enabling commercialization across the United States of America, Canada and Europe.</p>
                   </div>
                 </div>
               </div>
@@ -841,8 +841,8 @@
             <div class="agf-phone">
               <div class="agf-phone-icon"><i class="fas fa-headset"></i></div>
               <div class="agf-phone-num">
-                <span>Call Now</span>
-                <h6><a href="tel:+26768546053"> (+267) 68 54 60 53</a></h6>
+                <span>Official Mobile</span>
+                <h6><a href="tel:<?= preg_replace('/[^0-9+]/', '', htmlspecialchars($site_phone)) ?>"><?= htmlspecialchars($site_phone) ?></a></h6>
               </div>
             </div>
           </div>
@@ -852,7 +852,7 @@
   </div>
 </div>
 
-<!-- ========== COUNTER — EXACT ITN STRUCTURE ========== -->
+<!-- ========== COUNTER - EXACT ITN STRUCTURE ========== -->
 <div class="agf-counter pt-60 pb-60 p-4  mb-2">
   <div class="container">
     <div class="row">
@@ -861,7 +861,7 @@
           <div class="agf-cbox-icon"><i class="bi bi-cash-stack"></i></div>
           <div>
             <span class="agf-cbox-num"><?= htmlspecialchars($stats_investissement) ?></span>
-            <h6 class="agf-cbox-title">Investment Sought</h6>
+            <h6 class="agf-cbox-title">Senior Secured Facility</h6>
           </div>
         </div>
       </div>
@@ -870,7 +870,7 @@
           <div class="agf-cbox-icon"><i class="bi bi-geo-alt"></i></div>
           <div>
             <span class="agf-cbox-num"><?= htmlspecialchars($stats_superficie) ?></span>
-            <h6 class="agf-cbox-title">Integrated Farm Platform</h6>
+            <h6 class="agf-cbox-title">Secured Agricultural Land</h6>
           </div>
         </div>
       </div>
@@ -888,7 +888,7 @@
           <div class="agf-cbox-icon"><i class="bi bi-graph-up-arrow"></i></div>
           <div>
             <span class="agf-cbox-num"><?= htmlspecialchars($stats_irr) ?></span>
-            <h6 class="agf-cbox-title">IRR</h6>
+            <h6 class="agf-cbox-title">Projected IRR</h6>
           </div>
         </div>
       </div>
@@ -903,7 +903,7 @@
       <div class="col-lg-6 mx-auto">
         <div class="agf-sh text-center">
           <h2>Our Strategic <span>Units</span></h2>
-          <p>Five business units, one integrated ecosystem driving sustainable agro-industrial development.</p>
+          <p><?= count($unites) ?> business units, one integrated ecosystem driving sustainable agro-industrial development.</p>
         </div>
       </div>
     </div>
@@ -935,7 +935,7 @@
       <div class="col-lg-6 mx-auto">
         <div class="agf-sh text-center">
           <h2>Our Flagship <span>Products</span></h2>
-          <p><?= count($produits) ?> flagship products, from wellness to organic fertilization.</p>
+          <p><?= (int) $total_produits ?> flagship products, from wellness to organic fertilization.</p>
         </div>
       </div>
     </div>
@@ -982,7 +982,7 @@
       <div class="col-lg-12">
         <div class="agf-sh mb-0 mt-0 text-center">
           <h2 class="text-white" style="color:#fff !important;">Join a unique agro-industrial <span>investment opportunity</span>.</h2>
-          <p style="color:rgba(255,255,255,.85) !important;">USD 63.2 million sought to scale the AFOOPROC pilot platform into a full-scale manufacturing industry — positive NPV, 15.78% IRR, 5-year grace period.</p>
+          <p style="color:rgba(255,255,255,.85) !important;">USD 63,209,692 Senior Secured Development Facility for the controlled industrialization of ANINOVA INDUSTRIES: 10-year tenor, 5-year principal grace period, quarterly amortization during Years 6-10, at a proposed 8.0% p.a. subject to lender approval.</p>
         </div>
         <div class="agf-choose-wrap">
           <div class="row g-4">
@@ -990,8 +990,8 @@
               <div class="agf-citem">
                 <div class="agf-citem-icon"><i class="fas fa-chart-line"></i></div>
                 <div class="agf-citem-info">
-                  <h4>Positive NPV</h4>
-                  <p>Net present value confirmed</p>
+                  <h4>USD 30.65M NPV</h4>
+                  <p>Projected net present value</p>
                 </div>
               </div>
             </div>
@@ -1000,7 +1000,7 @@
                 <div class="agf-citem-icon"><i class="fas fa-percentage"></i></div>
                 <div class="agf-citem-info">
                   <h4>15.78% IRR</h4>
-                  <p>Internal rate of return</p>
+                  <p>Projected internal rate of return</p>
                 </div>
               </div>
             </div>
@@ -1008,8 +1008,8 @@
               <div class="agf-citem">
                 <div class="agf-citem-icon"><i class="fas fa-calendar-alt"></i></div>
                 <div class="agf-citem-info">
-                  <h4>5-Year Grace</h4>
-                  <p>Grace period included</p>
+                  <h4>10-Year Tenor</h4>
+                  <p>5-year principal grace period</p>
                 </div>
               </div>
             </div>
@@ -1017,8 +1017,8 @@
               <div class="agf-citem">
                 <div class="agf-citem-icon"><i class="fas fa-handshake"></i></div>
                 <div class="agf-citem-info">
-                  <h4>Become a Broker</h4>
-                  <p>Earn commission on referrals</p>
+                  <h4>Year 9 Payback</h4>
+                  <p>Discounted payback period</p>
                 </div>
               </div>
             </div>
@@ -1026,24 +1026,25 @@
         </div>
         <div class="agf-choose-stats">
           <div class="agf-choose-stat col-lg-3 col-sm-6">
-            <div class="agf-choose-stat-num">$63.2M</div>
-            <div class="agf-choose-stat-label">Investment Sought</div>
+            <div class="agf-choose-stat-num">USD 63,209,692</div>
+            <div class="agf-choose-stat-label">Senior Secured Facility</div>
           </div>
           <div class="agf-choose-stat col-lg-3 col-sm-6">
             <div class="agf-choose-stat-num">2,000+</div>
-            <div class="agf-choose-stat-label">Hectares Platform</div>
+            <div class="agf-choose-stat-label">Hectares Planned</div>
           </div>
           <div class="agf-choose-stat col-lg-3 col-sm-6">
-            <div class="agf-choose-stat-num">11</div>
+            <div class="agf-choose-stat-num"><?= (int) $total_produits ?></div>
             <div class="agf-choose-stat-label">Flagship Products</div>
           </div>
           <div class="agf-choose-stat col-lg-3 col-sm-6">
-            <div class="agf-choose-stat-num">5</div>
+            <div class="agf-choose-stat-num"><?= count($unites) ?></div>
             <div class="agf-choose-stat-label">Strategic Units</div>
           </div>
         </div>
         <div class="agf-hero-btns mt-4 justify-content-center">
-          <a href="<?= base_url('investment-projection') ?>" class="agf-btn">Investment Opportunity<i class="fas fa-arrow-right-long"></i></a>
+          <a href="<?= base_url('investor') ?>" class="agf-btn">Become an Investor<i class="fas fa-arrow-right-long"></i></a>
+          <a href="<?= base_url('markets-partners') ?>" class="agf-btn agf-btn2">Markets &amp; Partners<i class="fas fa-arrow-right-long"></i></a>
           <a href="<?= base_url('broker') ?>" class="agf-btn agf-btn2">Become a Broker<i class="fas fa-arrow-right-long"></i></a>
         </div>
       </div>
@@ -1068,33 +1069,35 @@
     <div class="agf-partners-fade-left"></div>
     <div class="agf-partners-fade-right"></div>
     <div class="agf-partners-track" id="partnersTrack">
+      <?php $pTypeLabels = ['scientifique' => 'Scientific', 'financier' => 'Financial', 'regulateur' => 'Regulatory', 'fournisseur' => 'Supplier', 'institutionnel' => 'Institutional', 'client_export' => 'Export Client', 'outgrower' => 'Outgrower']; ?>
       <?php foreach ($partenaires as $partner): ?>
         <?php if (!empty($partner['logo_url'])): ?>
         <div class="agf-partner-card">
           <img class="agf-partner-logo" src="<?= base_url($partner['logo_url']) ?>" alt="<?= htmlspecialchars($partner['nom']) ?>">
           <div class="agf-partner-name"><?= htmlspecialchars($partner['nom']) ?></div>
-          <div class="agf-partner-type"><?= htmlspecialchars($partner['type_partenaire']) ?></div>
+          <div class="agf-partner-type"><?= htmlspecialchars($pTypeLabels[$partner['type_partenaire']] ?? $partner['type_partenaire']) ?></div>
         </div>
         <?php else: ?>
         <div class="agf-partner-card">
           <div class="agf-partner-logo" style="display:flex;align-items:center;justify-content:center;background:#116E63;border-radius:8px;color:#fff;font-weight:700;font-size:20px;"><?= strtoupper(substr($partner['nom'], 0, 2)) ?></div>
           <div class="agf-partner-name"><?= htmlspecialchars($partner['nom']) ?></div>
-          <div class="agf-partner-type"><?= htmlspecialchars($partner['type_partenaire']) ?></div>
+          <div class="agf-partner-type"><?= htmlspecialchars($pTypeLabels[$partner['type_partenaire']] ?? $partner['type_partenaire']) ?></div>
         </div>
         <?php endif; ?>
       <?php endforeach; ?>
+      <?php $pTypeLabels = ['scientifique' => 'Scientific', 'financier' => 'Financial', 'regulateur' => 'Regulatory', 'fournisseur' => 'Supplier', 'institutionnel' => 'Institutional', 'client_export' => 'Export Client', 'outgrower' => 'Outgrower']; ?>
       <?php foreach ($partenaires as $partner): ?>
         <?php if (!empty($partner['logo_url'])): ?>
         <div class="agf-partner-card">
           <img class="agf-partner-logo" src="<?= base_url($partner['logo_url']) ?>" alt="<?= htmlspecialchars($partner['nom']) ?>">
           <div class="agf-partner-name"><?= htmlspecialchars($partner['nom']) ?></div>
-          <div class="agf-partner-type"><?= htmlspecialchars($partner['type_partenaire']) ?></div>
+          <div class="agf-partner-type"><?= htmlspecialchars($pTypeLabels[$partner['type_partenaire']] ?? $partner['type_partenaire']) ?></div>
         </div>
         <?php else: ?>
         <div class="agf-partner-card">
           <div class="agf-partner-logo" style="display:flex;align-items:center;justify-content:center;background:#116E63;border-radius:8px;color:#fff;font-weight:700;font-size:20px;"><?= strtoupper(substr($partner['nom'], 0, 2)) ?></div>
           <div class="agf-partner-name"><?= htmlspecialchars($partner['nom']) ?></div>
-          <div class="agf-partner-type"><?= htmlspecialchars($partner['type_partenaire']) ?></div>
+          <div class="agf-partner-type"><?= htmlspecialchars($pTypeLabels[$partner['type_partenaire']] ?? $partner['type_partenaire']) ?></div>
         </div>
         <?php endif; ?>
       <?php endforeach; ?>

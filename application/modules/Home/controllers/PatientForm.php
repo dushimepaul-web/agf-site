@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Controller PatientForm
- * Handles the online consultation form with custom file upload.
+ * Handles the online advisory form with custom file upload.
  */
 class PatientForm extends MX_Controller {
 
@@ -51,7 +51,7 @@ class PatientForm extends MX_Controller {
         $user_id = $this->session->userdata('user_id');
         $user = $user_id ? $this->getCurrentUser() : null;
 
-        // Récupérer l'UUID du médecin depuis GET ou POST
+        // Récupérer l'UUID de l'expert depuis GET ou POST
         $doctor_uuid = $this->input->get('doctor_uuid') ?: $this->input->post('selected_doctor_uuid');
         $medecin = null;
 
@@ -67,7 +67,7 @@ class PatientForm extends MX_Controller {
             if ($doctor_data && $doctor_data['expires_at'] >= time()) {
                 $medecin = $this->Model->getDoctorByUUID($doctor_data['uuid']);
             }
-            // Si pas de médecin en session, prendre le premier disponible
+            // Si pas d'expert en session, prendre le premier disponible
             if (!$medecin) {
                 $disponibles = $this->Model->get_medecins_disponibles(1);
                 if (!empty($disponibles)) {
@@ -75,7 +75,7 @@ class PatientForm extends MX_Controller {
                 }
             }
             if (!$medecin) {
-                $this->session->set_flashdata('error', 'Aucun médecin disponible pour le moment.');
+                $this->session->set_flashdata('error', 'No expert available at the moment.');
                 redirect('doctor');
                 return;
             }
@@ -87,7 +87,7 @@ class PatientForm extends MX_Controller {
         $prix_burundi = $medecin['prix_pour_residant_burundi'] ?? null;
 
         $data = [
-            'title'          => 'Nouvelle consultation - A.G.F',
+            'title'          => 'New Advisory Request - A.G.F',
             'pays'           => $this->Model->read('pays', null, 'pays', 'ASC'),
             'products'       => $this->Model->read('produits', null, 'id', 'DESC'),
             'mode_payements' => $this->Model->getActivePaymentMethods(),
@@ -151,7 +151,7 @@ class PatientForm extends MX_Controller {
             $this->session->unset_userdata($key);
         }
         $this->cleanTempFiles();
-        log_message('info', 'Patient data cleared due to doctor change');
+            log_message('info', 'Patient data cleared due to expert change');
     }
 
     private function cleanTempFiles()
@@ -186,9 +186,9 @@ class PatientForm extends MX_Controller {
         $this->form_validation->set_rules('weight', 'Poids', 'required|numeric|greater_than[0]|less_than[300]');
         $this->form_validation->set_rules('height', 'Taille', 'required|integer|greater_than[50]|less_than[251]');
         $this->form_validation->set_rules('whatsapppatient', 'Numéro WhatsApp', 'required|trim|max_length[20]');
-        $this->form_validation->set_rules('symptoms', 'Symptômes', 'required|trim|min_length[20]|max_length[5000]');
-        $this->form_validation->set_rules('symptoms_duration', 'Durée des symptômes', 'trim');
-        $this->form_validation->set_rules('previous_consultation', 'Consultation précédente', 'trim|in_list[yes,no]');
+        $this->form_validation->set_rules('symptoms', 'Condition', 'required|trim|min_length[20]|max_length[5000]');
+        $this->form_validation->set_rules('symptoms_duration', 'Duration of condition', 'trim');
+        $this->form_validation->set_rules('previous_consultation', 'First visit', 'trim|in_list[yes,no]');
         $this->form_validation->set_rules('terms', 'Conditions générales', 'required');
         $this->form_validation->set_rules('payment_method', 'Mode de paiement', 'required|trim|max_length[100]');
 
@@ -206,14 +206,14 @@ class PatientForm extends MX_Controller {
         if ($doctor_uuid) {
             $medecin = $this->Model->getDoctorByUUID($doctor_uuid);
             if (!$medecin) {
-                $this->session->set_flashdata('error', 'Le médecin sélectionné n\'est plus disponible.');
+                $this->session->set_flashdata('error', 'The selected expert is no longer available.');
                 redirect('doctor');
             }
             $doctor_id = $medecin['id'];
         }
 
-        // Sécurité : medecin_id est NOT NULL en base. Si aucun médecin n'est fourni,
-        // on attribue automatiquement le premier médecin disponible.
+        // Sécurité : medecin_id est NOT NULL en base. Si aucun expert n'est fourni,
+            // on attribue automatiquement le premier expert disponible.
         if (empty($doctor_id)) {
             $medecins_disponibles = $this->Model->get_medecins_disponibles(1);
             if (!empty($medecins_disponibles)) {
@@ -311,7 +311,7 @@ class PatientForm extends MX_Controller {
         if (!$insert_id) {
             $all_files = array_merge($medical_docs, $prescriptions);
             $this->_cleanup_files($all_files);
-            $this->session->set_flashdata('error', 'Erreur lors de l\'enregistrement de la consultation.');
+            $this->session->set_flashdata('error', 'Erreur lors de l\'enregistrement de la demande de advisory service.');
             redirect('patient-form');
         }
 
@@ -340,7 +340,7 @@ class PatientForm extends MX_Controller {
             'prescriptions'       => $prescriptions
         ];
         
-        $this->session->set_flashdata('success', 'Votre demande de consultation a été créée avec succès.');
+            $this->session->set_flashdata('success', 'Votre demande de advisory service a été créée avec succès.');
         $this->session->set_flashdata('tracking_number', $numero_consultation);
         
         // Sauvegarde OK → ouverture WhatsApp avec message préconfiguré
@@ -368,7 +368,7 @@ class PatientForm extends MX_Controller {
         $this->form_validation->set_rules('weight', 'Poids', 'required|numeric|greater_than[0]|less_than[300]');
         $this->form_validation->set_rules('height', 'Taille', 'required|integer|greater_than[50]|less_than[251]');
         $this->form_validation->set_rules('whatsapppatient', 'WhatsApp', 'required|trim|max_length[20]');
-        $this->form_validation->set_rules('symptoms', 'Symptomes', 'required|trim|min_length[20]|max_length[5000]');
+        $this->form_validation->set_rules('symptoms', 'Condition', 'required|trim|min_length[20]|max_length[5000]');
         $this->form_validation->set_rules('payment_method', 'Mode de paiement', 'required|trim|max_length[100]');
 
         if ($this->form_validation->run() === FALSE) {
@@ -512,10 +512,10 @@ class PatientForm extends MX_Controller {
         $m .= "Age : " . $this->input->post('age', TRUE) . " ans\n";
         $m .= "Pays : " . $this->input->post('country', TRUE) . "\n";
         $m .= "Poids : " . $this->input->post('weight', TRUE) . " kg | Taille : " . $this->input->post('height', TRUE) . " cm\n\n";
-        $m .= "Symptomes : " . $this->input->post('symptoms', TRUE) . "\n\n";
+        $m .= "Condition : " . $this->input->post('symptoms', TRUE) . "\n\n";
         $dur = $this->input->post('symptoms_duration', TRUE);
-        if ($dur) $m .= "Duree des symptomes : " . $dur . "\n";
-        $m .= "*Frais de consultation*\n";
+        if ($dur) $m .= "Duration of condition : " . $dur . "\n";
+        $m .= "*Service Fee*\n";
         $m .= "Residant du Burundi : " . ($prix_burundi ?: '-') . "\n";
         $m .= "Residant a l'etranger : " . $montant . " " . $devise_medecin . ($equiv_bif ? " (Equivalence BIF : " . $equiv_bif . ")" : "") . "\n";
 
@@ -596,7 +596,7 @@ class PatientForm extends MX_Controller {
             return;
         }
 
-        // Nom du médecin (tolérant aux données incomplètes)
+        // Nom de l'expert (tolérant aux données incomplètes)
         $doctor_name = 'À attribuer';
         if ($medecin) {
             $doctor_prenom = trim(preg_replace('/^[.\s]+$/', '', (string)($medecin['prenom'] ?? '')));
@@ -635,11 +635,11 @@ class PatientForm extends MX_Controller {
         $message .= "• Âge : " . $this->input->post('age', TRUE) . " ans\n";
         $message .= "• Pays : " . $this->input->post('country', TRUE) . "\n";
         $message .= "• Poids : " . $this->input->post('weight', TRUE) . " kg | Taille : " . $this->input->post('height', TRUE) . " cm\n\n";
-        $message .= "• Symptômes : " . $this->input->post('symptoms', TRUE) . "\n\n";
+        $message .= "• Condition : " . $this->input->post('symptoms', TRUE) . "\n\n";
         if (!empty($this->input->post('symptoms_duration', TRUE))) {
-            $message .= "• Durée des symptômes : " . $this->input->post('symptoms_duration', TRUE) . "\n";
+            $message .= "• Duration of condition : " . $this->input->post('symptoms_duration', TRUE) . "\n";
         }
-        $message .= "*Frais de consultation*\n";
+        $message .= "*Service Fee*\n";
         $message .= "• Résidant du Burundi : " . ($prix_burundi ?: '—') . "\n";
         $message .= "• Résidant à l'étranger : " . $montant . " " . $devise_medecin . ($equiv_bif ? " (Équivalent en BIF : " . $equiv_bif . ")" : "") . "\n";
         $message .= "\n";
@@ -774,7 +774,7 @@ class PatientForm extends MX_Controller {
 
     public function Medicin()
     {    
-        // Si un seul médecin actif existe, rediriger directement vers le formulaire
+        // Si un seul expert actif existe, rediriger directement vers le formulaire
         $this->db->from('medecins');
         $this->db->join('users', 'users.id = medecins.user_id');
         $this->db->where('users.is_active', 1);
@@ -863,7 +863,7 @@ class PatientForm extends MX_Controller {
     }
 
     /**
-     * Envoyer les emails de confirmation de consultation avec cPanel_email_lib
+     * Envoyer les emails de confirmation de advisory service avec cPanel_email_lib
      */
     private function _send_consultation_emails($data)
     {    
@@ -879,7 +879,7 @@ class PatientForm extends MX_Controller {
             $this->db->where('id', $data['patient_id']);
             $patient = $this->db->get('users')->row_array();
 
-            // Récupérer les informations du médecin
+            // Récupérer les informations de l'expert
             $doctor = null;
             if (!empty($data['doctor_id'])) {
                 $this->db->select('medecins.*, users.email, users.nom, users.prenom');
@@ -904,7 +904,7 @@ class PatientForm extends MX_Controller {
 
             // Email au patient
             if ($patient && !empty($patient['email'])) {
-                $subject = 'Confirmation de votre demande de consultation - N°' . $data['numero_consultation'];
+                $subject = 'Confirmation de votre demande de advisory service - N°' . $data['numero_consultation'];
                 $message = $this->_build_patient_email_cpanel($message_data);
                 $result = $this->cpanel_email_lib->send_email($patient['email'], $subject, $message);
                 if (!$result['success']) {
@@ -912,20 +912,20 @@ class PatientForm extends MX_Controller {
                 }
             }
 
-            // Email au médecin
+            // Email à l'expert
             if ($doctor && !empty($doctor['email'])) {
-                $subject = 'Nouvelle demande de consultation - N°' . $data['numero_consultation'];
+                $subject = 'Nouvelle demande de advisory service - N°' . $data['numero_consultation'];
                 $message = $this->_build_doctor_email_cpanel($message_data);
                 $result = $this->cpanel_email_lib->send_email($doctor['email'], $subject, $message);
                 if (!$result['success']) {
-                    log_message('error', 'cPanel Email - Échec envoi au médecin: ' . json_encode($result));
+                    log_message('error', 'cPanel Email - Échec envoi à l\'expert: ' . json_encode($result));
                 }
             }
 
             // Email à l'admin
             $admin_email = $this->Model->get_setting('admin_email', 'admin@agf.com');
             if (!empty($admin_email)) {
-                $subject = 'Nouvelle consultation créée - N°' . $data['numero_consultation'];
+                $subject = 'Nouvelle advisory service créée - N°' . $data['numero_consultation'];
                 $message = $this->_build_admin_email_cpanel($message_data);
                 $result = $this->cpanel_email_lib->send_email($admin_email, $subject, $message);
                 if (!$result['success']) {
@@ -962,7 +962,7 @@ class PatientForm extends MX_Controller {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Confirmation consultation - A.G.F</title>
+            <title>Confirmation advisory service - A.G.F</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body {
@@ -1011,15 +1011,15 @@ class PatientForm extends MX_Controller {
                 </div>
                 <div class="content">
                     <div class="success-icon"><span>📋</span></div>
-                    <div class="title">Votre demande de consultation a été enregistrée</div>
+                    <div class="title">Votre demande de advisory service a été enregistrée</div>
                     <div class="info-box">
                         <div class="info-row"><span class="info-label">Numéro de suivi</span><span class="info-value">' . htmlspecialchars($data['numero_consultation']) . '</span></div>
-                        <div class="info-row"><span class="info-label">Médecin</span><span class="info-value">Dr. ' . $doctor_name . '</span></div>
+                        <div class="info-row"><span class="info-label">Expert</span><span class="info-value">Dr. ' . $doctor_name . '</span></div>
                         <div class="info-row"><span class="info-label">Date demandée</span><span class="info-value">' . $appointment_date . '</span></div>
                         <div class="info-row"><span class="info-label">Montant</span><span class="info-value">' . $data['consultation_prix'] . ' ' . $data['consultation_devise'] . '</span></div>
                         <div class="info-row"><span class="info-label">Statut</span><span class="info-value">En attente de confirmation</span></div>
                     </div>
-                    <div style="text-align: center;"><a href="' . $whatsapp_url . '" class="btn">Suivre ma consultation sur WhatsApp</a></div>
+                    <div style="text-align: center;"><a href="' . $whatsapp_url . '" class="btn">Suivre ma demande sur WhatsApp</a></div>
                 </div>
                 <div class="footer">
                     <div class="footer-text">© ' . date('Y') . ' ' . htmlspecialchars($site_name) . ' - Tous droits réservés</div>
@@ -1030,7 +1030,7 @@ class PatientForm extends MX_Controller {
     }
 
     /**
-     * Email médecin version cPanel
+     * Email expert version cPanel
      */
     private function _build_doctor_email_cpanel($data)
     {
@@ -1042,10 +1042,10 @@ class PatientForm extends MX_Controller {
         
         $attachments_list = '';
         if (!empty($data['medical_docs'])) {
-            $attachments_list .= '<li>Documents médicaux: ' . count($data['medical_docs']) . ' fichier(s)</li>';
+            $attachments_list .= '<li>Supporting documents: ' . count($data['medical_docs']) . ' file(s)</li>';
         }
         if (!empty($data['prescriptions'])) {
-            $attachments_list .= '<li>Ordonnances: ' . count($data['prescriptions']) . ' fichier(s)</li>';
+            $attachments_list .= '<li>Medical documents: ' . count($data['prescriptions']) . ' file(s)</li>';
         }
         
         return '
@@ -1054,7 +1054,7 @@ class PatientForm extends MX_Controller {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Nouvelle consultation - A.G.F</title>
+             <title>Nouvelle advisory request - A.G.F</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
@@ -1074,7 +1074,7 @@ class PatientForm extends MX_Controller {
             <div class="container">
                 <div class="header">
                     ' . (!empty($logo_url) ? '<img src="' . $logo_url . '" alt="' . htmlspecialchars($site_name) . '" class="header-logo">' : '') . '
-                    <h1>🩺 Nouvelle consultation</h1>
+                    <h1>🩺 Nouvelle advisory request</h1>
                 </div>
                 <div class="content">
                     <div class="title">Vous avez reçu une nouvelle demande</div>
@@ -1086,7 +1086,7 @@ class PatientForm extends MX_Controller {
                         <div class="info-row"><strong>Numéro de suivi:</strong> <span>' . $data['numero_consultation'] . '</span></div>
                         <div class="info-row"><strong>Honoraires:</strong> <span>' . $data['consultation_prix'] . ' ' . $data['consultation_devise'] . '</span></div>
                     </div>
-                    <div style="margin: 20px 0;"><strong>Symptômes:</strong><p style="margin-top: 5px;">' . nl2br(htmlspecialchars($data['symptoms'])) . '</p></div>
+                    <div style="margin: 20px 0;"><strong>Condition:</strong><p style="margin-top: 5px;">' . nl2br(htmlspecialchars($data['symptoms'])) . '</p></div>
                     <div style="text-align: center;"><a href="' . base_url('Dashboard/doctor_dashboard') . '" class="btn">Voir dans le tableau de bord</a></div>
                 </div>
                 <div class="footer"><div class="footer-text">© ' . date('Y') . ' ' . htmlspecialchars($site_name) . '</div></div>
@@ -1110,7 +1110,7 @@ class PatientForm extends MX_Controller {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Nouvelle consultation - Admin</title>
+             <title>Nouvelle advisory request - Admin</title>
             <style>
                 body { font-family: Arial, sans-serif; background: #f4f6f9; padding: 20px; }
                 .container { max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; }
@@ -1122,7 +1122,7 @@ class PatientForm extends MX_Controller {
         </head>
         <body>
             <div class="container">
-                <div class="header"><h2>📋 Nouvelle consultation créée</h2></div>
+                <div class="header"><h2>📋 Nouvelle advisory request créée</h2></div>
                 <div class="content">
                     <div class="info-box">
                         <p><strong>Numéro:</strong> ' . $data['numero_consultation'] . '</p>

@@ -1,4 +1,4 @@
-﻿<?php include VIEWPATH.'includes/backend/Header.php'; ?>
+<?php include VIEWPATH.'includes/backend/Header.php'; ?>
 <?php include VIEWPATH.'includes/backend/Sidebar.php'; ?>
 
 <script>window.<?= $app_meta['js_var'] ?> = { module: <?= json_encode($module_code) ?> };</script>

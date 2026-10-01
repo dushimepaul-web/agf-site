@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home | A.G.F Limited — Project Financing Memorandum</title>
-<meta name="description" content="Executive Project Financing Memorandum — African Green Farmers (A.G.F) Limited, USD 63,209,692.">
+<title>Home | A.G.F Limited - Project Financing Memorandum</title>
+<meta name="description" content="Executive Project Financing Memorandum - African Green Farmers Limited, USD 63,209,692.">
 <link rel="icon" href="img/logo-agf-cover.jpeg">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,8 +12,8 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 <div class="topbar">
   <div class="wrap">
-    <span><span class="tag">A.G.F LIMITED</span> — Executive Project Financing Memorandum</span>
-    <span>USD 63,209,692 &nbsp;•&nbsp; September 2026</span>
+    <span><span class="tag">A.G.F LIMITED</span> - Executive Project Financing Memorandum</span>
+    <span>USD 63,209,692 &nbsp;&bull;&nbsp; September 2026</span>
   </div>
 </div>
 <header class="site-header">
@@ -22,10 +22,10 @@
       <img src="img/logo-agf-cover.jpeg" alt="African Green Farmers Limited Logo">
       <span class="brand-text">
         <span class="name">African Green Farmers Ltd</span>
-        <span class="sub">ANINOVA INDUSTRIES — AGRO-INDUSTRIAL PLATFORM</span>
+        <span class="sub">ANINOVA INDUSTRIES - AGRO-INDUSTRIAL PLATFORM</span>
       </span>
     </a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="mainnav">Menu ☰</button>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mainnav">Menu &#9776;</button>
     <nav class="mainnav" id="mainnav">
       <ul>
         <li><a href="index.html" class="active">Home</a></li>
@@ -45,9 +45,9 @@
 
 <section class="hero">
   <div class="wrap">
-    <div class="eyebrow">EXECUTIVE PROJECT FINANCING MEMORANDUM — SEPTEMBER 2026</div>
-    <h1>African Green Farmers (A.G.F) Limited</h1>
-    <p class="lede">Agro-industrial and circular bio-economy platform, activated by the ACIDS system, dedicated to GMP-certified nutraceutical, food, and organic input manufacturing in Zambia — through the ANINOVA INDUSTRIES industrial division.</p>
+    <div class="eyebrow">EXECUTIVE PROJECT FINANCING MEMORANDUM - SEPTEMBER 2026</div>
+    <h1>African Green Farmers Limited</h1>
+    <p class="lede">Agro-industrial and circular bio-economy platform, activated by the ACIDS system, dedicated to GMP-certified nutraceutical, food, and organic input manufacturing in Zambia - through the ANINOVA INDUSTRIES industrial division.</p>
     <div class="stat-row">
       <div class="stat-card"><div class="num">USD 63.2M</div><div class="lbl">Total Project Investment</div></div>
       <div class="stat-card"><div class="num">USD 196.9M</div><div class="lbl">10-Year Cumulative Net Profit</div></div>
@@ -63,7 +63,7 @@
 
 <div class="wrap">
   <div class="sec-index">
-    <div class="label">SECTIONS ON THIS SITE — 23 Total (Project Sheet 0 to Section 22)</div>
+    <div class="label">SECTIONS ON THIS SITE - 23 Total (Project Sheet 0 to Section 22)</div>
     <ol>
       <li><a href="#fiche"><span class="n">0</span>Project Sheet</a></li>
       <li><a href="profil-societe.html#s1"><span class="n">1</span>Executive Summary</a></li>
@@ -106,13 +106,13 @@
       <table class="factsheet">
         <caption>I. Project & Promoter</caption>
         <tr><th>Project Title</th><td>Integrated Agro-Industrial Food Processing & Organic Fertilizer Manufacturing System</td></tr>
-        <tr><th>Pilot Food Processing Site</th><td>AFOOPROC — Agrofood Processing And Organic Processing Centre</td></tr>
+        <tr><th>Pilot Food Processing Site</th><td>AFOOPROC - Agrofood Processing And Organic Processing Centre</td></tr>
         <tr><th>GMP Certified Facility</th><td>ABIPROF (Agrofood & Bio-Inputs Processing Facility) INDUSTRIES</td></tr>
-        <tr><th>Promoting Entity</th><td>African Green Farmers (A.G.F) Limited</td></tr>
+        <tr><th>Promoting Entity</th><td>African Green Farmers Limited</td></tr>
         <tr><th>Date of Incorporation</th><td>12 March 2025</td></tr>
         <tr><th>TPIN</th><td>2003675243</td></tr>
         <tr><th>Central Production Zone</th><td>ACIDS-activated organic industrial production platform extending over 2,000+ hectares</td></tr>
-        <tr><th>Local Contract Farmer Cooperatives (Projected)</th><td>…..</td></tr>
+        <tr><th>Local Contract Farmer Cooperatives (Projected)</th><td>.....</td></tr>
         <tr><th>Investment License</th><td>ZDA/59004/10/2025 (Zambia Development Agency)</td></tr>
         <tr><th>Tax Incentives (5 years)</th><td>Ref. ZDA/DG/DUTY, 22 January 2026 (Ministry of Finance)</td></tr>
         <tr><th>Location</th><td>Keembe Area, along Mungule Road, Plot No. 20, Chibombo Village, Liteta Chiefdom, Chibombo District, Central Province, Zambia</td></tr>
@@ -120,7 +120,7 @@
         <tr><th>WhatsApp</th><td>+260 777 844 844</td></tr>
         <tr><th>Mobile</th><td>+260 764 346 468</td></tr>
         <tr><th>Email</th><td>agfcompany2026@gmail.com</td></tr>
-        <tr><th>Contact Person</th><td>…..</td></tr>
+        <tr><th>Contact Person</th><td>.....</td></tr>
         <tr><th>Platform</th><td>Integrated Agro-Industrial Food Processing & Organic Fertilizer Manufacturing System</td></tr>
       </table>
 
@@ -151,7 +151,7 @@
     </div>
 
     <div class="callout" style="margin-top:24px;">
-      <p><strong>A.G.F LIMITED — Strategic Business Units (SBUs):</strong> ABIPROF Agro-Estates, ABIPROF Industries, CERIQA Laboratories, ABIPROF Livestock & Bioresources, and the Natural Health Food Supermarkets network form an integrated ecosystem: sustainable sourcing, innovation, science & quality, circular bio-resources, market access.</p>
+      <p><strong>A.G.F LIMITED - Strategic Business Units (SBUs):</strong> ABIPROF Agro-Estates, ABIPROF Industries, CERIQA Laboratories, ABIPROF Livestock & Bioresources, and the Natural Health Food Supermarkets network form an integrated ecosystem: sustainable sourcing, innovation, science & quality, circular bio-resources, market access.</p>
     </div>
 
     <div class="logo-strip" style="margin-top:20px;">
@@ -168,7 +168,7 @@
   <div class="wrap">
     <div class="f-grid">
       <div>
-        <h4>African Green Farmers (A.G.F) Limited</h4>
+        <h4>African Green Farmers Limited</h4>
         <p style="color:#c9d5ea;font-size:.88rem;max-width:42ch;">
           Plot No. 20, along Mungule Road, Keembe Area, Chibombo Village,
           Liteta Chiefdom, Chibombo District, Central Province, Zambia.
@@ -191,8 +191,8 @@
       </div>
     </div>
     <div class="f-bottom">
-      <span>© 2026 African Green Farmers (A.G.F) Limited. All rights reserved.</span>
-      <span>Executive Project Financing Memorandum — USD 63,209,692 — September 2026</span>
+      <span>&copy; 2026 African Green Farmers Limited. All rights reserved.</span>
+      <span>Executive Project Financing Memorandum - USD 63,209,692 - September 2026</span>
     </div>
   </div>
 </footer>

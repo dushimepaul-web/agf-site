@@ -12,8 +12,7 @@ class About extends MY_Controller
     public function index()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'About A.G.F — African Green Farmers';
-        $this->load->view('About_View', $data);
+        redirect('about-us');
     }
 
     public function detail($slug = '')
@@ -34,114 +33,93 @@ class About extends MY_Controller
         $this->load->view('Unit_Detail_View', $data);
     }
 
-    public function profil_societe()
+    public function about_us()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Profil de la soci\u00e9t\u00e9 — A.G.F';
-        $this->load->view('profil-societe', $data);
+        $data['site_title'] = 'Company Profile';
+        $this->load->view('about_us', $data);
     }
 
-    public function strategie_investissement()
+    public function aninova_industries()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Strat\u00e9gie & investissement — A.G.F';
-        $this->load->view('strategie-investissement', $data);
+        $data['site_title'] = 'ANINOVA INDUSTRIES';
+        $this->load->view('aninova_industries', $data);
     }
 
-    public function impact_strategique()
+    public function seriqa_labo()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Impact strat\u00e9gique — A.G.F';
-        $this->load->view('impact', $data);
+        $data['site_title'] = 'SERIQA LABORATORIES';
+        $this->load->view('seriqa_labo', $data);
     }
 
-    public function produits_innovation()
+    public function our_Products()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Produits & innovation — A.G.F';
-        $this->load->view('produits', $data);
+        $data['site_title'] = 'OUR PRODUCTS';
+
+        $data['produits'] = $this->db->query("
+            SELECT p.*, pc.nom AS categorie_nom, pc.slug AS categorie_slug
+            FROM produits p
+            LEFT JOIN produit_categories pc ON p.categorie_id = pc.id
+            WHERE p.est_actif = 1
+            ORDER BY p.ordre ASC
+        ")->result_array();
+
+        $this->load->view('our_Products', $data);
     }
 
-    public function commercialisation_financement()
+    public function agriculture_bioresources()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Commercialisation & financement — A.G.F';
-        $this->load->view('commercialisation', $data);
+        $data['site_title'] = 'Agriculture Bioresources';
+        $this->load->view('agriculture_bioresources', $data);
     }
 
-    public function projections_financieres()
+
+
+public function legal()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Projections financi\u00e8res — A.G.F';
-        $this->load->view('projections', $data);
+        $data['site_title'] = 'Legal';
+        $this->load->view('legal', $data);
     }
 
-    public function risques_viabilite()
+    public function privacy()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Risques & viabilit\u00e9 — A.G.F';
-        $this->load->view('risques-viabilite', $data);
+        $data['site_title'] = 'Privacy';
+        $this->load->view('privacy', $data);
     }
 
-    public function mise_en_oeuvre()
+
+
+
+
+    public function markets_partners()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Mise en \u0153uvre & approbation — A.G.F';
-        $this->load->view('mise-en-oeuvre', $data);
+        $data['site_title'] = 'Markets Partners';
+        $this->load->view('markets_partners', $data);
     }
 
-    // Investment
-    public function investissement()
-    {
-        redirect('strategie-investissement');
-    }
-
-    public function partnerships()
+    public function sustainability_impact()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Partnerships \u2014 A.G.F';
-        $this->load->view('partnerships', $data);
+        $data['site_title'] = 'Sustainability Impact';
+        $this->load->view('sustainability_impact', $data);
     }
 
-    public function investment_projection()
-    {
-        $this->Model->log_visit();
-        $data['site_title'] = 'Investment Projections \u2014 A.G.F';
-        $this->load->view('investment-projection', $data);
-    }
+   
 
-    public function investor_commitment()
-    {
-        $this->Model->log_visit();
-        $data['site_title'] = 'Investor Commitment \u2014 A.G.F';
-        $this->load->view('investor-commitment', $data);
-    }
 
-    public function strategic_partnerships()
-    {
-        $this->Model->log_visit();
-        $data['site_title'] = 'Strategic Partnerships \u2014 A.G.F';
-        $this->load->view('strategic-partnerships', $data);
-    }
 
-    public function relations()
-    {
-        $this->Model->log_visit();
-        $data['site_title'] = 'Relations \u2014 A.G.F';
-        $this->load->view('relations', $data);
-    }
-
-    public function broker_commission()
-    {
-        $this->Model->log_visit();
-        $data['site_title'] = 'Broker Commission \u2014 A.G.F';
-        $this->load->view('broker-commission', $data);
-    }
 
     public function broker()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Become a Broker \u2014 A.G.F';
+        $data['site_title'] = 'Become a Broker - A.G.F';
         $data['pays'] = $this->db->order_by('pays', 'ASC')->get('pays')->result_array();
         $this->load->view('broker', $data);
     }
@@ -310,10 +288,17 @@ class About extends MY_Controller
         echo json_encode(['status' => 'success', 'message' => 'Registration submitted successfully! We will contact you soon.']);
     }
 
+    public function credit_summary()
+    {
+        $this->Model->log_visit();
+        $data['site_title'] = 'Executive Credit Summary - A.G.F';
+        $this->load->view('credit_summary', $data);
+    }
+
     public function investor()
     {
         $this->Model->log_visit();
-        $data['site_title'] = 'Become an Investor \u2014 A.G.F';
+        $data['site_title'] = 'Become an Investor - A.G.F';
         $data['pays'] = $this->db->order_by('pays', 'ASC')->get('pays')->result_array();
         $this->load->view('investor', $data);
     }
@@ -369,7 +354,7 @@ class About extends MY_Controller
             return;
         }
 
-        $focus_checks = ['focus_research_lab','focus_gmp_facility','focus_medicinal_plant','focus_commercialization','focus_full_platform'];
+        $focus_checks = ['focus_research_lab','focus_gmp_facility','focus_botanical_plant','focus_commercialization','focus_full_platform'];
         $has_focus = false;
         foreach ($focus_checks as $cb) {
             if ($this->input->post($cb) === '1') { $has_focus = true; break; }
@@ -390,7 +375,7 @@ class About extends MY_Controller
         $checkboxes = [
             'interest_equity','interest_debt','interest_blended_finance','interest_grant',
             'interest_strategic_partnership','interest_technical_collaboration','interest_offtake_distribution',
-            'focus_research_lab','focus_gmp_facility','focus_medicinal_plant','focus_commercialization','focus_full_platform',
+            'focus_research_lab','focus_gmp_facility','focus_botanical_plant','focus_commercialization','focus_full_platform',
             'agree_contact','non_binding_confirmation'
         ];
 

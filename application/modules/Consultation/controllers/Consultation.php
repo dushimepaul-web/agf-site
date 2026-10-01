@@ -7,18 +7,24 @@ class Consultation extends MY_Controller
     {
         parent::__construct();
         $this->load->model('Consultation/Consultation_model');
-        $this->load->helper('url');
     }
 
-    // Liste des médecins disponibles
     public function index()
     {
         $data['title'] = 'Consultation en ligne';
-        $data['medecins'] = $this->Consultation_model->get_medecins();
+        $data['medecins'] = $this->Consultation_model->get_medecins(true);
         $this->load->view('consultation/index', $data);
     }
 
-    // Formulaire de consultation pour un médecin
+    public function detail($medecin_id)
+    {
+        $data['medecin'] = $this->Consultation_model->get_medecin($medecin_id);
+        if (!$data['medecin']) show_404();
+        $data['horaires'] = $this->Consultation_model->get_horaires($medecin_id);
+        $data['title'] = 'Dr. ' . $data['medecin']['prenom'] . ' ' . $data['medecin']['nom'];
+        $this->load->view('consultation/detail', $data);
+    }
+
     public function formulaire($medecin_id)
     {
         $data['medecin'] = $this->Consultation_model->get_medecin($medecin_id);
@@ -28,19 +34,13 @@ class Consultation extends MY_Controller
         $this->load->view('consultation/formulaire', $data);
     }
 
-    // Soumettre la consultation (API)
     public function api_submit()
     {
-        if (strtoupper($this->input->server('REQUEST_METHOD', 'GET')) !== 'POST') {
-            $this->json_error('Méthode non autorisée', 405);
-        }
+        $this->require_post();
 
         $data = $this->get_json_input();
-        if (!$data) {
-            $this->json_error('Données invalides');
-        }
+        if (!$data) { $this->json_error('Données invalides'); }
 
-        // Validation
         $required = ['medecin_id', 'nom', 'prenom', 'description_symptomes'];
         foreach ($required as $field) {
             if (empty($data[$field])) {
@@ -66,12 +66,11 @@ class Consultation extends MY_Controller
         $this->json_error('Erreur lors de l\'enregistrement');
     }
 
-    // Upload média (images médicales + preuve paiement)
     public function api_upload_media()
     {
-        if (strtoupper($this->input->server('REQUEST_METHOD', 'GET')) !== 'POST') {
-            $this->json_error('Méthode non autorisée', 405);
-        }
+        $this->require_post();
+
+        if (empty($_FILES['file'])) { $this->json_error('Aucun fichier envoyé'); }
 
         $config['upload_path'] = FCPATH . 'attachments/Consultations/';
         $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
@@ -94,12 +93,9 @@ class Consultation extends MY_Controller
         $this->json_success(['path' => $path, 'filename' => $upload['file_name']]);
     }
 
-    // Lier un média à une consultation
     public function api_add_media()
     {
-        if (strtoupper($this->input->server('REQUEST_METHOD', 'GET')) !== 'POST') {
-            $this->json_error('Méthode non autorisée', 405);
-        }
+        $this->require_post();
 
         $data = $this->get_json_input();
         if (empty($data['consultation_id']) || empty($data['fichier_url'])) {
@@ -120,19 +116,16 @@ class Consultation extends MY_Controller
         $this->json_error('Erreur lors de l\'ajout du média');
     }
 
-    // Générer le lien WhatsApp
     public function api_whatsapp($consultation_id)
     {
         $c = $this->Consultation_model->get_consultation($consultation_id);
-        if (!$c) {
-            $this->json_error('Consultation non trouvée', 404);
-        }
+        if (!$c) { $this->json_error('Consultation non trouvée', 404); }
 
         $m = $this->Consultation_model->get_medecin($c['medecin_id']);
         $whatsapp = $m['telephone'] ?? '';
 
         $msg = "Nouvelle consultation\n";
-        $msg .= "Médecin: Dr. {$m['prenom']} {$m['nom']}\n";
+        $msg .= "Expert: Dr. {$m['prenom']} {$m['nom']}\n";
         $msg .= "Patient: {$c['patient_prenom']} {$c['patient_nom']}\n";
         if ($c['patient_poids']) $msg .= "Poids: {$c['patient_poids']}\n";
         if ($c['patient_taille']) $msg .= "Taille: {$c['patient_taille']}\n";

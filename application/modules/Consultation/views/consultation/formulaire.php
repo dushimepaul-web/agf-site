@@ -39,8 +39,7 @@
             <p class="text-muted small">Aucun horaire disponible.</p>
             <?php else: ?>
             <?php
-            $grouped = [];
-            foreach ($horaires as $h) { $grouped[$h['jour']][] = $h; }
+            $grouped = $this->Consultation_model->group_horaires_by_day($horaires);
             foreach ($grouped as $jour => $slots): ?>
             <div class="mb-2">
               <strong class="text-capitalize small"><?= $jour ?></strong><br>
@@ -135,14 +134,14 @@
 <?php include VIEWPATH.'includes/backend/Footer.php'; ?>
 
 <script>
-const médicalFiles = [];
+const medicalFiles = [];
 const MAX_FILES = 5;
 
 document.getElementById('medicalFiles').addEventListener('change', function(e) {
   const preview = document.getElementById('medicalPreview');
   const files = Array.from(e.target.files);
   
-  if (médicalFiles.length + files.length > MAX_FILES) {
+  if (medicalFiles.length + files.length > MAX_FILES) {
     API.simpleAlert('error', 'Limite', 'Maximum ' + MAX_FILES + ' images autorisées');
     return;
   }
@@ -152,13 +151,19 @@ document.getElementById('medicalFiles').addEventListener('change', function(e) {
       API.simpleAlert('error', 'Erreur', file.name + ' dépasse 5 Mo');
       return;
     }
-    médicalFiles.push(file);
+    const idx = medicalFiles.length;
+    medicalFiles.push(file);
     const reader = new FileReader();
     reader.onload = function(ev) {
       const div = document.createElement('div');
       div.style.cssText = 'position:relative;width:80px;height:80px;';
       div.innerHTML = '<img src="' + ev.target.result + '" style="width:100%;height:100%;object-fit:cover;border-radius:6px;">' +
-        '<button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" style="padding:0;width:20px;height:20px;font-size:10px;" onclick="this.parentElement.remove();médicalFiles.splice(médicalFiles.indexOf(this),1);">&times;</button>';
+        '<button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" style="padding:0;width:20px;height:20px;font-size:10px;" data-idx="' + idx + '">&times;</button>';
+      div.querySelector('button').addEventListener('click', function() {
+        const i = parseInt(this.dataset.idx);
+        medicalFiles.splice(i, 1);
+        this.parentElement.remove();
+      });
       preview.appendChild(div);
     };
     reader.readAsDataURL(file);
@@ -208,9 +213,9 @@ document.getElementById('consultForm').onsubmit = async function(e) {
   const consultationId = res.data.id;
 
   // 2. Upload images médicales
-  for (let i = 0; i < médicalFiles.length; i++) {
+  for (let i = 0; i < medicalFiles.length; i++) {
     const fd = new FormData();
-    fd.append('file', médicalFiles[i]);
+    fd.append('file', medicalFiles[i]);
     fd.append(CSRF_TOKEN_NAME, CSRF_TOKEN);
     const upRes = await fetch(BASE_URL + 'Consultation/api_upload_media', {
       method: 'POST',

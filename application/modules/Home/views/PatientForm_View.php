@@ -979,10 +979,10 @@ li:hover .how-step-num {
 <div class="ud-hero" style="background: url('<?= base_url('attachments/Parametres/slide_helo.jpg') ?>')">
     <div class="container">
         <div class="ud-hero-content">
-            <h1 class="ud-hero-title">Demande de consultation en ligne</h1>
-            <p class="ud-hero-slogan">Remplissez ce formulaire s&eacute;curis&eacute; et recevez l'avis d'un m&eacute;decin A.G.F directement sur WhatsApp.</p>
+            <h1 class="ud-hero-title">Online Advisory Request</h1>
+            <p class="ud-hero-slogan">Fill out this secure form and receive expert nutritional advice from an A.G.F expert directly on WhatsApp.</p>
             <a href="<?= base_url('doctor') ?>" class="ud-hero-btn">
-                <i class="bi bi-arrow-left"></i> Choisir un m&eacute;decin
+                <i class="bi bi-arrow-left"></i> Choose an Expert
             </a>
         </div>
     </div>
@@ -1033,7 +1033,7 @@ li:hover .how-step-num {
                           enctype="multipart/form-data"
                           novalidate>
 
-                        <!-- Champs cachés pour les données du médecin -->
+                        <!-- Hidden fields for expert data -->
                         <input type="hidden" name="doctor_id" value="<?= htmlspecialchars($doctor['id'] ?? '') ?>">
                         <input type="hidden" name="doctor_uuid" value="<?= htmlspecialchars($doctor['uuid'] ?? '') ?>">
                         <input type="hidden" name="doctor_nom" value="<?= htmlspecialchars($doctor['nom'] ?? '') ?>">
@@ -1217,8 +1217,8 @@ li:hover .how-step-num {
                                           rows="6"
                                           required
                                           minlength="20"
-                                          placeholder="Décrivez vos symptômes : depuis quand, leur intensité, les facteurs qui les aggravent ou les soulagent..."><?= set_value('symptoms'); ?></textarea>
-                                <div class="invalid-feedback"><i class="bi bi-exclamation-circle me-1"></i> Veuillez d&eacute;crire vos sympt&ocirc;mes (minimum 20 caract&egrave;res)</div>
+                                          placeholder="Describe your condition: when it started, its intensity, factors that aggravate or relieve it..."><?= set_value('symptoms'); ?></textarea>
+                                <div class="invalid-feedback"><i class="bi bi-exclamation-circle me-1"></i> Please describe your condition (minimum 20 characters)</div>
                                 <small class="text-muted" id="symptomsCounter"></small>
                             </div>
 
@@ -1241,7 +1241,7 @@ li:hover .how-step-num {
 
                             <div class="mb-4">
                                 <label class="form-label fw-semibold d-block">
-                                    <i class="bi bi-question-circle me-1"></i> Est-ce votre premi&egrave;re consultation chez A.G.F ?
+                                    <i class="bi bi-question-circle me-1"></i> Is this your first visit at A.G.F?
                                 </label>
                                 <div class="d-flex flex-wrap gap-3 mt-2">
                                     <label class="p-radio-card form-check me-2 mb-0">
@@ -1267,7 +1267,7 @@ li:hover .how-step-num {
                                 <div class="p-step-ico"><i class="bi bi-file-earmark-medical"></i></div>
                                 <div>
                                     <h5>T&eacute;l&eacute;chargez vos documents</h5>
-                                    <p class="p-step-sub">Ajoutez les documents n&eacute;cessaires pour votre consultation</p>
+                                    <p class="p-step-sub">Ajoutez les documents n&eacute;cessaires pour votre advisory service</p>
                                 </div>
                             </div>
 
@@ -1276,8 +1276,8 @@ li:hover .how-step-num {
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="p-step-ico" style="width:42px;height:42px;font-size:1.2rem;"><i class="bi bi-clipboard-data"></i></div>
                                     <div>
-                                        <h6 class="fw-bold mb-0">Images des examens m&eacute;dicaux</h6>
-                                        <small class="text-muted">R&eacute;sultats d'analyses, radios, &eacute;chographies, etc.</small>
+                                        <h6 class="fw-bold mb-0">Supporting Documents</h6>
+                                        <small class="text-muted">Lab results, scans, x-rays, etc.</small>
                                     </div>
                                 </div>
                                 <div class="upload-box p-upload" tabindex="0">
@@ -1294,8 +1294,8 @@ li:hover .how-step-num {
                                 <div class="d-flex align-items-center gap-3 mb-3">
                                     <div class="p-step-ico" style="width:42px;height:42px;font-size:1.2rem;"><i class="bi bi-prescription"></i></div>
                                     <div>
-                                        <h6 class="fw-bold mb-0">Ordonnance m&eacute;dicale</h6>
-                                        <small class="text-muted">Votre ordonnance en cours</small>
+                                        <h6 class="fw-bold mb-0">Medical Document</h6>
+                                        <small class="text-muted">Your current document</small>
                                     </div>
                                 </div>
                                 <div class="upload-box p-upload" tabindex="0">
@@ -1345,7 +1345,7 @@ li:hover .how-step-num {
                                         <button type="button" class="p-edit-btn ms-auto" onclick="goToStep(2)"><i class="bi bi-pencil"></i> Modifier</button>
                                     </div>
                                     <div class="p-summary-item"><label><i class="bi bi-chat-text me-1"></i> Description</label><div class="p-summary-val" id="summary-symptoms" style="white-space: pre-wrap;">-</div></div>
-                                    <div class="p-summary-item mt-2"><label><i class="bi bi-clock-history me-1"></i> Dur&eacute;e &middot; Premi&egrave;re consultation</label><div class="p-summary-val" id="summary-duration">-</div></div>
+                                    <div class="p-summary-item mt-2"><label><i class="bi bi-clock-history me-1"></i> Duration &middot; First visit</label><div class="p-summary-val" id="summary-duration">-</div></div>
                                 </div>
 
                                 <div class="p-summary-block">
@@ -1353,28 +1353,16 @@ li:hover .how-step-num {
                                     <div class="p-summary-item"><label><i class="bi bi-upload me-1"></i> Fichiers t&eacute;l&eacute;charg&eacute;s</label><div class="p-summary-val" id="summary-documents">-</div></div>
                                 </div>
 
-                                <div class="p-total">
-                                    <span class="p-total-label"><i class="bi bi-cash-stack"></i> Montant total &agrave; payer</span>
-                                    <span class="price-value">
-                                        <?php
-                                            $prix_usd = (float)($doctor['honoraires_consultation'] ?? 50);
-                                            $devise = $doctor['currency'] ?? 'USD';
-                                            $equiv_bif = $doctor['USD_EUR_Equivalent_en_BIF'] ?? null;
-                                            $prix_burundi = $doctor['prix_pour_residant_burundi'] ?? null;
-                                        ?>
-                                        <?= number_format($prix_usd, 2) ?> <?= htmlspecialchars($devise) ?>
-                                    </span>
-                                </div>
                             </div>
 
                             <!-- INFO PAIEMENT -->
                             <div class="alert alert-info d-flex align-items-start gap-2 small mb-4" role="alert" aria-live="polite">
                                 <i class="bi bi-info-circle-fill mt-1 flex-shrink-0"></i>
                                 <span>
-                                    <strong>Comment payer votre consultation :</strong>
+                                    <strong>How to pay for your advisory service :</strong>
                                     <ol class="mb-0 ps-3 mt-1">
                                         <li>Choisissez votre moyen de paiement ci-dessous.</li>
-                                        <li>Payez le montant affich&eacute; : <strong><?= number_format($prix_usd, 2) ?> <?= htmlspecialchars($devise) ?> <?= $equiv_bif ? '(Équivalent USD/EUR : ' . htmlspecialchars($equiv_bif) . ')' : '' ?> (Prix Burundi : <?= htmlspecialchars($prix_burundi) ?>)</strong>.</li>
+                                        <li>Payez le montant affich&eacute; : <strong><?= number_format($prix_usd, 2) ?> <?= htmlspecialchars($devise) ?>  </strong>.</li>
                                         <li>T&eacute;l&eacute;chargez votre preuve de paiement : capture d'&eacute;cran de l'op&eacute;ration ou <strong>PDF</strong> du re&ccedil;u.</li>
                                     </ol>
                                     <span class="d-block mt-2">Votre demande compl&egrave;te est envoy&eacute;e directement au m&eacute;decin <strong>sur WhatsApp</strong>.</span>
@@ -1427,7 +1415,7 @@ li:hover .how-step-num {
                                 <div class="p-lock-ico"><i class="bi bi-shield-lock-fill"></i></div>
                                 <div class="flex-grow-1">
                                     <div class="mb-2" style="font-size:.9rem;color:var(--p-text);">
-                                        Vos informations sont trait&eacute;es de mani&egrave;re confidentielle et utilis&eacute;es uniquement pour le traitement de votre demande de consultation.
+                                        Vos informations sont trait&eacute;es de mani&egrave;re confidentielle et utilis&eacute;es uniquement pour le traitement de votre demande de advisory service.
                                     </div>
                                     <div class="form-check">
                                         <input type="checkbox" name="terms" id="terms" required class="form-check-input">
@@ -1458,36 +1446,27 @@ li:hover .how-step-num {
                         <div class="doctor-info-card text-white text-center rounded-4 p-4 mb-3 position-relative overflow-hidden" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);">
                             <div class="doctor-avatar-container d-inline-block position-relative">
                                 <img src="<?= base_url('attachments/Users/' . htmlspecialchars($doctor['photo'] ?? '')) ?>"
-                                     alt="<?= htmlspecialchars($doctor['nom'] ?? 'Médecin') ?>"
+                                     alt="<?= htmlspecialchars($doctor['nom'] ?? 'Expert') ?>"
                                      class="doctor-avatar rounded-circle border border-4 border-white shadow"
                                      style="width: 90px; height: 90px; object-fit: cover;"
                                      onerror="this.src='<?= base_url('assets/frontend/img/default-doctor.jpg') ?>'">
                                 <span class="doctor-status position-absolute rounded-circle border border-3 border-white" style="width: 20px; height: 20px; background: var(--success); bottom: 5px; right: 5px;"></span>
                             </div>
                             <h5 class="doctor-name fw-bold mt-3 mb-1">
-                                <i class="bi bi-person-badge me-1"></i><?= htmlspecialchars($doctor['prenom'] ?? '') . ' ' . htmlspecialchars($doctor['nom'] ?? 'Médecin') ?>
+                                <i class="bi bi-person-badge me-1"></i><?= htmlspecialchars($doctor['prenom'] ?? '') . ' ' . htmlspecialchars($doctor['nom'] ?? 'Expert') ?>
                             </h5>
                             <p class="doctor-specialty opacity-75 small mb-3">
-                                <i class="bi bi-star-fill me-1" style="color: var(--accent);"></i> <?= htmlspecialchars($doctor['specialite'] ?? 'Médecin généraliste') ?>
+                                <i class="bi bi-star-fill me-1" style="color: var(--accent);"></i> <?= htmlspecialchars($doctor['specialite'] ?? 'General Nutritionist') ?>
                             </p>
                             <div class="doctor-price d-inline-flex flex-column align-items-center gap-2 rounded-3 p-3 w-100" style="background: rgba(255,255,255,0.2);">
                                 <div class="price-value fs-3 fw-bold">
                                     <?= number_format($prix_usd ?? 50, 2) ?> <?= htmlspecialchars($doctor['currency'] ?? 'USD') ?>
                                 </div>
-                                <?php if (!empty($doctor['USD_EUR_Equivalent_en_BIF'])): ?>
-                                <div class="equiv-price small" style="opacity:.9;">
-                                    <i class="bi bi-currency-exchange me-1" style="color: var(--accent);"></i>
-                                    Équivalent USD/EUR : <strong><?= htmlspecialchars($doctor['USD_EUR_Equivalent_en_BIF']) ?></strong>
-                                </div>
-                                <?php endif; ?>
                             </div>
-                            <div class="burundi-price mt-3 p-2 rounded-3 text-start" style="background: rgba(255,255,255,0.2); border-left: 4px solid var(--accent); font-size: 0.9rem;">
-                                <i class="bi bi-geo-alt-fill me-1" style="color: var(--accent);"></i>
-                                <strong>Prix Burundi : <?= htmlspecialchars($doctor['prix_pour_residant_burundi'] ?? '—') ?></strong>
-                            </div>
+
                             <?php if (!empty($doctor_count) && $doctor_count > 1): ?>
                             <a style="text-decoration: none;" href="javascript:void(0)" onclick="confirmChangeDoctor()" class="change-doctor-btn btn btn-sm btn-outline-light mt-3 rounded-pill">
-                                <i class="bi bi-arrow-left me-1"></i> Changer de m&eacute;decin
+                                <i class="bi bi-arrow-left me-1"></i> Change expert
                             </a>
                             <?php endif; ?>
                         </div>
@@ -1582,7 +1561,7 @@ function getStepIcon(step) {
 }
 
 function confirmChangeDoctor() {
-    if (confirm('Voulez-vous vraiment changer de médecin ? Toutes vos données non enregistrées seront perdues.')) {
+    if (confirm('Do you really want to change expert? All your unsaved data will be lost.')) {
         var form = document.createElement('form');
         form.method = 'POST';
         form.action = '<?= base_url('swap-doctor') ?>';
@@ -1609,7 +1588,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const heroTitle = document.querySelector('.consultation-hero h1');
     if (heroTitle) {
-        heroTitle.innerHTML = `<i class="bi bi-person-badge"></i> Consultation <?= htmlspecialchars(($doctor['prenom'] ?? '') . ' ' . ($doctor['nom'] ?? ''), ENT_QUOTES) ?>`;
+        heroTitle.innerHTML = `<i class="bi bi-person-badge"></i> Advisory Service <?= htmlspecialchars(($doctor['prenom'] ?? '') . ' ' . ($doctor['nom'] ?? ''), ENT_QUOTES) ?>`;
     }
 
     // Compteur de caractères symptômes
@@ -1995,7 +1974,7 @@ function updateSummary() {
 
     const durationVal = CONFIG.formData.symptoms_duration || 'Non pr&eacute;cis&eacute;e';
     const prevVal = CONFIG.formData.previous_consultation === 'yes' ? 'Oui' : 'Non';
-    document.getElementById('summary-duration').textContent = durationVal + ' &middot; Premi&egrave;re consultation : ' + prevVal;
+    document.getElementById('summary-duration').textContent = durationVal + ' &middot; First visit: ' + prevVal;
 
     const medCount = (document.querySelector('input[name="medical_docs[]"]')?.files?.length || 0);
     const prescCount = (document.querySelector('input[name="prescriptions[]"]')?.files?.length || 0);

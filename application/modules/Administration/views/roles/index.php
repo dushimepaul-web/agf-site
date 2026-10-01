@@ -1,4 +1,4 @@
-﻿<?php include VIEWPATH.'includes/backend/Header.php'; ?>
+<?php include VIEWPATH.'includes/backend/Header.php'; ?>
 <?php include VIEWPATH.'includes/backend/Sidebar.php'; ?>
 
 <main id="main" class="main">

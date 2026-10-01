@@ -218,7 +218,7 @@ h1.ud-hero-title {
 }
 
 /* ============================================
-   DOCTORS GRID - MOBILE OPTIMISÉ
+   EXPERTS GRID - MOBILE OPTIMISÉ
    ============================================ */
 .doctors-row {
     display: flex;
@@ -1310,7 +1310,7 @@ h1.ud-hero-title {
         </div>
     </div>
 
-    <!-- Grille médecins -->
+    <!-- Grille experts -->
     <div class="doctors-row" id="doctorsGrid">
         <?php if (!empty($medecins)): ?>
             <?php foreach ($medecins as $medecin): 
@@ -1325,8 +1325,6 @@ h1.ud-hero-title {
                 
                 $prix_usd = $medecin['honoraires_consultation'] ?? 50;
                 $devise_medecin = $medecin['currency'] ?? 'USD';
-                $equiv_bif = $medecin['USD_EUR_Equivalent_en_BIF'] ?? null;
-                $prix_burundi = $medecin['prix_pour_residant_burundi'] ?? null;
 
                 $horaires_list = [];
                 if (!empty($medecin['horaires'])) {
@@ -1410,15 +1408,6 @@ h1.ud-hero-title {
                                 <?= number_format($prix_usd, 2) ?> <span><?= htmlspecialchars($devise_medecin) ?></span>
                             </div>
                             
-                            <!-- Prix Burundi -->
-                            <div class="burundi-price" style="margin-top: 10px; padding: 10px 12px; background: #e8f5f0; border-radius: 8px; border-left: 4px solid #0f4c3a; color: #0f4c3a; font-size: 0.95rem;">
-                                <i class="bi bi-geo-alt-fill" style="color: #d4af37; margin-right: 6px;"></i>
-                                <strong><?= t('burundi_price') ?><br> <?= htmlspecialchars($prix_burundi ?: '—') ?></strong>
-                            </div>
-                            <div class="equiv-price" style="margin-top: 8px; padding: 10px 12px; background: #fff7e6; border-radius: 8px; border-left: 4px solid #d4af37; color: #7a5c00; font-size: 0.95rem;">
-                                <i class="bi bi-currency-exchange" style="color: #d4af37; margin-right: 6px;"></i>
-                                <strong>Équivalence étranger :</strong> <?= htmlspecialchars($equiv_bif ?: '—') ?>
-                            </div>
                             
                             <?php if($is_online): ?>
                             <div class="next-slot"><i class="bi bi-lightning-charge-fill"></i> <?= $prochain_slot ?></div>
@@ -1511,14 +1500,6 @@ h1.ud-hero-title {
                                 <h4><i class="bi bi-currency-exchange"></i> <?= t('prices') ?></h4>
                                 <div class="tarif-card">
                                     <div class="price-main"><?= number_format($prix_usd, 2) ?> <small><?= htmlspecialchars($devise_medecin) ?></small></div>
-                                    <div class="burundi-price" style="margin-top: 10px; padding: 12px; background: #d4edda; border-radius: 8px; border-left: 4px solid #28a745; color: #155724;">
-                                        <i class="bi bi-geo-alt-fill" style="color: #28a745;"></i>
-                                        <strong><?= t('burundi_price') ?><br> <?= htmlspecialchars($prix_burundi ?: '—') ?></strong>
-                                    </div>
-                                    <div class="equiv-price" style="margin-top: 10px; padding: 12px; background: #fff7e6; border-radius: 8px; border-left: 4px solid #d4af37; color: #7a5c00;">
-                                        <i class="bi bi-currency-exchange" style="color: #d4af37;"></i>
-                                        <strong>Équivalence étranger :</strong> <?= htmlspecialchars($equiv_bif ?: '—') ?>
-                                    </div>
                                 </div>
                             </div>
 

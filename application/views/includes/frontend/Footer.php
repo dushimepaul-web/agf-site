@@ -100,32 +100,36 @@
                             if (!empty($site_logo)): 
                             ?>
                             <img src="<?= base_url($site_logo) ?>" 
-                                 alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?>" 
+                                 alt="<?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers Limited'), ENT_QUOTES, 'UTF-8') ?>" 
                                  class="footer-logo">
                             <?php endif; ?>
                             <div class="brand-info">
-                                <h3><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?></h3>
-                                <span>Afrique Australe</span>
+                                <h3><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers Limited'), ENT_QUOTES, 'UTF-8') ?></h3>
+                                <span>Southern Africa</span>
                             </div>
                         </div>
 
                         <p class="footer-desc">
-                            <?= htmlspecialchars($this->Model->get_setting('agf_description_courte', 'Medical teleconsultation platform and phytopharmaceutical products'), ENT_QUOTES, 'UTF-8') ?>
+                            <?= htmlspecialchars($this->Model->get_setting('agf_description_courte', 'Nutritional advisory service and functional plant products'), ENT_QUOTES, 'UTF-8') ?>
                         </p>
 
                         <!-- Quick Contact -->
                         <div class="footer-quick-contact">
-                            <a href="tel:<?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 97 123 4567'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
+                            <a href="tel:<?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 777 844 844'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
                                 <i class="bi bi-telephone-fill"></i>
-                                <span><?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 97 123 4567'), ENT_QUOTES, 'UTF-8') ?></span>
+                                <span><?= htmlspecialchars($this->Model->get_setting('site_phone', '+260 777 844 844'), ENT_QUOTES, 'UTF-8') ?></span>
                             </a>
-                            <a href="mailto:<?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'info@africangreenfarmers.com'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
+                            <a href="tel:<?= htmlspecialchars($this->Model->get_setting('site_phone_alt', '+260 764 346 468'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
+                                <i class="bi bi-phone-vibrate-fill"></i>
+                                <span><?= htmlspecialchars($this->Model->get_setting('site_phone_alt', '+260 764 346 468'), ENT_QUOTES, 'UTF-8') ?></span>
+                            </a>
+                            <a href="mailto:<?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'agfcompany2026@gmail.com'), ENT_QUOTES, 'UTF-8') ?>" class="quick-contact-item">
                                 <i class="bi bi-envelope-fill"></i>
-                                <span><?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'info@africangreenfarmers.com'), ENT_QUOTES, 'UTF-8') ?></span>
+                                <span><?= htmlspecialchars($this->Model->get_setting('contact_email_invest', 'agfcompany2026@gmail.com'), ENT_QUOTES, 'UTF-8') ?></span>
                             </a>
                             <a href="#" class="quick-contact-item" onclick="openMap(); return false;">
                                 <i class="bi bi-geo-alt-fill"></i>
-                                <span><?= htmlspecialchars($this->Model->get_setting('adresse_siege', 'Lusaka, Zambie'), ENT_QUOTES, 'UTF-8') ?></span>
+                                <span><?= htmlspecialchars($this->Model->get_setting('adresse_siege', 'Plot No. 20, Chisoko Village, Along Mungule Road, Keembe Area, Liteta Chiefdom, Keembe Ward, Chibombo District, Central Province, Zambia'), ENT_QUOTES, 'UTF-8') ?></span>
                             </a>
                         </div>
 
@@ -142,9 +146,11 @@
                         <div class="footer-accordion-content" id="footerNav1">
                             <ul class="footer-links">
                                 <li><a href="<?= base_url() ?>"><i class="bi bi-house-door"></i> Home</a></li>
-                                <li><a href="<?= base_url('profil-societe') ?>"><i class="bi bi-building"></i> About Us</a></li>
-                                <li><a href="<?= base_url('shop') ?>"><i class="bi bi-box-seam"></i> Shop</a></li>
-                                <li><a href="<?= base_url('doctor') ?>"><i class="bi bi-camera-video"></i> Consultation</a></li>
+                                <li><a href="<?= base_url('about-us') ?>"><i class="bi bi-building"></i> About Us</a></li>
+                                <li><a href="<?= base_url('our-Products') ?>"><i class="bi bi-grid"></i> Our Products</a></li>
+                                <li><a href="<?= base_url('agriculture-bioresources') ?>"><i class="bi bi-leaf"></i> Agriculture &amp; Bioresources</a></li>
+                                <li><a href="<?= base_url('shop') ?>"><i class="bi bi-shop"></i> Shop</a></li>
+                                <li><a href="<?= base_url('doctor') ?>"><i class="bi bi-headset"></i> Advisory Service</a></li>
                                 <li><a href="<?= base_url('media') ?>"><i class="bi bi-collection-play"></i> Media</a></li>
                                 <li><a href="<?= base_url('contact') ?>"><i class="bi bi-envelope"></i> Contact</a></li>
                             </ul>
@@ -154,35 +160,41 @@
                     <!-- Column 3: Our Services -->
                         <div class="footer-col footer-col-services">
                         <button class="footer-accordion-toggle d-lg-none" aria-expanded="false" aria-controls="footerNav2">
-                            <h4>Our Services</h4>
+                            <h4>Investment</h4>
                             <i class="bi bi-chevron-down"></i>
                         </button>
-                        <h4 class="d-none d-lg-block">Our Services</h4>
+                        <h4 class="d-none d-lg-block">Investment</h4>
                         
                         <div class="footer-accordion-content" id="footerNav2">
                             <ul class="footer-links">
                                 <li>
-                                    <a href="<?= base_url('doctor') ?>">
-                                        <i class="bi bi-heart-pulse"></i>
-                                        Medical Consultation
+                                    <a href="<?= base_url('markets-partners') ?>">
+                                        <i class="bi bi-diagram-3"></i>
+                                        Markets &amp; Partners
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url('shop') ?>">
-                                        <i class="bi bi-shop"></i>
-                                        Product Sales
+                                    <a href="<?= base_url('sustainability-impact') ?>">
+                                        <i class="bi bi-recycle"></i>
+                                        Sustainability &amp; Impact
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url('investment-projection') ?>">
-                                        <i class="bi bi-graph-up-arrow"></i>
-                                        Invest
+                                    <a href="<?= base_url('broker') ?>">
+                                        <i class="bi bi-person-plus"></i>
+                                        Become a Broker
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= base_url('contact') ?>">
-                                        <i class="bi bi-envelope"></i>
-                                        Contact Us
+                                    <a href="<?= base_url('investor') ?>">
+                                        <i class="bi bi-person-check"></i>
+                                        Become an Investor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= base_url('credit-summary') ?>">
+                                        <i class="bi bi-file-earmark-dollar"></i>
+                                        Executive Credit Summary
                                     </a>
                                 </li>
                             </ul>
@@ -217,6 +229,15 @@
                                     <?php endforeach; ?>
                                 </div>
                             </div>
+
+                            <form class="footer-newsletter-form" id="footerNewsletterForm" novalidate>
+                                <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>">
+                                <div class="footer-newsletter-input">
+                                    <input type="email" name="email" id="footerNewsletterEmail" placeholder="Your email address" autocomplete="email" required>
+                                    <button type="submit" aria-label="Subscribe to the newsletter"><i class="bi bi-send-fill"></i></button>
+                                </div>
+                                <div class="newsletter-msg" id="footerNewsletterMsg" role="status" aria-live="polite"></div>
+                            </form>
                         </div>
                     </div>
 
@@ -231,7 +252,7 @@
                     
                     <!-- Copyright -->
                     <div class="footer-copyright">
-                        <p>&copy; <?= date('Y') ?> <strong><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers'), ENT_QUOTES, 'UTF-8') ?></strong>. All rights reserved.</p>
+                        <p>&copy; <?= date('Y') ?> <strong><?= htmlspecialchars($this->Model->get_setting('site_name', 'African Green Farmers Limited'), ENT_QUOTES, 'UTF-8') ?></strong>. All rights reserved.</p>
                     </div>
 
                     <!-- Legal Links -->
@@ -624,16 +645,6 @@
 .footer-social-sm a:hover {
     background: var(--blue);
     transform: translateY(-2px);
-}
-    white-space: nowrap;
-    transition: background 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.newsletter-input-group button:hover {
-    background: var(--primary-light);
 }
 
 .newsletter-msg {
@@ -1056,8 +1067,55 @@
     };
 
     window.openMap = function() {
-        var address = "<?= addslashes($this->Model->get_setting('adresse_siege', 'Lusaka, Zambie')) ?>";
+        var address = "<?= addslashes($this->Model->get_setting('adresse_siege', 'Plot No. 20, Chisoko Village, Along Mungule Road, Keembe Area, Liteta Chiefdom, Keembe Ward, Chibombo District, Central Province, Zambia')) ?>";
         window.open('https://maps.google.com/?q=' + encodeURIComponent(address), '_blank');
     };
+})();
+</script>
+
+<!-- Newsletter subscription -->
+<script>
+(function() {
+    'use strict';
+    if (window.__agfNewsletterReady) return;
+    window.__agfNewsletterReady = true;
+
+    var form = document.getElementById('footerNewsletterForm');
+    if (!form) return;
+    var input = document.getElementById('footerNewsletterEmail');
+    var msg = document.getElementById('footerNewsletterMsg');
+    var btn = form.querySelector('button[type="submit"]');
+    var ENDPOINT = '<?= base_url('Home/Contact/newsletter') ?>';
+
+    function say(text, kind) {
+        msg.className = 'newsletter-msg' + (kind ? ' ' + kind : '');
+        msg.textContent = text;
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = (input.value || '').trim();
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+            say('Please enter a valid email address.', 'error');
+            input.focus();
+            return;
+        }
+
+        btn.disabled = true;
+        say('Subscribing...', '');
+
+        var fd = new FormData(form);
+        fetch(ENDPOINT, { method: 'POST', body: fd })
+            .then(function(r) { return r.json(); })
+            .then(function(d) {
+                say(d.message || '', d.ok ? 'success' : 'error');
+                if (d.ok) form.reset();
+            })
+            .catch(function() { say('Network error. Please try again.', 'error'); })
+            .finally(function() { btn.disabled = false; });
+    });
+
+    input.addEventListener('input', function() { if (msg.textContent) say('', ''); });
 })();
 </script>

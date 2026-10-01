@@ -118,6 +118,33 @@ $route['Investors/(:any)'] = 'Finance/Investors/$1';
 $route['Logs'] = 'Administration/Logs/index';
 $route['Logs/(:any)'] = 'Administration/Logs/$1';
 
+// Users
+$route['Users'] = 'Administration/Users/index';
+$route['Users/(:any)'] = 'Administration/Users/$1';
+
+// Sessions
+$route['Sessions'] = 'Administration/Sessions/index';
+$route['Sessions/(:any)'] = 'Administration/Sessions/$1';
+
+// Visitors
+$route['Visitors'] = 'Administration/Visitors/index';
+$route['Visitors/(:any)'] = 'Administration/Visitors/$1';
+
+// Temoignages
+$route['Temoignages'] = 'Temoignages/Temoignages/index';
+$route['Temoignages/(:any)'] = 'Temoignages/Temoignages/$1';
+
+// Consultations (admin)
+$route['Consultations'] = 'Consultation/Consultations/index';
+$route['Consultations/medecins'] = 'Consultation/Consultations/medecins';
+$route['Consultations/medecin_form/(:any)'] = 'Consultation/Consultations/medecin_form/$1';
+$route['Consultations/medecin_form'] = 'Consultation/Consultations/medecin_form';
+$route['Consultations/(:any)'] = 'Consultation/Consultations/$1';
+
+// Patients
+$route['Patients'] = 'Consultation/Patients/index';
+$route['Patients/(:any)'] = 'Consultation/Patients/$1';
+
 // Consultation
 $route['doctor'] = 'Home/PatientForm/Medicin';
 $route['consultation'] = 'Home/PatientForm/Medicin';
@@ -127,6 +154,7 @@ $route['patient-form/api_submit'] = 'Home/PatientForm/api_submit';
 $route['patient-form/changeDoctor'] = 'Home/PatientForm/changeDoctor';
 $route['patient-form/get_countries'] = 'Home/PatientForm/get_countries';
 $route['Consultation'] = 'Consultation/Consultation/index';
+$route['Consultation/detail/(:num)'] = 'Consultation/Consultation/detail/$1';
 $route['Consultation/formulaire/(:num)'] = 'Consultation/Consultation/formulaire/$1';
 $route['Consultation/(:any)'] = 'Consultation/Consultation/$1';
 
@@ -136,30 +164,31 @@ $route['about/(:any)'] = 'Home/About/detail/$1';
 $route['a-propos'] = 'Home/About/index';
 
 // About submenu
-$route['profil-societe'] = 'Home/About/profil_societe';
-$route['strategie-investissement'] = 'Home/About/strategie_investissement';
-$route['impact-strategique'] = 'Home/About/impact_strategique';
-$route['produits-innovation'] = 'Home/About/produits_innovation';
-$route['commercialisation-financement'] = 'Home/About/commercialisation_financement';
-$route['projections-financieres'] = 'Home/About/projections_financieres';
-$route['risques-viabilite'] = 'Home/About/risques_viabilite';
-$route['mise-en-oeuvre'] = 'Home/About/mise_en_oeuvre';
+$route['about-us'] = 'Home/About/about_us';
+$route['aninova-industries'] = 'Home/About/aninova_industries';
+$route['seriqa-labo'] = 'Home/About/seriqa_labo';
+$route['our-Products'] = 'Home/About/our_Products';
+$route['agriculture-bioresources'] = 'Home/About/agriculture_bioresources';
+
+
+
+// politique
+$route['legal'] = 'Home/About/legal';
+$route['privacy'] = 'Home/About/privacy';
 
 // Investment
-$route['investissement'] = 'Home/About/investissement';
-$route['partnerships'] = 'Home/About/partnerships';
-$route['investment-projection'] = 'Home/About/investment_projection';
-$route['investor-commitment'] = 'Home/About/investor_commitment';
-$route['strategic-partnerships'] = 'Home/About/strategic_partnerships';
-$route['relations'] = 'Home/About/relations';
-$route['broker-commission'] = 'Home/About/broker_commission';
+$route['markets-partners'] = 'Home/About/markets_partners';
+$route['sustainability-impact'] = 'Home/About/sustainability_impact';
 $route['broker'] = 'Home/About/broker';
 $route['broker/store'] = 'Home/About/broker_store';
 $route['api/pays/search'] = 'Home/About/api_pays_search';
 $route['api/detect-country'] = 'Home/About/api_detect_country';
 $route['investor'] = 'Home/About/investor';
 $route['investor/store'] = 'Home/About/investor_store';
+$route['credit-summary'] = 'Home/About/credit_summary';
 $route['Investors-form'] = 'Home/About/investors_form';
+
+
 
 // Frontend pages — Products
 $route['Products'] = 'Produits/Produits/index';

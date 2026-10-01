@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <meta property="og:type" content="video.other">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#09090b">
-    <link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico', 'assets/fro.png')) ?>" type="image/png">
+    <link rel="icon" href="<?= base_url($this->Model->get_setting('favicon_ico', 'attachments/Parametres/african-green-farmers-logo.jpg')) ?>" type="image/jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<?= base_url('assets/vendor/bootstrap/css/bootstrap.min.css') ?>">
