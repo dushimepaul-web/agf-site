@@ -52,7 +52,8 @@ class Brokers extends MY_Controller
             'registration_number' => trim($data['registration_number'] ?? ''),
             'regulatory_status' => $data['regulatory_status'] ?? null,
             'regulatory_authority' => trim($data['regulatory_authority'] ?? ''),
-            'id_pays' => (int)($data['id_pays'] ?? 0),
+            // FK pays.id : 0 n'existe pas → NULL sinon contrainte violation (500)
+            'id_pays' => (int)($data['id_pays'] ?? 0) > 0 ? (int)$data['id_pays'] : null,
             'mobile_phone' => trim($data['mobile_phone'] ?? ''),
             'whatsapp' => trim($data['whatsapp'] ?? ''),
             'corporate_website' => trim($data['corporate_website'] ?? ''),
@@ -93,8 +94,12 @@ class Brokers extends MY_Controller
         foreach (['full_name','firm_name','email','jurisdiction_of_incorporation','registration_number','regulatory_status','regulatory_authority','mobile_phone','whatsapp','corporate_website','typical_ticket_size','geographic_coverage','capacity_other','engagement_model'] as $f) {
             if (array_key_exists($f, $data)) $update[$f] = trim($data[$f]);
         }
-        foreach (['id_pays','capacity_investment_broker','capacity_placement_agent','capacity_corporate_finance_advisor','capacity_fund_manager','capacity_family_office_rep','capacity_esg_advisor','capacity_independent_introducer','investor_private_equity','investor_venture_capital','investor_esg_impact','investor_dfi','investor_institutional','investor_hnwi','investor_sovereign','confirm_authorized','confirm_aml_kyc','acknowledge_no_exclusivity','understand_formal_mandate_required'] as $f) {
+        foreach (['capacity_investment_broker','capacity_placement_agent','capacity_corporate_finance_advisor','capacity_fund_manager','capacity_family_office_rep','capacity_esg_advisor','capacity_independent_introducer','investor_private_equity','investor_venture_capital','investor_esg_impact','investor_dfi','investor_institutional','investor_hnwi','investor_sovereign','confirm_authorized','confirm_aml_kyc','acknowledge_no_exclusivity','understand_formal_mandate_required'] as $f) {
             if (array_key_exists($f, $data)) $update[$f] = (int)$data[$f];
+        }
+        if (array_key_exists('id_pays', $data)) {
+            // FK pays.id : 0 → NULL
+            $update['id_pays'] = (int)$data['id_pays'] > 0 ? (int)$data['id_pays'] : null;
         }
         if (empty($update)) { $this->json_error('Aucune donnée à modifier'); return; }
         if ($this->Finance_model->update_broker($id, $update)) {

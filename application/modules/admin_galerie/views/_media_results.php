@@ -17,7 +17,7 @@ $this->load->helper('format');
         </div>
     <?php else: ?>
         <?php foreach ($medias as $media): ?>
-            <?php $badge = get_type_badge($media['type']); ?>
+            <?php $badge = get_type_badge($media['type'] ?? 'image'); ?>
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                 <div class="card media-card border-0 shadow-sm h-100 position-relative">
                     <span class="type-badge badge bg-<?= $badge['class'] ?>"><i class="<?= $badge['icon'] ?> me-1"></i><?= $badge['label'] ?></span>
@@ -51,20 +51,20 @@ $this->load->helper('format');
                         <h6 class="card-title mb-1" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;"><?= e($media['titre'] ?? 'Sans titre') ?></h6>
                         <small class="text-muted d-block text-truncate"><?= e($media['credits'] ?? '') ?></small>
                         <div class="d-flex align-items-center gap-2 mt-2">
-                            <?php if (in_array($media['type'], ['audio', 'video']) && !empty($media['duree'])): ?>
+                            <?php if (in_array($media['type'] ?? '', ['audio', 'video']) && !empty($media['duree'])): ?>
                                 <small class="text-muted"><i class="bi bi-clock"></i> <?= format_duration($media['duree']) ?></small>
                             <?php endif; ?>
                             <?php if (!empty($media['taille'])): ?>
                                 <small class="text-muted"><i class="bi bi-database"></i> <?= format_bytes($media['taille']) ?></small>
                             <?php endif; ?>
-                            <span class="badge bg-<?= $media['est_actif'] ? 'success' : 'secondary' ?> ms-auto" style="font-size:8px;width:8px;height:8px;border-radius:50%;padding:0;"></span>
+                            <span class="badge bg-<?= !empty($media['est_actif']) ? 'success' : 'secondary' ?> ms-auto" style="font-size:8px;width:8px;height:8px;border-radius:50%;padding:0;"></span>
                         </div>
                         <div class="d-flex gap-1 mt-2">
-                            <button class="btn btn-sm btn-outline-primary edit-media" data-id="<?= (int)$media['id_media'] ?>" data-type="<?= e($media['type']) ?>" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-primary edit-media" data-id="<?= (int)$media['id_media'] ?>" data-type="<?= e($media['type'] ?? '') ?>" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-pencil"></i></button>
                             <button class="btn btn-sm btn-outline-danger delete-media" data-id="<?= (int)$media['id_media'] ?>" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i></button>
-                            <button class="btn btn-sm btn-outline-info view-media" data-id="<?= (int)$media['id_media'] ?>" data-type="<?= e($media['type']) ?>" data-bs-toggle="modal" data-bs-target="#viewModal"><i class="bi bi-<?= in_array($media['type'], ['audio','video']) ? 'play-circle' : ($media['type'] === 'image' ? 'image' : ($media['type'] === 'document' ? 'file' : 'link')) ?>"></i></button>
+                            <button class="btn btn-sm btn-outline-info view-media" data-id="<?= (int)$media['id_media'] ?>" data-type="<?= e($media['type'] ?? '') ?>" data-bs-toggle="modal" data-bs-target="#viewModal"><i class="bi bi-<?= in_array($media['type'] ?? '', ['audio','video']) ? 'play-circle' : (($media['type'] ?? '') === 'image' ? 'image' : (($media['type'] ?? '') === 'document' ? 'file' : 'link')) ?>"></i></button>
                             <div class="form-check form-switch ms-auto">
-                                <input class="form-check-input toggle-field" type="checkbox" data-id="<?= (int)$media['id_media'] ?>" data-field="is_for_website" <?= $media['is_for_website'] ? 'checked' : '' ?>>
+                                <input class="form-check-input toggle-field" type="checkbox" data-id="<?= (int)$media['id_media'] ?>" data-field="is_for_website" <?= !empty($media['is_for_website']) ? 'checked' : '' ?>>
                             </div>
                         </div>
                     </div>

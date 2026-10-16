@@ -10,12 +10,14 @@ class Logs_model extends Model
 
     public function get_logs($limit = 100, $offset = 0, $filters = [])
     {
-        if (!empty($filters['user_id'])) $this->db->where('user_id', $filters['user_id']);
-        if (!empty($filters['action'])) $this->db->like('action', $filters['action']);
-        if (!empty($filters['niveau'])) $this->db->where('niveau', $filters['niveau']);
-        if (!empty($filters['date_from'])) $this->db->where('created_at >=', $filters['date_from']);
-        if (!empty($filters['date_to'])) $this->db->where('created_at <=', $filters['date_to'] . ' 23:59:59');
-        $this->db->order_by('id', 'DESC');
+        $this->db->select('logs.*, users.username, users.nom, users.prenom', false)
+            ->join('users', 'users.id = logs.user_id', 'left');
+        if (!empty($filters['user_id'])) $this->db->where('logs.user_id', $filters['user_id']);
+        if (!empty($filters['action'])) $this->db->like('logs.action', $filters['action']);
+        if (!empty($filters['niveau'])) $this->db->where('logs.niveau', $filters['niveau']);
+        if (!empty($filters['date_from'])) $this->db->where('logs.created_at >=', $filters['date_from']);
+        if (!empty($filters['date_to'])) $this->db->where('logs.created_at <=', $filters['date_to'] . ' 23:59:59');
+        $this->db->order_by('logs.id', 'DESC');
         $this->db->limit($limit, $offset);
         $q = $this->db->get('logs');
         return ($q !== false) ? $q->result_array() : [];

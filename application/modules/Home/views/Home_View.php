@@ -1109,4 +1109,69 @@
 
 </main>
 
+<!-- ========== COUNTER ANIMATION ========== -->
+<script>
+(function () {
+  'use strict';
+  var els = document.querySelectorAll('.agf-cbox-num, .agf-choose-stat-num');
+  if (!els.length) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (typeof IntersectionObserver === 'undefined') return;
+
+  function parse(raw) {
+    var m = /-?[\d][\d,.\u2013\u2014]*/.exec(raw);
+    if (!m) return null;
+    var token = m[0];
+    var cleaned = token.replace(/,/g, '').replace(/[\u2013\u2014]/g, '');
+    var target = parseFloat(cleaned);
+    if (isNaN(target)) return null;
+    var dot = cleaned.indexOf('.');
+    return {
+      raw: raw,
+      prefix: raw.slice(0, m.index),
+      suffix: raw.slice(m.index + token.length),
+      target: target,
+      dec: dot > -1 ? cleaned.length - dot - 1 : 0,
+      group: /,\d{3}/.test(token)
+    };
+  }
+
+  function fmt(v, o) {
+    var s = o.dec > 0 ? v.toFixed(o.dec) : String(Math.round(v));
+    if (o.group) {
+      var p = s.split('.');
+      p[0] = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      s = p.join('.');
+    }
+    return o.prefix + s + o.suffix;
+  }
+
+  function animate(el) {
+    var o = parse(el.textContent);
+    if (!o) return;
+    var dur = 1700, t0 = null;
+    el.textContent = fmt(0, o);
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      el.textContent = p < 1 ? fmt(o.target * e, o) : o.raw;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting || en.target.dataset.counted) return;
+      en.target.dataset.counted = '1';
+      io.unobserve(en.target);
+      animate(en.target);
+    });
+  }, { threshold: 0.35 });
+
+  Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+})();
+</script>
+
 <?php include VIEWPATH.'includes/frontend/Footer.php'; ?>

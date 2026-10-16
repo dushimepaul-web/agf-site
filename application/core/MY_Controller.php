@@ -20,14 +20,31 @@ class MY_Controller extends MX_Controller
                 $this->session->set_userdata($session_data);
             } else {
                 $uuid = $this->session->userdata('uuid');
-                $user_query = $this->db->where('uuid', $uuid)->get('users');
+                $user_query = $this->db->where('uuid', $uuid)
+                    ->where('deleted_at', null)
+                    ->get('users');
                 $user_data = ($user_query !== false) ? $user_query->row_array() : null;
-                if ($user_data) {
-                    $role_query = $this->db->where('id', $user_data['role_id'])->get('roles');
-                    $role_data = ($role_query !== false) ? $role_query->row_array() : null;
-                    $this->group_name = $role_data ? $role_data['nom'] : '';
-                    $this->session->set_userdata('role_libelle', $this->group_name);
+                // Revalidation à chaque requête : un compte supprimé (soft-delete),
+                // désactivé (actif/is_active) ou sans rôle ne doit plus accéder
+                // au système même si son cookie de session est encore valide.
+                $still_valid = $user_data
+                    && (int)$user_data['actif'] === 1
+                    && (int)$user_data['is_active'] === 1
+                    && empty($user_data['deleted_at']);
+                if (!$still_valid) {
+                    $this->session->sess_destroy();
+                    if ($this->is_api_request()) {
+                        $this->json_error('Compte désactivé ou session expirée', 401);
+                    }
+                    redirect(base_url('Admin'));
+                    exit;
                 }
+                $role_query = $this->db->where('id', $user_data['role_id'])->get('roles');
+                $role_data = ($role_query !== false) ? $role_query->row_array() : null;
+                $this->group_name = $role_data ? $role_data['nom'] : '';
+                $this->session->set_userdata('role_libelle', $this->group_name);
+                $this->session->set_userdata('role_code', $role_data ? $role_data['code'] : '');
+                $this->session->set_userdata('id_role', (int)$user_data['role_id']);
             }
         } catch (Throwable $e) {
             log_message('error', 'MY_Controller user load failed: ' . $e->getMessage());
@@ -107,11 +124,16 @@ class MY_Controller extends MX_Controller
 
     /**
      * Contrôle d'accès centralisé : rôle administrateur uniquement.
+     * Basé sur le CODE du rôle (ADMIN / SUPER_ADMIN), avec repli sur
+     * l'id 1 pour les anciennes sessions qui n'avaient pas role_code.
      */
     protected function require_admin()
     {
         $this->not_logged_in();
-        if ((int)$this->session->userdata('id_role') !== 1) {
+        $role_code = strtoupper((string)$this->session->userdata('role_code'));
+        $id_role = (int)$this->session->userdata('id_role');
+        $is_admin = in_array($role_code, ['ADMIN', 'SUPER_ADMIN'], true) || $id_role === 1;
+        if (!$is_admin) {
             if ($this->is_api_request()) {
                 $this->json_error('Accès refusé : privilèges administrateur requis', 403);
             }

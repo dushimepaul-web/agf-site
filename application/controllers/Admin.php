@@ -68,12 +68,21 @@ class Admin extends MY_Controller
             return;
         }
 
-        $user_query = $this->db->where('email', $username)->where('actif', 1)->get('users');
+        // Compte actif ET non soft-deleted : deleted_at/is_active sont
+        // réinitialisés/ignorés par une simple colonne actif=1 sinon.
+        $user_query = $this->db->where('email', $username)
+            ->where('actif', 1)
+            ->where('is_active', 1)
+            ->where('deleted_at', null)
+            ->get('users');
         $user = ($user_query !== false) ? $user_query->row_array() : null;
 
         if ($user && password_verify($password, $user['password_hash'])) {
             // Reset login attempts on success
             $this->_clear_login_attempts();
+
+            // Anti session-fixation : nouvel ID de session à chaque connexion.
+            $this->session->sess_regenerate(TRUE);
 
             $role_query = $this->db->where('id', $user['role_id'])->get('roles');
             $role = ($role_query !== false) ? $role_query->row_array() : null;
@@ -94,11 +103,17 @@ class Admin extends MY_Controller
             // Mettre à jour derniere_connexion
             $this->db->where('id', $user['id'])->update('users', ['derniere_connexion' => date('Y-m-d H:i:s')]);
 
+            // Traçabilité de l'audit : connexion réussie + session utilisateur.
+            $this->Model->log_login_attempt($username, true, $user['id']);
+            $this->Model->create_user_session($user['id']);
+
             redirect(base_url('Dashboard'));
         } else {
             $attempts['count']++;
             $attempts['time'] = time();
             $this->_set_login_attempts($attempts);
+            // Traçabilité de l'audit : connexion échouée.
+            $this->Model->log_login_attempt($username, false, null);
             $sms['sms'] = '<div id="message" class="alert alert-danger text-center">
                 <strong>Oups!</strong> Email ou mot de passe incorrect.
             </div>';
@@ -195,13 +210,15 @@ class Admin extends MY_Controller
         $username = strtolower(str_replace([' ', '@', '.'], ['', '', ''], $email));
 
         $inserted = $this->db->insert('users', [
+            'uuid' => generate_uuid(),
             'username' => $username,
             'email' => $email,
             'password_hash' => password_hash($password, PASSWORD_DEFAULT),
             'nom' => $nom,
             'prenom' => $prenom,
             'role_id' => $role_id,
-            'actif' => 1
+            'actif' => 1,
+            'is_active' => 1
         ]);
 
         if ($inserted) {
@@ -222,6 +239,16 @@ class Admin extends MY_Controller
         if (strtoupper($this->input->server('REQUEST_METHOD', 'GET')) !== 'POST') {
             redirect(base_url('Dashboard'));
             return;
+        }
+        // Traçabilité de l'audit + clôture de la session suivie (user_sessions).
+        $user_id = $this->session->userdata('id_utilisateur');
+        if ($user_id) {
+            $this->Model->log_history($user_id, 'logout', 'Déconnexion de ' . $this->session->userdata('email'));
+            $this->db->where('user_id', $user_id)->where('is_active', 1)->update('user_sessions', [
+                'is_active' => 0,
+                'logout_time' => date('Y-m-d H:i:s'),
+                'logout_reason' => 'manual'
+            ]);
         }
         // Supprime les données de session côté serveur puis le cookie navigateur
         $this->session->sess_destroy();

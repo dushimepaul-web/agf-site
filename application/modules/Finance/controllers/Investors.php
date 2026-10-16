@@ -48,7 +48,8 @@ class Investors extends MY_Controller
             'full_name' => trim($data['full_name']),
             'organization' => trim($data['organization'] ?? ''),
             'position_title' => trim($data['position_title'] ?? ''),
-            'id_pays' => (int)($data['id_pays'] ?? 0),
+            // FK pays.id : 0 n'existe pas → NULL sinon contrainte violation (500)
+            'id_pays' => (int)($data['id_pays'] ?? 0) > 0 ? (int)$data['id_pays'] : null,
             'email' => trim($data['email']),
             'phone' => trim($data['phone'] ?? ''),
             'commitment_range' => $data['commitment_range'] ?? null,
@@ -84,8 +85,12 @@ class Investors extends MY_Controller
         foreach (['full_name','organization','position_title','email','phone','commitment_range','timeline','strategic_message','interest_other'] as $f) {
             if (array_key_exists($f, $data)) $update[$f] = trim($data[$f]);
         }
-        foreach (['id_pays','agree_contact','non_binding_confirmation','interest_equity','interest_debt','interest_blended_finance','interest_grant','interest_strategic_partnership','interest_technical_collaboration','interest_offtake_distribution','focus_research_lab','focus_gmp_facility','focus_medicinal_plant','focus_commercialization','focus_full_platform'] as $f) {
+        foreach (['agree_contact','non_binding_confirmation','interest_equity','interest_debt','interest_blended_finance','interest_grant','interest_strategic_partnership','interest_technical_collaboration','interest_offtake_distribution','focus_research_lab','focus_gmp_facility','focus_medicinal_plant','focus_commercialization','focus_full_platform'] as $f) {
             if (array_key_exists($f, $data)) $update[$f] = (int)$data[$f];
+        }
+        if (array_key_exists('id_pays', $data)) {
+            // FK pays.id : 0 → NULL
+            $update['id_pays'] = (int)$data['id_pays'] > 0 ? (int)$data['id_pays'] : null;
         }
         if (empty($update)) { $this->json_error('Aucune donnée à modifier'); return; }
         if ($this->Finance_model->update_investor($id, $update)) {

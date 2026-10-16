@@ -74,10 +74,11 @@ function niveauBadge(n) {
 }
 
 function renderRow(r, num) {
+  const user = r.username ? API.esc(r.username) + (r.nom ? ' <span class="text-muted small">(' + API.esc((r.prenom || '') + ' ' + (r.nom || '')).trim() + ')</span>' : '') : '<span class="text-muted">—</span>';
   return '<tr>' +
     '<td class="text-muted">' + num + '</td>' +
     '<td class="text-nowrap">' + API.esc(r.created_at || '') + '</td>' +
-    '<td>' + (r.user_id || '—') + '</td>' +
+    '<td>' + user + '</td>' +
     '<td><span class="badge bg-light text-dark border">' + API.esc(r.action || '') + '</span></td>' +
     '<td>' + API.esc((r.description || '').substring(0, 80)) + '</td>' +
     '<td>' + niveauBadge(r.niveau) + '</td>' +

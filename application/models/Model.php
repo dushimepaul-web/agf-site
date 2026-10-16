@@ -404,9 +404,16 @@ class Model extends CI_Model {
     public function create_user_session($user_id, $session_id = null) {
         $this->load->library('user_agent');
         if ($session_id === null) $session_id = session_id();
-        if ($this->agent->is_mobile()) $device_type = 'mobile';
-        elseif ($this->agent->is_robot()) $device_type = 'bot';
-        elseif ($this->agent->is_tablet()) $device_type = 'tablet';
+        // CI3 n'a pas de méthode is_tablet() : on détecte le robot d'abord,
+        // puis mobile/tablet via l'UA (les tablets matchent is_mobile()=true).
+        $ua = strtolower((string)$this->input->user_agent());
+        if ($this->agent->is_robot()) $device_type = 'bot';
+        elseif ($this->agent->is_mobile()) {
+            $is_tablet = (strpos($ua, 'tablet') !== false || strpos($ua, 'ipad') !== false
+                || strpos($ua, 'playbook') !== false || strpos($ua, 'silk') !== false
+                || (strpos($ua, 'android') !== false && strpos($ua, 'mobile') === false));
+            $device_type = $is_tablet ? 'tablet' : 'mobile';
+        }
         else $device_type = 'desktop';
         $data = [
             'user_id' => $user_id, 'session_id' => $session_id,

@@ -108,10 +108,10 @@ class Contact extends MX_Controller {
             exit;
         }
 
-        $existant = $this->db->where('LOWER(email)', strtolower($email), false)
-            ->where('deleted_at IS NULL', null, false)
-            ->get('newsletter_abonnes')
-            ->row();
+        $existant = $this->db->get_where('newsletter_abonnes', [
+            'email'      => $email,
+            'deleted_at' => null,
+        ])->row();
 
         if ($existant) {
             echo json_encode(['ok' => true, 'message' => 'You are already subscribed. Thank you!']);

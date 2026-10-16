@@ -23,14 +23,16 @@ class Menus extends MY_Controller {
     }
 
     public function api_create() {
-        $data = $this->get_json_input();
+        $data = $this->get_json_input() ?: [];
         if (empty($data['code']) || empty($data['libelle'])) {
             $this->json_error('Code et libellé obligatoires'); return;
         }
         if ($this->Model->readOne('menus', ['code' => trim($data['code'])])) {
             $this->json_error('Ce code existe déjà'); return;
         }
+        // uuid NOT NULL + unique en base : obligatoire à l'insertion
         $insert = [
+            'uuid' => generate_uuid(),
             'code' => trim($data['code']),
             'libelle' => trim($data['libelle']),
             'icon' => trim($data['icon'] ?? '') !== '' ? trim($data['icon']) : null,
@@ -38,14 +40,16 @@ class Menus extends MY_Controller {
             'parent_id' => !empty($data['parent_id']) && is_numeric($data['parent_id']) ? intval($data['parent_id']) : null,
             'ordre' => isset($data['ordre']) && is_numeric($data['ordre']) ? intval($data['ordre']) : 0
         ];
-        if ($this->Model->createLastId('menus', $insert)) {
-            $this->json_success(['id_menu' => $this->db->insert_id()], 'Menu créé');
+        if ($this->Model->create_last_id('menus', $insert)) {
+            $new_id = $this->db->insert_id();
+            $this->Model->log_history($this->session->userdata('id_utilisateur'), 'menu_created', "Création du menu {$insert['code']} (id {$new_id})");
+            $this->json_success(['id_menu' => $new_id], 'Menu créé');
         }
         $this->json_error('Erreur');
     }
 
     public function api_update($id) {
-        $data = $this->get_json_input();
+        $data = $this->get_json_input() ?: [];
         $existing = $this->Model->readOne('menus', ['uuid' => $id]);
         if (!$existing) { $this->json_error('Menu non trouvé', 404); return; }
 
@@ -70,8 +74,10 @@ class Menus extends MY_Controller {
         if (array_key_exists('ordre', $data)) $update['ordre'] = is_numeric($data['ordre']) ? intval($data['ordre']) : 0;
 
         if (empty($update)) { $this->json_error('Aucune donnée à modifier'); return; }
-        if ($this->Model->update('menus', ['uuid' => $id], $update))
+        if ($this->Model->update('menus', ['uuid' => $id], $update)) {
+            $this->Model->log_history($this->session->userdata('id_utilisateur'), 'menu_updated', "Mise à jour du menu {$existing['code']} : " . implode(', ', array_keys($update)));
             $this->json_success(null, 'Menu mis à jour');
+        }
         else $this->json_error('Erreur');
     }
 
@@ -83,8 +89,10 @@ class Menus extends MY_Controller {
         if (!empty($children)) {
             $this->json_error('Supprimez d\'abord les sous-menus'); return;
         }
-        if ($this->db->where('uuid', $id)->delete('menus'))
+        if ($this->db->where('uuid', $id)->delete('menus')) {
+            $this->Model->log_history($this->session->userdata('id_utilisateur'), 'menu_deleted', "Suppression du menu {$existing['code']} (id {$existing['id_menu']})");
             $this->json_success(null, 'Menu supprimé');
+        }
         else $this->json_error('Erreur');
     }
 }

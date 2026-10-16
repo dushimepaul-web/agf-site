@@ -36,8 +36,14 @@ class SocialLinks extends MY_Controller
         if (empty($data['platform']) || empty($data['url'])) {
             $this->json_error('Plateforme et URL obligatoires'); return;
         }
+        $platform = trim($data['platform']);
+        // La colonne platform est UNIQUE en base : vérifier avant insert
+        // (sinon 500 Duplicate entry au lieu d'une erreur métier propre).
+        if ($this->db->where('platform', $platform)->count_all_results('social_links') > 0) {
+            $this->json_error('Cette plateforme existe déjà'); return;
+        }
         $insert = [
-            'platform' => trim($data['platform']),
+            'platform' => $platform,
             'label' => trim($data['label'] ?? $data['platform']),
             'url' => trim($data['url']),
             'icon_class' => trim($data['icon_class'] ?? 'bi'),

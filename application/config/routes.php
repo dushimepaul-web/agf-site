@@ -31,6 +31,9 @@ $route['api/profile/change_password'] = 'Profile/api_change_password';
 $route['Dashboard'] = 'Dashboard/Dashboard/index';
 $route['api/dashboard/data'] = 'Dashboard/Dashboard/api_data';
 $route['api/dashboard/filters'] = 'Dashboard/Dashboard/api_filters';
+// AVANT la catch-all : sinon Dashboard/api_data est avalé par index/$1
+$route['Dashboard/api_data'] = 'Dashboard/Dashboard/api_data';
+$route['Dashboard/api_filters'] = 'Dashboard/Dashboard/api_filters';
 $route['Dashboard/(:any)'] = 'Dashboard/Dashboard/index/$1';
 
 
@@ -38,19 +41,19 @@ $route['Dashboard/(:any)'] = 'Dashboard/Dashboard/index/$1';
 $route['Produits'] = 'Produits/Produits/index';
 $route['Produits/add_edit'] = 'Produits/Produits/add_edit';
 $route['Produits/add_edit/(:num)'] = 'Produits/Produits/add_edit/$1';
-$route['Produits/(:any)'] = 'Produits/Produits/$1';
+$route['Produits/(.*)'] = 'Produits/Produits/$1';
 
 // Catégories
 $route['Categories'] = 'Produits/Categories/index';
 $route['Categories/add_edit'] = 'Produits/Categories/add_edit';
 $route['Categories/add_edit/(:num)'] = 'Produits/Categories/add_edit/$1';
-$route['Categories/(:any)'] = 'Produits/Categories/$1';
+$route['Categories/(.*)'] = 'Produits/Categories/$1';
 
 // Unités d'affaires
 $route['Unites'] = 'Produits/Unites/index';
 $route['Unites/add_edit'] = 'Produits/Unites/add_edit';
 $route['Unites/add_edit/(:num)'] = 'Produits/Unites/add_edit/$1';
-$route['Unites/(:any)'] = 'Produits/Unites/$1';
+$route['Unites/(.*)'] = 'Produits/Unites/$1';
 
 // Upload
 $route['Produits/api_upload'] = 'Produits/Produits/api_upload';
@@ -58,16 +61,16 @@ $route['Unites/api_upload'] = 'Produits/Unites/api_upload';
 
 // Menus
 $route['Menus'] = 'Administration/Menus/index';
-$route['Menus/(:any)'] = 'Administration/Menus/$1';
+$route['Menus/(.*)'] = 'Administration/Menus/$1';
 
 // Rôles
 $route['Roles'] = 'Administration/Roles/index';
-$route['Roles/(:any)'] = 'Administration/Roles/$1';
+$route['Roles/(.*)'] = 'Administration/Roles/$1';
 
 // Galerie Medias
 $route['GalerieMedias'] = 'admin_galerie/Media/index';
 $route['GalerieMedias/index/(:any)'] = 'admin_galerie/Media/index/$1';
-$route['GalerieMedias/(:any)'] = 'admin_galerie/Media/$1';
+$route['GalerieMedias/(.*)'] = 'admin_galerie/Media/$1';
 
 // API CRUD (api.js crudResource pattern)
 $route['api/menus'] = 'Administration/Menus/api_list';
@@ -84,66 +87,66 @@ $route['api/roles/(:any)'] = 'Administration/Roles/api_get/$1';
 
 // Contact Us
 $route['ContactUs'] = 'Public/ContactUs/index';
-$route['ContactUs/(:any)'] = 'Public/ContactUs/$1';
+$route['ContactUs/(.*)'] = 'Public/ContactUs/$1';
 
 // FAQ
 $route['Faq'] = 'Public/Faq/index';
 $route['Faq/add_edit'] = 'Public/Faq/add_edit';
 $route['Faq/add_edit/(:num)'] = 'Public/Faq/add_edit/$1';
-$route['Faq/(:any)'] = 'Public/Faq/$1';
+$route['Faq/(.*)'] = 'Public/Faq/$1';
 
 // Partenaires
 $route['Partenaires'] = 'Public/Partenaires/index';
 $route['Partenaires/add_edit'] = 'Public/Partenaires/add_edit';
 $route['Partenaires/add_edit/(:num)'] = 'Public/Partenaires/add_edit/$1';
-$route['Partenaires/(:any)'] = 'Public/Partenaires/$1';
+$route['Partenaires/(.*)'] = 'Public/Partenaires/$1';
 
 // Social Links
 $route['SocialLinks'] = 'Public/SocialLinks/index';
-$route['SocialLinks/(:any)'] = 'Public/SocialLinks/$1';
+$route['SocialLinks/(.*)'] = 'Public/SocialLinks/$1';
 
 // Brokers
 $route['Brokers'] = 'Finance/Brokers/index';
 $route['Brokers/add_edit'] = 'Finance/Brokers/add_edit';
 $route['Brokers/add_edit/(:num)'] = 'Finance/Brokers/add_edit/$1';
-$route['Brokers/(:any)'] = 'Finance/Brokers/$1';
+$route['Brokers/(.*)'] = 'Finance/Brokers/$1';
 
 // Investors
 $route['Investors'] = 'Finance/Investors/index';
 $route['Investors/add_edit'] = 'Finance/Investors/add_edit';
 $route['Investors/add_edit/(:num)'] = 'Finance/Investors/add_edit/$1';
-$route['Investors/(:any)'] = 'Finance/Investors/$1';
+$route['Investors/(.*)'] = 'Finance/Investors/$1';
 
 // Logs
 $route['Logs'] = 'Administration/Logs/index';
-$route['Logs/(:any)'] = 'Administration/Logs/$1';
+$route['Logs/(.*)'] = 'Administration/Logs/$1';
 
 // Users
 $route['Users'] = 'Administration/Users/index';
-$route['Users/(:any)'] = 'Administration/Users/$1';
+$route['Users/(.*)'] = 'Administration/Users/$1';
 
 // Sessions
 $route['Sessions'] = 'Administration/Sessions/index';
-$route['Sessions/(:any)'] = 'Administration/Sessions/$1';
+$route['Sessions/(.*)'] = 'Administration/Sessions/$1';
 
 // Visitors
 $route['Visitors'] = 'Administration/Visitors/index';
-$route['Visitors/(:any)'] = 'Administration/Visitors/$1';
+$route['Visitors/(.*)'] = 'Administration/Visitors/$1';
 
 // Temoignages
 $route['Temoignages'] = 'Temoignages/Temoignages/index';
-$route['Temoignages/(:any)'] = 'Temoignages/Temoignages/$1';
+$route['Temoignages/(.*)'] = 'Temoignages/Temoignages/$1';
 
 // Consultations (admin)
 $route['Consultations'] = 'Consultation/Consultations/index';
 $route['Consultations/medecins'] = 'Consultation/Consultations/medecins';
 $route['Consultations/medecin_form/(:any)'] = 'Consultation/Consultations/medecin_form/$1';
 $route['Consultations/medecin_form'] = 'Consultation/Consultations/medecin_form';
-$route['Consultations/(:any)'] = 'Consultation/Consultations/$1';
+$route['Consultations/(.*)'] = 'Consultation/Consultations/$1';
 
 // Patients
 $route['Patients'] = 'Consultation/Patients/index';
-$route['Patients/(:any)'] = 'Consultation/Patients/$1';
+$route['Patients/(.*)'] = 'Consultation/Patients/$1';
 
 // Consultation
 $route['doctor'] = 'Home/PatientForm/Medicin';
@@ -156,7 +159,7 @@ $route['patient-form/get_countries'] = 'Home/PatientForm/get_countries';
 $route['Consultation'] = 'Consultation/Consultation/index';
 $route['Consultation/detail/(:num)'] = 'Consultation/Consultation/detail/$1';
 $route['Consultation/formulaire/(:num)'] = 'Consultation/Consultation/formulaire/$1';
-$route['Consultation/(:any)'] = 'Consultation/Consultation/$1';
+$route['Consultation/(.*)'] = 'Consultation/Consultation/$1';
 
 // Frontend pages — About & Content
 $route['about'] = 'Home/About/index';
