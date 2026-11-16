@@ -1,0 +1,104 @@
+{% extends "backend_base.html" %}
+{% block content %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Gestion des témoignages</h1>
+    <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/Dashboard">Accueil</a></li><li class="breadcrumb-item active">Témoignages</li></ol></nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3">
+          <h5 class="card-title mb-0">Témoignages <span id="tableCount" class="badge bg-light text-primary border border-primary fw-normal ms-1"></span></h5>
+          <button type="button" class="btn btn-primary btn-sm" onclick="openModal()"><i class="bi bi-plus-lg me-1"></i>Ajouter</button>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 my-3">
+          <div class="position-relative" style="max-width:320px;width:100%;"><i class="bi bi-search position-absolute start-0 top-50 translate-middle ms-2 text-muted" style="font-size:.85rem;"></i><input type="text" id="tableSearch" class="form-control form-control-sm ps-4" placeholder="Rechercher un témoignage..."></div>
+          <div class="d-flex align-items-center gap-2 text-muted small"><span>Lignes :</span><select id="tblPerPage" class="form-select form-select-sm" style="width:90px;"><option value="10">10</option><option value="15" selected>15</option><option value="25">25</option><option value="50">50</option></select></div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light"><tr><th>#</th><th>Témoignage</th><th>Auteur</th><th>Vidéo</th><th class="text-center">Ordre</th><th>Statut</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="tableEmpty" class="text-center text-muted py-5 d-none"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Aucun témoignage trouvé.</div>
+          <div id="tableLoading" class="text-center py-4"><span class="spinner-border spinner-border-sm text-primary me-2"></span><span class="text-muted">Chargement...</span></div>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3"><span id="tableInfo" class="text-muted small"></span><nav><ul class="pagination pagination-sm mb-0" id="tblPager"></ul></nav></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title" id="modalTitle">Ajouter un témoignage</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <form id="editForm" onsubmit="return save(event)">
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-8"><label class="form-label">Titre <span class="text-danger">*</span></label><input type="text" name="titre" class="form-control" required></div>
+          <div class="col-md-4"><label class="form-label">Auteur</label><input type="text" name="auteur" class="form-control"></div>
+          <div class="col-12"><label class="form-label">URL vidéo (YouTube, Vimeo ou fichier)</label><input type="text" name="video_url" class="form-control"></div>
+          <div class="col-md-8"><label class="form-label">Miniature</label><div class="input-group"><input type="text" name="miniature" class="form-control"><button type="button" class="btn btn-outline-primary" onclick="document.getElementById('imageInput').click()"><i class="bi bi-upload"></i></button></div><input type="file" id="imageInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/webp"><img id="imagePreview" class="mt-2 rounded border d-none" style="max-height:100px;"></div>
+          <div class="col-md-4"><label class="form-label">Ordre</label><input type="number" name="ordre" class="form-control mb-2" value="0"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" name="est_actif" id="est_actif" checked><label class="form-check-label" for="est_actif">Actif</label></div></div>
+          <div class="col-12"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="4"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
+    </form>
+  </div></div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="/assets/js/localisation-table.js"></script>
+<script>
+let rows = [], gt = null;
+function renderRow(r, num) {
+  return '<tr><td class="text-muted">' + num + '</td><td><div class="d-flex align-items-center gap-2">' + (r.miniature ? '<img src="/' + API.esc(r.miniature) + '" style="width:52px;height:38px;object-fit:cover;border-radius:6px;">' : '') + '<div><div class="fw-semibold">' + API.esc(r.titre) + '</div><div class="small text-muted text-truncate" style="max-width:320px;">' + API.esc(r.description || '') + '</div></div></div></td><td>' + API.esc(r.auteur || '—') + '</td><td class="small text-truncate" style="max-width:200px;">' + API.esc(r.video_url || '—') + '</td><td class="text-center">' + (r.ordre || 0) + '</td><td>' + (r.est_actif == 1 ? '<span class="badge bg-success">Actif</span>' : '<span class="badge bg-secondary">Inactif</span>') + '</td><td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-primary me-1" onclick="openModal(' + r.id + ')"><i class="bi bi-pencil"></i></button><button class="btn btn-sm btn-outline-danger" onclick="remove(' + r.id + ')"><i class="bi bi-trash"></i></button></td></tr>';
+}
+function searchTerms(r) { return [r.titre, r.auteur, r.description].join(' '); }
+async function loadTable() {
+  const r = await API.get('api/admin/testimonials');
+  if (!r.success) return API.simpleAlert('error', 'Erreur', r.message);
+  rows = r.data || []; gt.setRows(rows);
+}
+function openModal(id) {
+  const f = document.getElementById('editForm'); f.reset(); f.dataset.id = ''; document.getElementById('imagePreview').classList.add('d-none');
+  document.getElementById('modalTitle').textContent = 'Ajouter un témoignage';
+  if (id) {
+    const r = rows.find(x => x.id == id); if (!r) return;
+    document.getElementById('modalTitle').textContent = 'Modifier le témoignage'; f.dataset.id = r.id;
+    f.titre.value = r.titre || ''; f.auteur.value = r.auteur || ''; f.video_url.value = r.video_url || ''; f.miniature.value = r.miniature || ''; f.ordre.value = r.ordre ?? 0; f.est_actif.checked = r.est_actif == 1; f.description.value = r.description || '';
+    if (r.miniature) { const img = document.getElementById('imagePreview'); img.src = '/' + r.miniature; img.classList.remove('d-none'); }
+  }
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+}
+document.getElementById('imageInput').addEventListener('change', async function () {
+  if (!this.files || !this.files[0]) return;
+  const fd = new FormData(); fd.append('file', this.files[0]);
+  const res = await fetch('/api/admin/testimonials/upload', { method: 'POST', headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' }, body: fd });
+  const r = await res.json();
+  if (!r.success) return API.simpleAlert('error', 'Erreur', r.message);
+  document.getElementById('editForm').miniature.value = r.data.path;
+  const img = document.getElementById('imagePreview'); img.src = '/' + r.data.path; img.classList.remove('d-none');
+});
+async function save(e) {
+  e.preventDefault(); const f = document.getElementById('editForm');
+  const data = { titre: f.titre.value, auteur: f.auteur.value, video_url: f.video_url.value, miniature: f.miniature.value, ordre: f.ordre.value, est_actif: f.est_actif.checked ? 1 : 0, description: f.description.value };
+  const id = f.dataset.id;
+  const r = id ? await API.post('api/admin/testimonials/' + id + '/update', data) : await API.post('api/admin/testimonials', data);
+  if (r.success) { bootstrap.Modal.getInstance(document.getElementById('editModal')).hide(); await loadTable(); API.simpleAlert('success', 'Succès', r.message); }
+  else API.simpleAlert('error', 'Erreur', r.message);
+  return false;
+}
+async function remove(id) {
+  const c = await API.confirm('Supprimer', 'Supprimer ce témoignage ?'); if (!c.isConfirmed) return;
+  const r = await API.post('api/admin/testimonials/' + id + '/delete', {});
+  if (r.success) { await loadTable(); API.simpleAlert('success', 'Succès', r.message); } else API.simpleAlert('error', 'Erreur', r.message);
+}
+gt = new GeoTable({ renderRow, searchTerms, count: (t, a) => t + (t > 1 ? ' témoignages' : ' témoignage') });
+loadTable();
+</script>
+{% endblock %}

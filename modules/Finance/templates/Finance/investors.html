@@ -1,0 +1,128 @@
+{% extends "backend_base.html" %}
+{% block content %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Investisseurs</h1>
+    <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/Dashboard">Accueil</a></li><li class="breadcrumb-item">Finance</li><li class="breadcrumb-item active">Investisseurs</li></ol></nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3">
+          <h5 class="card-title mb-0">Liste des investisseurs <span id="tableCount" class="badge bg-light text-primary border border-primary fw-normal ms-1"></span></h5>
+          <button type="button" class="btn btn-primary btn-sm" onclick="openModal()"><i class="bi bi-plus-lg me-1"></i>Ajouter</button>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 my-3">
+          <div class="position-relative" style="max-width:320px;width:100%;"><i class="bi bi-search position-absolute start-0 top-50 translate-middle ms-2 text-muted" style="font-size:.85rem;"></i><input type="text" id="tableSearch" class="form-control form-control-sm ps-4" placeholder="Rechercher un investisseur..."></div>
+          <div class="d-flex align-items-center gap-2 text-muted small"><span>Lignes :</span><select id="tblPerPage" class="form-select form-select-sm" style="width:90px;"><option value="10">10</option><option value="15" selected>15</option><option value="25">25</option><option value="50">50</option></select></div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light"><tr><th>#</th><th>Investisseur</th><th>Organisation</th><th>Email</th><th>Engagement</th><th>Créé le</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="tableEmpty" class="text-center text-muted py-5 d-none"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Aucun investisseur trouvé.</div>
+          <div id="tableLoading" class="text-center py-4"><span class="spinner-border spinner-border-sm text-primary me-2"></span><span class="text-muted">Chargement...</span></div>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3"><span id="tableInfo" class="text-muted small"></span><nav><ul class="pagination pagination-sm mb-0" id="tblPager"></ul></nav></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-xl"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title" id="modalTitle">Ajouter un investisseur</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <form id="editForm" onsubmit="return save(event)">
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-4"><label class="form-label">Nom complet <span class="text-danger">*</span></label><input type="text" name="full_name" class="form-control" required></div>
+          <div class="col-md-4"><label class="form-label">Organisation</label><input type="text" name="organization" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label">Fonction</label><input type="text" name="position_title" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label">Email <span class="text-danger">*</span></label><input type="email" name="email" class="form-control" required></div>
+          <div class="col-md-4"><label class="form-label">Téléphone</label><input type="text" name="phone" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label">ID Pays</label><input type="number" name="id_pays" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label">Taille engagement</label><input type="text" name="commitment_range" class="form-control"></div>
+          <div class="col-md-4"><label class="form-label">Timeline</label><input type="text" name="timeline" class="form-control" value="Exploratory"></div>
+          <div class="col-md-4"><label class="form-label">Autre intérêt</label><input type="text" name="interest_other" class="form-control"></div>
+          <div class="col-12"><label class="form-label">Message stratégique</label><textarea name="strategic_message" class="form-control" rows="2"></textarea></div>
+        </div>
+
+        <h6 class="mt-4 mb-2 text-primary">Intérêts</h6>
+        <div class="row g-2">
+          {% for key,label in investor_flags %}{% endfor %}
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_equity" id="interest_equity"><label class="form-check-label" for="interest_equity">Equity</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_debt" id="interest_debt"><label class="form-check-label" for="interest_debt">Dette</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_blended_finance" id="interest_blended_finance"><label class="form-check-label" for="interest_blended_finance">Finance mixte</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_grant" id="interest_grant"><label class="form-check-label" for="interest_grant">Subvention</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_strategic_partnership" id="interest_strategic_partnership"><label class="form-check-label" for="interest_strategic_partnership">Partenariat stratégique</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_technical_collaboration" id="interest_technical_collaboration"><label class="form-check-label" for="interest_technical_collaboration">Collaboration technique</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="interest_offtake_distribution" id="interest_offtake_distribution"><label class="form-check-label" for="interest_offtake_distribution">Offtake / distribution</label></div></div>
+        </div>
+
+        <h6 class="mt-4 mb-2 text-primary">Focus</h6>
+        <div class="row g-2">
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="focus_research_lab" id="focus_research_lab"><label class="form-check-label" for="focus_research_lab">Laboratoire de recherche</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="focus_gmp_facility" id="focus_gmp_facility"><label class="form-check-label" for="focus_gmp_facility">Facility GMP</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="focus_medicinal_plant" id="focus_medicinal_plant"><label class="form-check-label" for="focus_medicinal_plant">Plantes médicinales</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="focus_commercialization" id="focus_commercialization"><label class="form-check-label" for="focus_commercialization">Commercialisation</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="focus_full_platform" id="focus_full_platform"><label class="form-check-label" for="focus_full_platform">Plateforme complète</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="agree_contact" id="agree_contact"><label class="form-check-label" for="agree_contact">Accepte le contact</label></div></div>
+          <div class="col-md-4"><div class="form-check"><input class="form-check-input" type="checkbox" name="non_binding_confirmation" id="non_binding_confirmation"><label class="form-check-label" for="non_binding_confirmation">Non contraignant</label></div></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
+    </form>
+  </div></div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="/assets/js/localisation-table.js"></script>
+<script>
+let rows = [], gt = null;
+const editId = {{ edit_id|default:"0" }};
+function renderRow(r, num) {
+  return '<tr><td class="text-muted">' + num + '</td><td><div class="fw-semibold">' + API.esc(r.full_name) + '</div><div class="small text-muted">' + API.esc(r.position_title || '') + '</div></td><td>' + API.esc(r.organization || '—') + '</td><td>' + API.esc(r.email) + '</td><td>' + API.esc(r.commitment_range || '—') + '</td><td class="small">' + API.esc((r.created_at || '').replace('T', ' ').slice(0, 10)) + '</td><td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-primary me-1" onclick="openModal(' + r.id + ')"><i class="bi bi-pencil"></i></button><button class="btn btn-sm btn-outline-danger" onclick="remove(' + r.id + ')"><i class="bi bi-trash"></i></button></td></tr>';
+}
+function searchTerms(r) { return [r.full_name, r.organization, r.email, r.commitment_range].join(' '); }
+async function loadTable() {
+  const r = await API.get('api/admin/investors');
+  if (!r.success) return API.simpleAlert('error', 'Erreur', r.message);
+  rows = r.data || []; gt.setRows(rows);
+  if (editId) openModal(editId);
+}
+function setForm(r) {
+  const f = document.getElementById('editForm'); f.reset(); f.dataset.id = '';
+  document.getElementById('modalTitle').textContent = 'Ajouter un investisseur';
+  if (!r) return;
+  document.getElementById('modalTitle').textContent = "Modifier l'investisseur"; f.dataset.id = r.id;
+  Array.from(f.elements).forEach(el => {
+    if (!el.name || el.name === 'id') return;
+    if (el.type === 'checkbox') el.checked = r[el.name] == 1;
+    else el.value = r[el.name] ?? '';
+  });
+}
+function openModal(id) {
+  setForm(id ? rows.find(x => x.id == id) : null);
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+}
+async function save(e) {
+  e.preventDefault(); const f = document.getElementById('editForm'); const data = {};
+  Array.from(f.elements).forEach(el => { if (!el.name) return; data[el.name] = el.type === 'checkbox' ? (el.checked ? 1 : 0) : el.value; });
+  const id = f.dataset.id;
+  const r = id ? await API.post('api/admin/investors/' + id + '/update', data) : await API.post('api/admin/investors', data);
+  if (r.success) { bootstrap.Modal.getInstance(document.getElementById('editModal')).hide(); await loadTable(); API.simpleAlert('success', 'Succès', r.message); }
+  else API.simpleAlert('error', 'Erreur', r.message);
+  return false;
+}
+async function remove(id) {
+  const c = await API.confirm('Supprimer', 'Supprimer cet investisseur ?'); if (!c.isConfirmed) return;
+  const r = await API.post('api/admin/investors/' + id + '/delete', {});
+  if (r.success) { await loadTable(); API.simpleAlert('success', 'Succès', r.message); } else API.simpleAlert('error', 'Erreur', r.message);
+}
+gt = new GeoTable({ renderRow, searchTerms, count: (t, a) => t + (t > 1 ? ' investisseurs' : ' investisseur') });
+loadTable();
+</script>
+{% endblock %}

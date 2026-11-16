@@ -1,0 +1,7 @@
+Django==6.1.2
+fastapi==0.141.1
+uvicorn==0.52.4
+PyMySQL==1.2.3
+bcrypt==5.0.0
+python-dotenv==1.2.2
+python-multipart==0.0.33

@@ -1,0 +1,14 @@
+<div class="agf-shop-card" onclick="window.location.href='/shop/detail/{{ p.slug }}'">
+  <div class="agf-shop-card-img"{% if p.image %} style="background-image:url('/{{ p.image }}')"{% endif %}>
+    {% if p.est_certifie %}<span class="agf-shop-badge"><i class="bi bi-patch-check-fill"></i> Certified</span>{% endif %}
+  </div>
+  <div class="agf-shop-card-body">
+    <span class="agf-shop-card-cat">{{ p.categorie_nom }}</span>
+    <h3 class="agf-shop-card-title">{{ p.nom }}</h3>
+    <p class="agf-shop-card-desc">{{ p.description|truncatechars:80 }}</p>
+    <div class="agf-shop-card-footer">
+      <span class="agf-shop-card-price">{{ p.prix|default:"On request" }}</span>
+      <span class="agf-shop-card-action"><i class="bi bi-arrow-right"></i></span>
+    </div>
+  </div>
+</div>

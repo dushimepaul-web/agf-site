@@ -1,0 +1,71 @@
+{% extends "frontend/Base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<style>
+  .shop-hero{background:linear-gradient(135deg,#0b1c39,#116e63);color:#fff;padding:70px 0 50px;margin-bottom:36px}
+  .shop-hero h1{font-size:44px;font-weight:800;margin:0 0 10px}
+  .shop-hero p{margin:0;color:rgba(255,255,255,.8)}
+  .shop-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+  .shop-filter a{padding:8px 16px;border-radius:999px;border:1px solid #d9e2ec;background:#fff;color:#334155;text-decoration:none;font-size:14px;font-weight:600}
+  .shop-filter a.active,.shop-filter a:hover{background:#116e63;color:#fff;border-color:#116e63}
+  .shop-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(15,23,42,.08);height:100%;transition:.25s;display:flex;flex-direction:column}
+  .shop-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(15,23,42,.14)}
+  .shop-card-img{height:210px;background:#eef2f6;display:flex;align-items:center;justify-content:center}
+  .shop-card-img img{width:100%;height:100%;object-fit:cover}
+  .shop-card-body{padding:16px;display:flex;flex-direction:column;flex:1}
+  .shop-card-body h3{font-size:17px;font-weight:700;margin:0 0 6px;color:#0f172a}
+  .shop-card-body p{font-size:13px;color:#64748b;flex:1;margin:0 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .shop-card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .shop-price{font-weight:700;color:#116e63}
+  .shop-badge{background:#dcbb07;color:#1a1a1a;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px}
+  .shop-search{display:flex;gap:8px;margin:0 0 22px}
+  .shop-search input{flex:1;border:1px solid #d9e2ec;border-radius:999px;padding:11px 18px;font-size:14px;outline:none}
+  .shop-search input:focus{border-color:#116e63;box-shadow:0 0 0 3px rgba(17,110,99,.12)}
+  .shop-search button{border:0;border-radius:999px;background:#116e63;color:#fff;padding:0 22px;font-weight:600}
+</style>
+<div class="shop-hero">
+  <div class="container">
+    <h1>{% if current_category %}{{ current_category.nom }}{% else %}Notre boutique{% endif %}</h1>
+    <p>Produits fonctionnels et solutions agricoles African Green Farmers.</p>
+  </div>
+</div>
+<div class="container pb-5">
+  <form class="shop-search" method="get" action="{% if current_category %}/shop/category/{{ current_category.slug }}{% else %}/shop{% endif %}">
+    <input type="search" name="q" value="{{ query }}" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+    <button type="submit"><i class="bi bi-search me-1"></i>Rechercher</button>
+  </form>
+  <div class="shop-filter">
+    <a href="/shop" class="{% if not current_category %}active{% endif %}">Tous <span class="badge bg-light text-dark">{{ produits|length }}</span></a>
+    {% for cat in categories %}
+    <a href="/shop/category/{{ cat.slug }}" class="{% if current_category.id == cat.id %}active{% endif %}">{{ cat.nom }} <span class="badge bg-light text-dark">{{ cat.total_produits }}</span></a>
+    {% endfor %}
+  </div>
+  {% if produits %}
+  <div class="row g-4">
+    {% for p in produits %}
+    <div class="col-sm-6 col-lg-4 col-xl-3">
+      <div class="shop-card">
+        <a href="/shop/detail/{{ p.slug }}" class="shop-card-img">
+          {% if p.image %}<img src="/{{ p.image }}" alt="{{ p.nom }}" loading="lazy">{% else %}<i class="bi bi-box-seam fs-1 text-secondary"></i>{% endif %}
+        </a>
+        <div class="shop-card-body">
+          <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+            <h3><a href="/shop/detail/{{ p.slug }}" class="text-decoration-none text-dark">{{ p.nom }}</a></h3>
+            {% if p.est_certifie %}<span class="shop-badge">Certifié</span>{% endif %}
+          </div>
+          <div class="small text-muted mb-2">{{ p.categorie_nom }}{% if p.conditionnement %} · {{ p.conditionnement }}{% endif %}</div>
+          <p>{{ p.description|default:"Produit disponible sur demande." }}</p>
+          <div class="shop-card-footer">
+            <span class="shop-price">{{ p.prix|default:"Sur demande" }}</span>
+            <a href="/shop/detail/{{ p.slug }}" class="btn btn-sm btn-success">Détails</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center text-muted py-5"><i class="bi bi-box-seam fs-1 d-block mb-3"></i>{% if query %}Aucun produit ne correspond à « {{ query }} ».{% else %}Aucun produit disponible dans cette catégorie.{% endif %}</div>
+  {% endif %}
+</div>
+{% endblock %}

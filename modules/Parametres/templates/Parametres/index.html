@@ -1,0 +1,180 @@
+{% extends "backend_base.html" %}
+{% block content %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Paramètres</h1>
+    <nav><ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/Dashboard">Accueil</a></li>
+      <li class="breadcrumb-item active">Paramètres</li>
+    </ol></nav>
+  </div>
+
+  <section class="section">
+    <div class="row g-3">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center pt-3">
+              <h5 class="card-title mb-0">Configuration de la plateforme</h5>
+              <button type="button" class="btn btn-primary btn-sm" id="saveSettingsBtn"><i class="bi bi-check-lg me-1"></i>Enregistrer</button>
+            </div>
+
+            <ul class="nav nav-tabs nav-tabs-bordered mt-3" role="tablist">
+              <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pane-general" type="button">Général</button></li>
+              <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-contact" type="button">Contact</button></li>
+              <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-finance" type="button">Finance</button></li>
+              <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pane-email" type="button">Email</button></li>
+            </ul>
+
+            <form id="settingsForm" class="tab-content pt-4">
+              <div class="tab-pane fade show active" id="pane-general">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label fw-semibold">Nom de l'application</label><input type="text" class="form-control" data-key="nom_app"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Nom du site</label><input type="text" class="form-control" data-key="site_name"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Nom entreprise</label><input type="text" class="form-control" data-key="nom_entreprise"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Sous-titre</label><input type="text" class="form-control" data-key="span_site_name"></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Slogan</label><input type="text" class="form-control" data-key="slogan"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Directeur général</label><input type="text" class="form-control" data-key="directeur_general"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Facility / projet</label><input type="text" class="form-control" data-key="facility_projet"></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Description courte</label><textarea class="form-control" rows="3" data-key="agf_description_courte"></textarea></div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="pane-contact">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label fw-semibold">Téléphone</label><input type="text" class="form-control" data-key="site_phone"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Téléphone alt.</label><input type="text" class="form-control" data-key="site_phone_alt"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">WhatsApp</label><input type="text" class="form-control" data-key="whatsapp_number"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Email</label><input type="email" class="form-control" data-key="site_email"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Email investisseurs</label><input type="email" class="form-control" data-key="contact_email_invest"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Site web</label><input type="text" class="form-control" data-key="site_website"></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Adresse</label><textarea class="form-control" rows="2" data-key="site_adresse"></textarea></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Adresse siège</label><textarea class="form-control" rows="2" data-key="adresse_siege"></textarea></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Horaires</label><input type="text" class="form-control" data-key="horaires_travail"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">Facebook</label><input type="text" class="form-control" data-key="facebook_url"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">LinkedIn</label><input type="text" class="form-control" data-key="linkedin_url"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">YouTube</label><input type="text" class="form-control" data-key="youtube_url"></div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="pane-finance">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label fw-semibold">Investissement recherche</label><input type="text" class="form-control" data-key="investissement_recherche"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Superficie plateforme</label><input type="text" class="form-control" data-key="superficie_plateforme"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Nombre de produits</label><input type="text" class="form-control" data-key="nombre_produits"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">IRR</label><input type="text" class="form-control" data-key="irr"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Population référence 2026</label><input type="text" class="form-control" data-key="population_reference_2026"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">TPIN</label><input type="text" class="form-control" data-key="tpin"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Licence investissement</label><input type="text" class="form-control" data-key="licence_investissement"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Contact personne</label><input type="text" class="form-control" data-key="contact_personne"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Banque</label><input type="text" class="form-control" data-key="bank_name"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Nom du compte</label><input type="text" class="form-control" data-key="bank_account_name"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Numéro de compte</label><input type="text" class="form-control" data-key="bank_account_number"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Agence</label><input type="text" class="form-control" data-key="bank_branch"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Adresse agence</label><input type="text" class="form-control" data-key="bank_branch_address"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">SWIFT</label><input type="text" class="form-control" data-key="bank_swift"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Sort code</label><input type="text" class="form-control" data-key="bank_sort_code"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Relationship manager</label><input type="text" class="form-control" data-key="bank_rm_name"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Téléphone RM</label><input type="text" class="form-control" data-key="bank_rm_phone"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Email RM</label><input type="text" class="form-control" data-key="bank_rm_email"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Téléphone siège banque</label><input type="text" class="form-control" data-key="bank_hq_phone"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Email entreprise banque</label><input type="text" class="form-control" data-key="bank_corporate_email"></div>
+                  <div class="col-12"><label class="form-label fw-semibold">Banque correspondante</label><input type="text" class="form-control" data-key="bank_correspondent"></div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="pane-email">
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label fw-semibold">Protocole</label><input type="text" class="form-control" data-key="email_protocol"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">SMTP host</label><input type="text" class="form-control" data-key="email_smtp_host"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">SMTP utilisateur</label><input type="text" class="form-control" data-key="email_smtp_user"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">SMTP mot de passe</label><input type="password" class="form-control" data-key="email_smtp_pass" autocomplete="new-password"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">Port</label><input type="text" class="form-control" data-key="email_smtp_port"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">Crypto</label><input type="text" class="form-control" data-key="email_smtp_crypto"></div>
+                  <div class="col-md-4"><label class="form-label fw-semibold">Sendmail path</label><input type="text" class="form-control" data-key="email_sendmail_path"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card mb-3">
+          <div class="card-body text-center">
+            <h5 class="card-title">Logo</h5>
+            <div class="mb-3 d-flex align-items-center justify-content-center bg-light rounded-3 p-3" style="min-height:130px;">
+              <img src="/attachments/Parametres/african-green-farmers-logo.jpg" alt="Logo" class="img-fluid" style="max-height:110px;" id="logoImg">
+            </div>
+            <small class="text-muted d-block mb-3">JPG, PNG, SVG, WEBP — max 5 Mo</small>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('logoInput').click()"><i class="bi bi-upload me-1"></i>Changer le logo</button>
+            <input type="file" id="logoInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/svg+xml,image/webp">
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-body text-center">
+            <h5 class="card-title">Favicon</h5>
+            <div class="d-flex align-items-center justify-content-center mb-3"><img src="/attachments/Parametres/african-green-farmers-logo.jpg" alt="Favicon" style="width:48px;height:48px;border-radius:8px;" id="faviconImg"></div>
+            <small class="text-muted d-block mb-3">PNG, ICO, SVG — max 5 Mo</small>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('faviconInput').click()"><i class="bi bi-upload me-1"></i>Changer</button>
+            <input type="file" id="faviconInput" class="d-none" accept="image/png,image/x-icon,image/svg+xml,image/jpeg,image/webp">
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">Image de connexion</h5>
+            <div class="mb-3 d-flex align-items-center justify-content-center bg-light rounded-3 p-2" style="min-height:120px;"><img src="/attachments/Parametres/slide_helo.jpg" alt="Connexion" class="img-fluid rounded" style="max-height:110px;" id="loginImg"></div>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('loginImgInput').click()"><i class="bi bi-upload me-1"></i>Changer</button>
+            <input type="file" id="loginImgInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/svg+xml,image/webp">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}
+{% block extra_js %}
+<script>
+const Toast = Swal.mixin({ toast: true, position: 'top-end', showConfirmButton: false, timer: 2500, timerProgressBar: true });
+
+async function loadSettings() {
+  const r = await API.get('api/admin/settings');
+  if (!r.success || !r.data) return;
+  const s = r.data;
+  document.querySelectorAll('[data-key]').forEach(el => { el.value = s[el.dataset.key] ?? ''; });
+  if (s.logo_app) document.getElementById('logoImg').src = '/' + s.logo_app;
+  if (s.favicon_ico) document.getElementById('faviconImg').src = '/' + s.favicon_ico;
+  if (s.login_img) document.getElementById('loginImg').src = '/' + s.login_img;
+}
+
+async function saveSettings() {
+  const btn = document.getElementById('saveSettingsBtn');
+  btn.disabled = true;
+  const data = {};
+  document.querySelectorAll('[data-key]').forEach(el => { data[el.dataset.key] = el.value; });
+  const r = await API.post('api/admin/settings', data);
+  btn.disabled = false;
+  if (r.success) Toast.fire({ icon: 'success', title: r.message });
+  else Swal.fire({ icon: 'error', title: 'Erreur', text: r.message || 'Erreur' });
+}
+document.getElementById('saveSettingsBtn').addEventListener('click', saveSettings);
+document.getElementById('settingsForm').addEventListener('submit', e => { e.preventDefault(); saveSettings(); });
+
+async function upload(kind, input, imgId) {
+  if (!input.files || !input.files[0]) return;
+  const fd = new FormData(); fd.append('file', input.files[0]);
+  const res = await fetch('/api/admin/settings/upload/' + kind, { method: 'POST', headers: { 'X-CSRFToken': CSRF_TOKEN, 'X-Requested-With': 'XMLHttpRequest' }, body: fd });
+  const r = await res.json();
+  if (r.success) { document.getElementById(imgId).src = '/' + r.data.path + '?t=' + Date.now(); Toast.fire({ icon: 'success', title: r.message }); }
+  else Swal.fire({ icon: 'error', title: 'Erreur', text: r.message || 'Erreur upload' });
+}
+document.getElementById('logoInput').addEventListener('change', function () { upload('logo', this, 'logoImg'); });
+document.getElementById('faviconInput').addEventListener('change', function () { upload('favicon', this, 'faviconImg'); });
+document.getElementById('loginImgInput').addEventListener('change', function () { upload('login_img', this, 'loginImg'); });
+loadSettings();
+</script>
+{% endblock %}

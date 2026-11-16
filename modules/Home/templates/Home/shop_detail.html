@@ -1,0 +1,55 @@
+{% extends "frontend/Base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<style>
+  .product-wrap{background:#fff;border-radius:18px;box-shadow:0 12px 34px rgba(15,23,42,.1);padding:28px;margin:40px auto}
+  .product-img{width:100%;min-height:320px;max-height:460px;background:#eef2f6;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .product-img img{width:100%;height:100%;object-fit:cover}
+  .product-title{font-size:34px;font-weight:800;color:#0f172a;margin:0 0 8px}
+  .product-cat{color:#116e63;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
+  .product-price{font-size:26px;font-weight:800;color:#116e63;margin:14px 0}
+  .product-desc{color:#475569;line-height:1.8}
+  .product-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+  .product-meta div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;font-size:14px}
+  .product-rel{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.08);height:100%;text-decoration:none;color:inherit;display:block}
+  .product-rel img{width:100%;height:140px;object-fit:cover;background:#eef2f6}
+  .product-rel div{padding:12px}
+</style>
+<div class="container pb-5">
+  <div class="product-wrap row g-4">
+    <div class="col-lg-6">
+      <div class="product-img">
+        {% if product.image %}<img src="/{{ product.image }}" alt="{{ product.nom }}">{% else %}<i class="bi bi-box-seam fs-1 text-secondary"></i>{% endif %}
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="product-cat">{{ product.categorie_nom }}</div>
+      <h1 class="product-title">{{ product.nom }}</h1>
+      <div class="product-price">{{ product.prix|default:"Prix sur demande" }}</div>
+      <div class="product-desc">{{ product.description|default:"Aucune description disponible."|linebreaksbr }}</div>
+      <div class="product-meta">
+        {% if product.conditionnement %}<div><i class="bi bi-box me-1 text-success"></i>{{ product.conditionnement }}</div>{% endif %}
+        {% if product.categorie_nom %}<div><i class="bi bi-tag me-1 text-success"></i>{{ product.categorie_nom }}</div>{% endif %}
+        {% if product.est_certifie %}<div><i class="bi bi-patch-check me-1 text-success"></i>Produit certifié</div>{% endif %}
+      </div>
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <a href="https://wa.me/{{ site_whatsapp_tel }}?text={{ product.nom|urlencode }}" target="_blank" rel="noopener" class="btn btn-success"><i class="bi bi-whatsapp me-1"></i>Commander sur WhatsApp</a>
+        <a href="/shop" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Retour à la boutique</a>
+      </div>
+    </div>
+  </div>
+  {% if related %}
+  <h4 class="fw-bold mb-3">Produits similaires</h4>
+  <div class="row g-4">
+    {% for r in related %}
+    <div class="col-sm-6 col-lg-3">
+      <a href="/shop/detail/{{ r.slug }}" class="product-rel">
+        {% if r.image %}<img src="/{{ r.image }}" alt="{{ r.nom }}">{% else %}<div style="height:140px;display:flex;align-items:center;justify-content:center"><i class="bi bi-box-seam fs-1 text-secondary"></i></div>{% endif %}
+        <div><div class="fw-semibold">{{ r.nom }}</div><div class="small text-muted">{{ r.categorie_nom }}{% if r.prix %} · {{ r.prix }}{% endif %}</div></div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

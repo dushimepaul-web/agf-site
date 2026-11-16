@@ -1,0 +1,23 @@
+{% extends "frontend/Base.html" %}
+{% block title %}Privacy Policy — {{ site_name }}{% endblock %}
+{% block content %}
+<style>
+  .privacy-hero{background:linear-gradient(135deg,#1a365d,#1e40af);color:#fff;padding:90px 0 60px}
+  .privacy-hero h1{font-size:44px;font-weight:800;margin:0 0 10px}
+  .privacy-body{max-width:920px;margin:0 auto;padding:54px 20px 80px;line-height:1.85;color:#334155}
+  .privacy-body h2{color:#1a365d;font-size:24px;margin:34px 0 14px}
+  .privacy-body p{margin:0 0 18px}
+  .privacy-body a{color:#1e40af}
+</style>
+<div class="privacy-hero">
+  <div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="mb-0">How {{ site_name }} handles your personal data.</p>
+  </div>
+</div>
+<div class="privacy-body">
+  <p>{{ site_name }} respects your privacy. When you use the contact form, we receive the name, email address and message you provide, and we use them only to reply to you.</p>
+  <p>If analytics is enabled, we use cookies to measure visits, only after you accept. You may decline, and you may change your choice by clearing your browser data.</p>
+  <p>We do not sell personal data. To access, correct or delete your data, write to <a href="mailto:{{ site_email }}">{{ site_email }}</a>.</p>
+</div>
+{% endblock %}

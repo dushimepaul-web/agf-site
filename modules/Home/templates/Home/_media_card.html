@@ -1,0 +1,21 @@
+<div class="media-card" onclick="openMedia('{{ item.slug|default:item.id }}')">
+  <div class="thumbnail-container"{% if item.thumb_url %} style="background-image:url('{{ item.thumb_url }}')"{% endif %}>
+    <div class="play-overlay"><div class="play-icon-wrap"><i class="bi bi-play-fill"></i></div></div>
+    {% if item.duration_formatted and item.duration_formatted != '0:00' %}<span class="duration-badge">{{ item.duration_formatted }}</span>{% endif %}
+    {% if item.type == 'video' %}<span class="card-badge card-badge-video"><i class="bi bi-camera-video-fill"></i> Video</span>
+    {% elif item.type == 'audio' %}<span class="card-badge card-badge-audio"><i class="bi bi-music-note-beamed"></i> Audio</span>
+    {% elif item.type == 'image' %}<span class="card-badge card-badge-image"><i class="bi bi-image-fill"></i> Image</span>
+    {% elif item.type == 'document' %}<span class="card-badge card-badge-doc"><i class="bi bi-file-earmark-text"></i> Doc</span>{% endif %}
+  </div>
+  <div class="card-info">
+    <div class="card-avatar"><i class="bi bi-{% if item.type == 'video' %}play-circle-fill{% elif item.type == 'audio' %}music-note-beamed{% elif item.type == 'image' %}image-fill{% elif item.type == 'document' %}file-earmark-text{% else %}link-45deg{% endif %}"></i></div>
+    <div class="card-details">
+      <div class="card-title">{{ item.titre }}</div>
+      <div class="card-meta">
+        <span class="card-channel">{{ item.credits|default:item.categorie|default:"A.G.F" }}</span>
+        <span class="card-sep">&bull;</span>
+        <span class="card-views"><i class="bi bi-eye"></i> {{ item.views_count }} vues</span>
+      </div>
+    </div>
+  </div>
+</div>

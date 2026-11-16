@@ -1,0 +1,23 @@
+{% extends "frontend/Base.html" %}
+{% block title %}Legal Notice — {{ site_name }}{% endblock %}
+{% block content %}
+<style>
+  .legal-hero{background:linear-gradient(135deg,#1a365d,#1e40af);color:#fff;padding:90px 0 60px}
+  .legal-hero h1{font-size:44px;font-weight:800;margin:0 0 10px}
+  .legal-body{max-width:920px;margin:0 auto;padding:54px 20px 80px;line-height:1.85;color:#334155}
+  .legal-body h2{color:#1a365d;font-size:24px;margin:34px 0 14px}
+  .legal-body p{margin:0 0 18px}
+  .legal-body a{color:#1e40af}
+</style>
+<div class="legal-hero">
+  <div class="container">
+    <h1>Legal Notice</h1>
+    <p class="mb-0">Official information about {{ site_name }}.</p>
+  </div>
+</div>
+<div class="legal-body">
+  <p>This website is operated by <strong>{{ site_name }}</strong>, {{ site_settings.adresse_siege|default:site_address }}. ZDA Investment Licence No. {{ site_settings.licence_investissement|default:"ZDA/59004/10/2025" }}. Chief Executive Officer: {{ site_settings.directeur_general|default:"Harimenshi Alexis" }}. Contact: <a href="mailto:{{ site_email }}">{{ site_email }}</a></p>
+  <p>The information on this website is provided for general information. Planned, implementation-dependent and projected outcomes are forward-looking and are not historical results. Product-specific registrations and approvals remain subject to applicable requirements. Nothing on this website constitutes an offer of securities; any financing remains subject to lender approval and definitive documentation.</p>
+  <p>All texts, logos, images and trademarks belong to {{ site_name }} unless stated otherwise and may not be reproduced without written permission.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<a href="/media/detail/{{ item.slug|default:item.id }}" class="search-item">
+  <div class="search-item-thumb">
+    {% if item.thumb_url %}<img src="{{ item.thumb_url }}" alt="{{ item.titre }}" loading="lazy">{% endif %}
+    {% if item.type == 'audio' or item.type == 'video' %}{% if item.duration_formatted and item.duration_formatted != '0:00' %}<span class="search-duration">{{ item.duration_formatted }}</span>{% endif %}{% endif %}
+  </div>
+  <div class="search-item-info">
+    <div class="search-item-title"><i class="bi bi-{% if item.type == 'video' %}play-btn-fill{% elif item.type == 'audio' %}music-note-beamed{% elif item.type == 'image' %}image{% elif item.type == 'document' %}file-earmark-text{% else %}link-45deg{% endif %}"></i> {{ item.titre }}</div>
+    <div class="search-item-meta">{{ item.credits|default:item.categorie|default:"A.G.F" }} &middot; {{ item.views_count }} views</div>
+  </div>
+</a>

@@ -1,0 +1,73 @@
+{% extends "frontend/Base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<style>
+  .agf-detail-hero{background:linear-gradient(135deg,#0b1c39,#116e63);color:#fff;padding:56px 0}
+  .agf-detail-hero h1{font-size:38px;font-weight:800;margin:0 0 8px}
+  .agf-detail-hero .meta{color:rgba(255,255,255,.75);font-size:14px}
+  .agf-detail-panel{background:#fff;border-radius:18px;box-shadow:0 12px 34px rgba(15,23,42,.1);padding:24px;margin-top:-34px;position:relative;z-index:2}
+  .agf-detail-media img{width:100%;border-radius:12px}
+  .agf-detail-media iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:12px}
+  .agf-detail-body p{color:#475569;line-height:1.8}
+  .agf-related h4{font-weight:700;margin-bottom:18px}
+</style>
+<div class="agf-detail-hero">
+  <div class="container">
+    <h1>{{ media.titre }}</h1>
+    <div class="meta"><i class="bi bi-tag me-1"></i>{{ media.categorie|default:media.type }}{% if media.date_media %} · {{ media.date_media }}{% endif %}{% if media.credits %} · {{ media.credits }}{% endif %} · <i class="bi bi-eye ms-1 me-1"></i>{{ media.views_count }} vues</div>
+  </div>
+</div>
+<div class="container pb-5">
+  <div class="agf-detail-panel">
+    <div class="row g-4">
+      <div class="col-lg-8 agf-detail-media">
+        {% if media.youtube_id %}
+          <iframe src="https://www.youtube.com/embed/{{ media.youtube_id }}" allowfullscreen title="{{ media.titre }}"></iframe>
+        {% elif media.type == 'image' and media.file_url %}
+          <img src="{{ media.file_url }}" alt="{{ media.titre }}">
+        {% elif media.type == 'video' and media.file_url %}
+          <video controls class="w-100 rounded"><source src="{{ media.file_url }}" type="{{ media.mime_type|default:'video/mp4' }}"></video>
+        {% elif media.type == 'audio' and media.file_url %}
+          <audio controls class="w-100"><source src="{{ media.file_url }}" type="{{ media.mime_type|default:'audio/mpeg' }}"></audio>
+        {% elif media.type == 'document' and media.file_url %}
+          <iframe src="{{ media.file_url }}#toolbar=1" title="{{ media.titre }}" style="height:70vh;min-height:480px"></iframe>
+          <div class="d-flex gap-2 mt-2">
+            <a href="{{ media.file_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-success"><i class="bi bi-box-arrow-up-right me-1"></i>Ouvrir</a>
+            <a href="/media/downloader/{{ media.slug|default:media.id }}" class="btn btn-sm btn-outline-secondary"><i class="bi bi-download me-1"></i>Télécharger</a>
+          </div>
+        {% elif media.thumb_url %}
+          <img src="{{ media.thumb_url }}" alt="{{ media.titre }}">
+        {% else %}
+          <div class="text-center text-muted py-5"><i class="bi bi-collection-play fs-1 d-block mb-2"></i>Aperçu non disponible.</div>
+        {% endif %}
+      </div>
+      <div class="col-lg-4 agf-detail-body">
+        <h5 class="fw-bold">Description</h5>
+        <p>{{ media.description|default:"Aucune description disponible."|linebreaksbr }}</p>
+        {% if media.type == 'link' and media.lien %}
+          <a href="{{ media.lien }}" target="_blank" rel="noopener" class="btn btn-success w-100 mb-2"><i class="bi bi-box-arrow-up-right me-1"></i>Ouvrir le lien</a>
+        {% endif %}
+        {% if media.file_url and media.type != 'link' %}
+          <a href="/media/downloader/{{ media.id }}" class="btn btn-outline-success w-100"><i class="bi bi-download me-1"></i>Télécharger{% if media.taille %} ({{ media.taille|filesizeformat }}){% endif %}</a>
+        {% endif %}
+        <a href="/media" class="btn btn-outline-secondary w-100 mt-2"><i class="bi bi-arrow-left me-1"></i>Retour à la médiathèque</a>
+      </div>
+    </div>
+  </div>
+  {% if related %}
+  <div class="agf-related mt-5">
+    <h4>À découvrir aussi</h4>
+    <div class="row g-4">
+      {% for item in related %}
+      <div class="col-sm-6 col-lg-3">
+        <a class="agf-media-card" href="/media/detail/{{ item.slug|default:item.id }}" style="display:block;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 24px rgba(15,23,42,.08);text-decoration:none;color:inherit">
+          <div class="agf-media-thumb" style="height:140px">{% if item.thumb_url %}<img src="{{ item.thumb_url }}" alt="{{ item.titre }}" style="width:100%;height:100%;object-fit:cover">{% else %}<i class="bi bi-collection"></i>{% endif %}</div>
+          <div style="padding:12px"><div class="fw-semibold small">{{ item.titre }}</div></div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

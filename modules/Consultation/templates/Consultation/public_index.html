@@ -1,0 +1,46 @@
+{% extends "Consultation/public_base.html" %}
+{% block content %}
+<section class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">Consultation en ligne</h1>
+    <p class="text-muted mb-0">Échangez avec nos experts et recevez une prise en charge adaptée.</p>
+  </div>
+
+  {% if medecins %}
+  <div class="row g-4">
+    {% for m in medecins %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card card-doctor h-100 p-4 text-center">
+        {% if m.photo_url %}
+        <img src="{{ m.photo_url }}" alt="Dr {{ m.prenom }} {{ m.nom }}" class="avatar mx-auto mb-3" onerror="this.style.display='none';this.nextElementSibling.classList.remove('d-none')">
+        <div class="avatar avatar-fallback mx-auto mb-3 d-none"><i class="bi bi-person"></i></div>
+        {% else %}
+        <div class="avatar avatar-fallback mx-auto mb-3"><i class="bi bi-person"></i></div>
+        {% endif %}
+        <span class="badge {% if m.est_disponible %}bg-success{% else %}bg-secondary{% endif %} mb-2">{{ m.est_disponible|yesno:"Disponible,Indisponible" }}</span>
+        <h5 class="mb-1">Dr {{ m.prenom }} {{ m.nom }}</h5>
+        <div class="text-success fw-semibold small mb-2">{{ m.specialite }}</div>
+        <div class="text-muted small mb-3">
+          {% if m.annees_experience %}<span class="me-3"><i class="bi bi-award me-1"></i>{{ m.annees_experience }} ans</span>{% endif %}
+          {% if m.langues_parlees %}<span><i class="bi bi-translate me-1"></i>{{ m.langues_parlees }}</span>{% endif %}
+        </div>
+        {% if m.note_moyenne %}
+        <div class="small text-warning mb-2"><i class="bi bi-star-fill"></i> {{ m.note_moyenne }}/5 <span class="text-muted">({{ m.nombre_avis }} avis)</span></div>
+        {% endif %}
+        <p class="text-muted small flex-grow-1">{{ m.bio|default:"Expert disponible pour une consultation en ligne."|truncatechars:110 }}</p>
+        {% if m.honoraires_consultation %}
+        <div class="fw-semibold text-dark mb-3">{{ m.honoraires_consultation }} {{ m.currency|default:"" }}</div>
+        {% endif %}
+        <div class="d-grid gap-2">
+          <a href="/Consultation/detail/{{ m.id }}" class="btn btn-outline-success btn-sm">Voir le profil</a>
+          <a href="/Consultation/formulaire/{{ m.id }}" class="btn btn-agf btn-sm">Consulter</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center text-muted py-5"><i class="bi bi-person-x fs-1 d-block mb-3"></i>Aucun expert disponible pour le moment.</div>
+  {% endif %}
+</section>
+{% endblock %}

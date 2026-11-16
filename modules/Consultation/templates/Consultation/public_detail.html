@@ -1,0 +1,66 @@
+{% extends "Consultation/public_base.html" %}
+{% block content %}
+<section class="container py-5">
+  <a href="/Consultation" class="text-decoration-none small"><i class="bi bi-arrow-left me-1"></i>Retour aux experts</a>
+  <div class="row g-4 mt-2">
+    <div class="col-lg-4">
+      <div class="card card-doctor p-4 text-center">
+        {% if medecin.photo_url %}<img src="{{ medecin.photo_url }}" class="avatar mx-auto mb-3" alt="Dr {{ medecin.prenom }} {{ medecin.nom }}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('d-none')">{% endif %}
+        <div class="avatar avatar-fallback mx-auto mb-3{% if medecin.photo_url %} d-none{% endif %}"><i class="bi bi-person"></i></div>
+        <span class="badge {% if medecin.est_disponible %}bg-success{% else %}bg-secondary{% endif %} mb-2">{{ medecin.est_disponible|yesno:"Disponible,Indisponible" }}</span>
+        <h4 class="mb-1">Dr {{ medecin.prenom }} {{ medecin.nom }}</h4>
+        <div class="text-success fw-semibold mb-2">{{ medecin.specialite }}</div>
+        {% if medecin.note_moyenne %}<div class="small text-warning mb-2"><i class="bi bi-star-fill"></i> {{ medecin.note_moyenne }}/5 <span class="text-muted">({{ medecin.nombre_avis }} avis)</span></div>{% endif %}
+        <div class="small text-muted">{{ medecin.email }}{% if medecin.telephone %} · {{ medecin.telephone }}{% endif %}</div>
+        {% if medecin.numero_licence %}<div class="small text-muted mt-1">Licence : {{ medecin.numero_licence }}</div>{% endif %}
+        <a href="/Consultation/formulaire/{{ medecin.id }}" class="btn btn-agf w-100 mt-4">Prendre rendez-vous</a>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card card-doctor p-4 mb-4">
+        <h5 class="mb-3">À propos</h5>
+        <p class="text-muted mb-0">{{ medecin.bio|default:"Cet expert n'a pas encore renseigné sa biographie."|linebreaksbr }}</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card card-doctor p-4 h-100">
+            <h6 class="mb-3"><i class="bi bi-mortarboard text-success me-2"></i>Diplômes</h6>
+            <p class="text-muted small mb-0">{{ medecin.diplomes|default:"Non renseigné"|linebreaksbr }}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-doctor p-4 h-100">
+            <h6 class="mb-3"><i class="bi bi-cash-coin text-success me-2"></i>Honoraires</h6>
+            <p class="text-muted small mb-0">{{ medecin.honoraires_consultation|default:"Sur demande" }} {{ medecin.currency|default:"" }}</p>
+            {% if medecin.USD_EUR_Equivalent_en_BIF %}<p class="text-muted small mb-0">Équivalent : {{ medecin.USD_EUR_Equivalent_en_BIF }} BIF</p>{% endif %}
+            {% if medecin.prix_pour_residant_burundi %}<p class="text-muted small mb-0">Résident Burundi : {{ medecin.prix_pour_residant_burundi }} BIF</p>{% endif %}
+            {% if medecin.annees_experience %}<p class="text-muted small mb-0">{{ medecin.annees_experience }} ans d'expérience</p>{% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-doctor p-4 h-100">
+            <h6 class="mb-3"><i class="bi bi-translate text-success me-2"></i>Langues</h6>
+            <p class="text-muted small mb-0">{{ medecin.langues_parlees|default:"Non renseigné" }}</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-doctor p-4 h-100">
+            <h6 class="mb-3"><i class="bi bi-calendar-check text-success me-2"></i>Disponibilité</h6>
+            <p class="text-muted small mb-0">{{ medecin.disponibilite|default:"Horaires disponibles sur demande."|linebreaksbr }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="card card-doctor p-4 mt-4">
+        <h5 class="mb-3">Horaires</h5>
+        {% if horaires %}
+        <div class="row g-2">
+          {% for h in horaires %}
+          <div class="col-md-6"><div class="d-flex justify-content-between border rounded p-2 small"><span class="text-capitalize">{{ h.jour_semaine }}</span><span class="fw-semibold">{{ h.heure_debut }} - {{ h.heure_fin }}</span></div></div>
+          {% endfor %}
+        </div>
+        {% else %}<p class="text-muted small mb-0">Horaires disponibles sur demande.</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

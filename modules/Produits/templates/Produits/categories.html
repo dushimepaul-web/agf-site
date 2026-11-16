@@ -1,0 +1,129 @@
+{% extends "backend_base.html" %}
+{% block content %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Catégories de produits</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Dashboard">Accueil</a></li>
+        <li class="breadcrumb-item">Produits</li>
+        <li class="breadcrumb-item active">Catégories</li>
+      </ol>
+    </nav>
+  </div>
+
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3">
+          <h5 class="card-title mb-0">Liste des catégories <span id="tableCount" class="badge bg-light text-primary border border-primary fw-normal ms-1"></span></h5>
+          <button type="button" class="btn btn-primary btn-sm" onclick="openModal()"><i class="bi bi-plus-lg me-1"></i>Ajouter</button>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 my-3">
+          <div class="position-relative" style="max-width:300px;width:100%;">
+            <i class="bi bi-search position-absolute start-0 top-50 translate-middle ms-2 text-muted" style="font-size:.85rem;"></i>
+            <input type="text" id="tableSearch" class="form-control form-control-sm ps-4" placeholder="Rechercher une catégorie...">
+          </div>
+          <div class="d-flex align-items-center gap-2 text-muted small">
+            <span>Lignes :</span>
+            <select id="tblPerPage" class="form-select form-select-sm" style="width:90px;">
+              <option value="10">10</option><option value="15" selected>15</option><option value="25">25</option><option value="50">50</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light"><tr>
+              <th>#</th><th>Nom</th><th>Slug</th><th class="text-center">Ordre</th><th>Statut</th><th class="text-end">Actions</th>
+            </tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="tableEmpty" class="text-center text-muted py-5 d-none"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Aucune catégorie trouvée.</div>
+          <div id="tableLoading" class="text-center py-4"><span class="spinner-border spinner-border-sm text-primary me-2"></span><span class="text-muted">Chargement...</span></div>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3">
+            <span id="tableInfo" class="text-muted small"></span>
+            <nav><ul class="pagination pagination-sm mb-0" id="tblPager"></ul></nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title" id="modalTitle">Ajouter une catégorie</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <form id="editForm" onsubmit="return save(event)">
+        <div class="modal-body">
+          <div class="mb-3"><label class="form-label">Nom <span class="text-danger">*</span></label><input type="text" name="nom" class="form-control" required></div>
+          <div class="mb-3"><label class="form-label">Slug</label><input type="text" name="slug" class="form-control" placeholder="laisser vide pour générer"></div>
+          <div class="mb-3"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="3"></textarea></div>
+          <div class="row g-3">
+            <div class="col-6"><label class="form-label">Ordre</label><input type="number" name="ordre" class="form-control" value="0"></div>
+            <div class="col-6"><label class="form-label">Statut</label><select name="est_actif" class="form-select"><option value="1">Actif</option><option value="0">Inactif</option></select></div>
+          </div>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="/assets/js/localisation-table.js"></script>
+<script>
+let rows = [], gt = null;
+const editId = {{ edit_id|default:"0" }};
+
+function renderRow(r, num) {
+  const badge = r.est_actif == 1 ? '<span class="badge bg-success">Actif</span>' : '<span class="badge bg-secondary">Inactif</span>';
+  return '<tr><td class="text-muted">' + num + '</td><td class="fw-semibold">' + API.esc(r.nom) + '</td><td><code>' + API.esc(r.slug || '—') + '</code></td><td class="text-center"><span class="badge bg-light text-dark border">' + (r.ordre || 0) + '</span></td><td>' + badge + '</td><td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-primary me-1" onclick="openModal(' + r.id + ')" title="Modifier"><i class="bi bi-pencil"></i></button><button class="btn btn-sm btn-outline-danger" onclick="remove(' + r.id + ')" title="Supprimer"><i class="bi bi-trash"></i></button></td></tr>';
+}
+function searchTerms(r) { return [r.nom, r.slug, r.description].join(' '); }
+async function loadTable() {
+  const res = await API.get('api/admin/product-categories');
+  if (!res.success) return API.simpleAlert('error', 'Erreur', res.message);
+  rows = res.data || [];
+  gt.setRows(rows);
+  if (editId) openModal(editId);
+}
+function openModal(id) {
+  const f = document.getElementById('editForm');
+  f.reset(); f.dataset.id = '';
+  document.getElementById('modalTitle').textContent = 'Ajouter une catégorie';
+  if (id) {
+    const r = rows.find(x => x.id == id);
+    if (!r) return;
+    document.getElementById('modalTitle').textContent = 'Modifier la catégorie';
+    f.dataset.id = r.id;
+    f.nom.value = r.nom || ''; f.slug.value = r.slug || ''; f.description.value = r.description || '';
+    f.ordre.value = r.ordre ?? 0; f.est_actif.value = r.est_actif ?? 1;
+  }
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+}
+async function save(e) {
+  e.preventDefault();
+  const f = document.getElementById('editForm');
+  const data = { nom: f.nom.value, slug: f.slug.value, description: f.description.value, ordre: f.ordre.value, est_actif: f.est_actif.value };
+  const id = f.dataset.id;
+  const res = id ? await API.post('api/admin/product-categories/' + id + '/update', data) : await API.post('api/admin/product-categories', data);
+  if (res.success) { bootstrap.Modal.getInstance(document.getElementById('editModal')).hide(); await loadTable(); API.simpleAlert('success', 'Succès', res.message); }
+  else API.simpleAlert('error', 'Erreur', res.message);
+  return false;
+}
+async function remove(id) {
+  const c = await API.confirm('Supprimer', 'Supprimer cette catégorie ?');
+  if (!c.isConfirmed) return;
+  const res = await API.post('api/admin/product-categories/' + id + '/delete', {});
+  if (res.success) { await loadTable(); API.simpleAlert('success', 'Succès', res.message); }
+  else API.simpleAlert('error', 'Erreur', res.message);
+}
+gt = new GeoTable({ renderRow, searchTerms, count: (t, a) => t + (t > 1 ? ' catégories' : ' catégorie') });
+loadTable();
+</script>
+{% endblock %}

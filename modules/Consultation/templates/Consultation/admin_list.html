@@ -1,0 +1,127 @@
+{% extends "backend_base.html" %}
+{% block content %}
+
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>{{ title }}</h1>
+    <nav><ol class="breadcrumb"><li class="breadcrumb-item"><a href="/Dashboard">Accueil</a></li><li class="breadcrumb-item">Consultations</li><li class="breadcrumb-item active">Liste</li></ol></nav>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3">
+          <h5 class="card-title mb-0">Consultations <span id="tableCount" class="badge bg-light text-primary border border-primary fw-normal ms-1"></span></h5>
+          <a href="/Consultations/medecins" class="btn btn-outline-primary btn-sm"><i class="bi bi-person-badge me-1"></i>Experts</a>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 my-3">
+          <div class="d-flex align-items-center gap-2 flex-grow-1">
+            <select id="filterStatus" class="form-select form-select-sm" style="width:180px;" onchange="applyFilter()"><option value="">Tous les statuts</option><option value="en_attente">En attente</option><option value="en_cours">En cours</option><option value="terminee">Terminée</option><option value="annulee">Annulée</option></select>
+            <select id="filterPayment" class="form-select form-select-sm" style="width:180px;" onchange="applyFilter()"><option value="">Tous les paiements</option><option value="en_attente">Paiement en attente</option><option value="paye">Payé</option><option value="rembourse">Remboursé</option></select>
+            <div class="position-relative" style="max-width:320px;width:100%;"><i class="bi bi-search position-absolute start-0 top-50 translate-middle ms-2 text-muted" style="font-size:.85rem;"></i><input type="text" id="tableSearch" class="form-control form-control-sm ps-4" placeholder="Rechercher une consultation..."></div>
+          </div>
+          <div class="d-flex align-items-center gap-2 text-muted small"><span>Lignes :</span><select id="tblPerPage" class="form-select form-select-sm" style="width:90px;"><option value="10">10</option><option value="15" selected>15</option><option value="25">25</option><option value="50">50</option></select></div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light"><tr><th>#</th><th>Patient</th><th>Expert</th><th>Statut</th><th>Paiement</th><th>Créée le</th><th>WhatsApp</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="tableEmpty" class="text-center text-muted py-5 d-none"><i class="bi bi-inbox fs-3 d-block mb-2"></i>Aucune consultation trouvée.</div>
+          <div id="tableLoading" class="text-center py-4"><span class="spinner-border spinner-border-sm text-primary me-2"></span><span class="text-muted">Chargement...</span></div>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3"><span id="tableInfo" class="text-muted small"></span><nav><ul class="pagination pagination-sm mb-0" id="tblPager"></ul></nav></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="modal fade" id="viewModal" tabindex="-1">
+  <div class="modal-dialog modal-xl"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">Détail de la consultation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body" id="viewBody"></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button><button type="button" class="btn btn-primary" onclick="openEditFromView()">Modifier</button></div>
+  </div></div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title" id="modalTitle">Modifier la consultation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <form id="editForm" onsubmit="return save(event)">
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label">Statut</label><select name="statut" class="form-select"><option value="en_attente">En attente</option><option value="en_cours">En cours</option><option value="terminee">Terminée</option><option value="annulee">Annulée</option></select></div>
+          <div class="col-md-6 d-flex align-items-end"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" name="whatsapp_envoye" id="whatsapp_envoye"><label class="form-check-label" for="whatsapp_envoye">WhatsApp envoyé</label></div></div>
+          <div class="col-12"><label class="form-label">Diagnostic</label><textarea name="diagnostic" class="form-control" rows="3"></textarea></div>
+          <div class="col-12"><label class="form-label">Traitement</label><textarea name="traitement" class="form-control" rows="3"></textarea></div>
+          <div class="col-12"><label class="form-label">Ordonnances</label><textarea name="ordonnances" class="form-control" rows="3"></textarea></div>
+          <div class="col-12"><label class="form-label">Examens demandés</label><textarea name="examens_demandes" class="form-control" rows="2"></textarea></div>
+          <div class="col-12"><label class="form-label">Notes médecin</label><textarea name="notes_medecin" class="form-control" rows="2"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="submit" class="btn btn-primary">Enregistrer</button></div>
+    </form>
+  </div></div>
+</div>
+
+{% endblock %}
+{% block extra_js %}
+<script src="/assets/js/localisation-table.js"></script>
+<script>
+let rows = [], gt = null, current = null;
+const isAdmin = {{ is_admin_user|yesno:"true,false" }};
+const statusMap = { en_attente: ['En attente','warning text-dark'], en_cours: ['En cours','primary'], terminee: ['Terminée','success'], annulee: ['Annulée','danger'] };
+const paymentMap = { en_attente: ['En attente','warning text-dark'], paye: ['Payé','success'], rembourse: ['Remboursé','secondary'] };
+function badge(s) { const x = statusMap[s] || [s || '—','secondary']; return '<span class="badge bg-' + x[1] + '">' + x[0] + '</span>'; }
+function paymentBadge(s) { const x = paymentMap[s]; return x ? '<span class="badge bg-' + x[1] + '">' + x[0] + '</span>' : '<span class="text-muted">' + API.esc(s || '—') + '</span>'; }
+function renderRow(r, num) {
+  return '<tr><td class="text-muted">' + num + '</td><td><div class="fw-semibold">' + API.esc(r.patient_prenom || '') + ' ' + API.esc(r.patient_nom || '') + '</div><div class="small text-muted">' + API.esc(r.numero_consultation || '') + '</div></td><td><div>' + API.esc(r.medecin_nom || '—') + '</div><div class="small text-muted">' + API.esc(r.specialite || '') + '</div></td><td>' + badge(r.statut) + '</td><td>' + paymentBadge(r.paiement_statut) + '</td><td class="small">' + API.esc((r.created_at || '').replace('T', ' ').slice(0, 16)) + '</td><td>' + (r.whatsapp_envoye == 1 ? '<i class="bi bi-whatsapp text-success"></i>' : '<span class="text-muted">—</span>') + '</td><td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-primary me-1" onclick="view(\'' + r.uuid + '\')"><i class="bi bi-eye"></i></button><button class="btn btn-sm btn-outline-secondary me-1" onclick="openEdit(\'' + r.uuid + '\')"><i class="bi bi-pencil"></i></button>' + (isAdmin ? '<button class="btn btn-sm btn-outline-danger" onclick="remove(\'' + r.uuid + '\')"><i class="bi bi-trash"></i></button>' : '') + '</td></tr>';
+}
+function searchTerms(r) { return [r.numero_consultation, r.patient_nom, r.patient_prenom, r.medecin_nom, r.description_symptomes].join(' '); }
+let filterFn = () => true;
+function applyFilter() {
+  const st = document.getElementById('filterStatus').value;
+  const pay = document.getElementById('filterPayment').value;
+  filterFn = r => (!st || r.statut === st) && (!pay || r.paiement_statut === pay);
+  gt.setRows(rows.filter(filterFn));
+}
+async function loadTable() {
+  const r = await API.get('api/admin/consultations');
+  if (!r.success) return API.simpleAlert('error', 'Erreur', r.message);
+  rows = r.data || []; gt.setRows(rows); applyFilter();
+}
+async function view(uuid) {
+  const r = await API.get('api/admin/consultations/' + uuid);
+  if (!r.success) return API.simpleAlert('error', 'Erreur', r.message);
+  current = r.data; const d = current;
+  function line(label, value) { return value ? '<div class="col-md-6 mb-2"><div class="small text-muted">' + label + '</div><div>' + API.esc(value) + '</div></div>' : ''; }
+  let mediaHtml = '';
+  if (d.medias && d.medias.length) mediaHtml = '<div class="mt-3"><div class="small text-muted mb-2">Médias</div><div class="d-flex flex-wrap gap-2">' + d.medias.map(m => '<a href="/' + API.esc(m.fichier_url) + '" target="_blank"><img src="/' + API.esc(m.fichier_url) + '" style="width:90px;height:90px;object-fit:cover;border-radius:8px;"></a>').join('') + '</div></div>';
+  document.getElementById('viewBody').innerHTML = '<div class="d-flex justify-content-between align-items-start mb-3"><div><h5 class="mb-1">' + API.esc(d.patient_prenom || '') + ' ' + API.esc(d.patient_nom || '') + '</h5><div class="text-muted small">' + API.esc(d.numero_consultation || '') + '</div></div>' + badge(d.statut) + '</div><div class="row">' + line('Expert', d.medecin_nom) + line('Spécialité', d.specialite) + line('Poids', d.patient_poids) + line('Taille', d.patient_taille) + line('Adresse', d.patient_adresse) + line('Durée symptômes', d.duree_symptomes) + '</div><div class="mb-2"><div class="small text-muted">Symptômes</div><div class="border rounded p-2 bg-light">' + API.esc(d.description_symptomes || '—') + '</div></div><div class="row">' + line('Diagnostic', d.diagnostic) + line('Traitement', d.traitement) + line('Ordonnances', d.ordonnances) + line('Notes médecin', d.notes_medecin) + '</div><div class="row"><div class="col-md-4 mb-2"><div class="small text-muted">Paiement</div><div>' + paymentBadge(d.paiement_statut) + '</div></div>' + line('Honoraires', (d.honoraires_consultation || '0') + ' ' + (d.devise || 'USD')) + line('Mode de paiement', d.mode_paiement) + '</div>' + mediaHtml;
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('viewModal')).show();
+}
+function openEdit(uuid) {
+  const r = rows.find(x => x.uuid === uuid); if (!r) return;
+  const f = document.getElementById('editForm'); f.dataset.uuid = uuid;
+  f.statut.value = r.statut || 'en_attente'; f.whatsapp_envoye.checked = r.whatsapp_envoye == 1;
+  f.diagnostic.value = r.diagnostic || ''; f.traitement.value = r.traitement || ''; f.ordonnances.value = r.ordonnances || ''; f.examens_demandes.value = r.examens_demandes || ''; f.notes_medecin.value = r.notes_medecin || '';
+  const vm = bootstrap.Modal.getInstance(document.getElementById('viewModal')); if (vm) vm.hide();
+  bootstrap.Modal.getOrCreateInstance(document.getElementById('editModal')).show();
+}
+function openEditFromView() { if (current) openEdit(current.uuid); }
+async function save(e) {
+  e.preventDefault(); const f = document.getElementById('editForm');
+  const data = { statut: f.statut.value, whatsapp_envoye: f.whatsapp_envoye.checked ? 1 : 0, diagnostic: f.diagnostic.value, traitement: f.traitement.value, ordonnances: f.ordonnances.value, examens_demandes: f.examens_demandes.value, notes_medecin: f.notes_medecin.value };
+  const r = await API.post('api/admin/consultations/' + f.dataset.uuid + '/update', data);
+  if (r.success) { bootstrap.Modal.getInstance(document.getElementById('editModal')).hide(); await loadTable(); API.simpleAlert('success', 'Succès', r.message); }
+  else API.simpleAlert('error', 'Erreur', r.message);
+  return false;
+}
+async function remove(uuid) {
+  const c = await API.confirm('Supprimer', 'Supprimer cette consultation ?'); if (!c.isConfirmed) return;
+  const r = await API.post('api/admin/consultations/' + uuid + '/delete', {});
+  if (r.success) { await loadTable(); API.simpleAlert('success', 'Succès', r.message); } else API.simpleAlert('error', 'Erreur', r.message);
+}
+gt = new GeoTable({ renderRow, searchTerms, count: (t, a) => t + (t > 1 ? ' consultations' : ' consultation') });
+loadTable();
+</script>
+{% endblock %}

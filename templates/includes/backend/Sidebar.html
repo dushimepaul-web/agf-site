@@ -1,0 +1,100 @@
+<aside id="sidebar" class="sidebar">
+
+  <div class="d-flex align-items-center justify-content-center px-3 py-3 border-bottom">
+    <a href="/Dashboard" class="logo d-flex align-items-center w-auto">
+      <img src="{{ logo_url }}" alt="Logo" style="max-height:38px;">
+      <span class="ms-2 fw-semibold" style="font-size:13px;">{{ nom_app }}</span>
+    </a>
+  </div>
+
+  {% if sidebar_empty %}
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link" href="/Dashboard">
+        <i class="bi bi-grid"></i><span>Dashboard</span>
+      </a>
+    </li>
+
+    {% if is_admin_user %}
+    {% if current_segment|lower == 'menus' or current_segment|lower == 'roles' or current_segment|lower == 'users' or current_segment|lower == 'logs' or current_segment|lower == 'sessions' or current_segment|lower == 'visitors' or current_segment|lower == 'temoignages' or current_segment|lower == 'consultations' or current_segment|lower == 'consultation' or current_segment|lower == 'medecins' %}
+    <li class="nav-item">
+      <a class="nav-link" data-bs-target="#administration-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-shield-lock"></i><span>Administration</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="administration-nav" class="nav-content show" data-bs-parent="#sidebar-nav">
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#administration-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-shield-lock"></i><span>Administration</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="administration-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+    {% endif %}
+        <li><a href="/Menus" class="{% if current_segment|lower == 'menus' %}active{% endif %}"><i class="bi bi-circle"></i><span>Menus</span></a></li>
+        <li><a href="/Roles" class="{% if current_segment|lower == 'roles' %}active{% endif %}"><i class="bi bi-circle"></i><span>Rôles</span></a></li>
+      </ul>
+    </li>
+    {% endif %}
+
+    <li class="nav-item">
+      <a class="nav-link{% if current_segment|lower == 'profile' %} active{% endif %}" href="/Profile">
+        <i class="bi bi-person"></i>
+        <span>Mon profil</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
+        {% csrf_token %}
+        <button type="submit" class="nav-link w-100 border-0 bg-transparent text-start ps-4"><i class="bi bi-box-arrow-right"></i><span>Déconnexion</span></button>
+      </form>
+    </li>
+
+  </ul>
+
+  {% else %}
+
+  <ul class="sidebar-nav" id="sidebar-nav">
+
+    {% for parent in sidebar_menus %}
+    {% if not parent.children %}
+    <li class="nav-item">
+      <a class="nav-link{% if parent.direct_active %} active{% endif %}" href="{{ parent.href }}">
+        <i class="bi {{ parent.icon }}"></i>
+        <span>{{ parent.libelle }}</span>
+      </a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+      <a class="nav-link{% if parent.active %} active{% else %} collapsed{% endif %}" data-bs-target="#{{ parent.code|slugify }}-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi {{ parent.icon }}"></i><span>{{ parent.libelle }}</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="{{ parent.code|slugify }}-nav" class="nav-content{% if parent.active %} show{% else %} collapse{% endif %}" data-bs-parent="#sidebar-nav">
+        {% for child in parent.children %}
+        <li><a href="{{ child.href }}" class="{% if child.active %}active{% endif %}"><i class="bi bi-circle"></i><span>{{ child.libelle }}</span></a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    <li class="nav-item">
+      <a class="nav-link{% if current_segment|lower == 'profile' %} active{% endif %}" href="/Profile">
+        <i class="bi bi-person"></i>
+        <span>Mon profil</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <form method="post" action="{% url 'logout' %}" class="m-0 p-0">
+        {% csrf_token %}
+        <button type="submit" class="nav-link w-100 border-0 bg-transparent text-start ps-4"><i class="bi bi-box-arrow-right"></i><span>Déconnexion</span></button>
+      </form>
+    </li>
+
+  </ul>
+
+  {% endif %}
+
+</aside>
