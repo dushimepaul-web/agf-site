@@ -45,9 +45,9 @@ def aninova_industries(request):
     return render(request, "Home/aninova_industries.html", services.static_page("ANINOVA INDUSTRIES"))
 
 
-def seriqa_labo(request):
+def ceriqa_labo(request):
     services.log_visit(request)
-    return render(request, "Home/seriqa_labo.html", services.static_page("SERIQA LABORATORIES"))
+    return render(request, "Home/ceriqa_labo.html", services.static_page("CERIQA LABORATORIES"))
 
 
 def our_products(request):
