@@ -35,6 +35,7 @@ SETTING_DEFAULTS = {
     "slogan": "Zambian Agro-Industrial Investment",
     "site_logo": "attachments/Parametres/african-green-farmers-logo.jpg",
     "favicon_ico": "attachments/Parametres/african-green-farmers-logo.jpg",
+    "home_about_image": "attachments/Parametres/agf-limited-certificate.jpg",
     "site_phone": "+260 777 844 844",
     "site_phone_alt": "+260 764 346 468",
     "whatsapp_number": "+260 777 844 844",
@@ -115,6 +116,9 @@ def base_context(title=""):
         "site_slogan": cfg.get("slogan") or cfg.get("span_site_name") or "",
         "site_logo_url": media_url(cfg.get("site_logo"), "/attachments/Parametres/african-green-farmers-logo.jpg"),
         "site_favicon_url": media_url(cfg.get("favicon_ico"), "/attachments/Parametres/african-green-farmers-logo.jpg"),
+        "home_about_image_url": media_url(
+            cfg.get("home_about_image"), "/attachments/Parametres/agf-limited-certificate.jpg"
+        ),
         "site_phone": cfg["site_phone"],
         "site_phone_tel": _phone_tel(cfg["site_phone"]),
         "site_phone_alt": cfg.get("site_phone_alt") or "",

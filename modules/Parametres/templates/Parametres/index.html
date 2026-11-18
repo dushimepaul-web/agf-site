@@ -131,6 +131,16 @@
             <input type="file" id="loginImgInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/svg+xml,image/webp">
           </div>
         </div>
+
+        <div class="card mt-3">
+          <div class="card-body text-center">
+            <h5 class="card-title">Image section A.G.F (Accueil)</h5>
+            <div class="mb-3 d-flex align-items-center justify-content-center bg-light rounded-3 p-2" style="min-height:120px;"><img src="/attachments/Parametres/agf-limited-certificate.jpg" alt="A.G.F Limited" class="img-fluid rounded" style="max-height:110px;" id="homeAboutImg"></div>
+            <small class="text-muted d-block mb-3">JPG, PNG, GIF, WEBP — max 5 Mo</small>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('homeAboutInput').click()"><i class="bi bi-upload me-1"></i>Changer</button>
+            <input type="file" id="homeAboutInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/webp">
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -149,6 +159,7 @@ async function loadSettings() {
   if (s.logo_app) document.getElementById('logoImg').src = '/' + s.logo_app;
   if (s.favicon_ico) document.getElementById('faviconImg').src = '/' + s.favicon_ico;
   if (s.login_img) document.getElementById('loginImg').src = '/' + s.login_img;
+  if (s.home_about_image) document.getElementById('homeAboutImg').src = '/' + s.home_about_image;
 }
 
 async function saveSettings() {
@@ -175,6 +186,7 @@ async function upload(kind, input, imgId) {
 document.getElementById('logoInput').addEventListener('change', function () { upload('logo', this, 'logoImg'); });
 document.getElementById('faviconInput').addEventListener('change', function () { upload('favicon', this, 'faviconImg'); });
 document.getElementById('loginImgInput').addEventListener('change', function () { upload('login_img', this, 'loginImg'); });
+document.getElementById('homeAboutInput').addEventListener('change', function () { upload('home_about', this, 'homeAboutImg'); });
 loadSettings();
 </script>
 {% endblock %}

@@ -20,6 +20,7 @@ UPLOAD_RULES = {
     "logo": ("logo_app", {"jpg", "jpeg", "png", "gif", "webp"}),
     "favicon": ("favicon_ico", {"png", "ico", "jpg", "jpeg", "webp"}),
     "login_img": ("login_img", {"jpg", "jpeg", "png", "gif", "webp"}),
+    "home_about": ("home_about_image", {"jpg", "jpeg", "png", "gif", "webp"}),
 }
 
 
