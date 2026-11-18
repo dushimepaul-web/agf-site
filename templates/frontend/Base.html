@@ -699,7 +699,7 @@ function googleTranslateElementInit(){
       <!-- Language selector (desktop) -->
       <div class="nuf-lang d-none d-lg-block" id="nufLangWrap">
           <button class="nuf-lang-btn" id="nufLangBtn">
-          <img src="" alt="" id="nufLangFlag">
+          <img src="https://flagcdn.com/w20/gb.png" alt="English" id="nufLangFlag">
           <span id="nufLangLabel">English</span>
           <i class="bi bi-chevron-down"></i>
         </button>
@@ -1283,20 +1283,20 @@ function renderSearch(data, q) {
      LANGAGE — MOTEUR DE TRADUCTION FIABLE
      ● Cookie googtrans = /fr/{lang}
      ● On ne stocke que le code langue dans localStorage
-     ● Retour au français : on efface tout et on recharge
+     ● Langue par défaut : anglais (aucun cookie googtrans)
      ● Les boutons "actif" reflètent la langue courante
   --------------------------------------------------------------- */
-  var STORAGE_KEY = 'nuf_lang';
+  var DEFAULT_LANG = 'en';
   var VALID_LANGS = ['en','fr','sw','rn','zh-CN','es','hi','ar','bn','pt','ru','ur','id','de','ja','ms','tr','ko','vi','it','fa','ta','th','pl','nl','uk','el','he','am','so','yo','ha','ig','zu','af','km','ne','mr','te','kn','gu','pa','da','no','fi','cs','hu','sv','ro'];
 
-  /* Lire la langue active depuis l'URL ou cookie */
+  /* Lire la langue active depuis l'URL ou le cookie ; anglais par défaut */
   function getActiveLang() {
     var path = window.location.pathname;
     var seg = path.split('/')[1];
     if (seg && VALID_LANGS.indexOf(seg) !== -1) return seg;
     var cookie = getCookie('agf_lang');
     if (cookie && VALID_LANGS.indexOf(cookie) !== -1) return cookie;
-    return localStorage.getItem(STORAGE_KEY) || 'en';
+    return DEFAULT_LANG;
   }
 
   /* Appliquer la langue au bouton desktop */
@@ -1333,7 +1333,6 @@ function renderSearch(data, q) {
   /* Changer de langue — redirect vers /lang/... */
   function setLanguage(lang) {
     setCookie('agf_lang', lang, 365);
-    localStorage.setItem(STORAGE_KEY, lang);
     if (lang !== 'en') {
       deleteCookie('googtrans');
       setCookie('googtrans', '/en/' + lang, 365);
