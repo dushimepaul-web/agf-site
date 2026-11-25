@@ -6,6 +6,8 @@ from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+from core.helpers import brand_sigle
+
 from . import services
 
 
@@ -178,7 +180,7 @@ def media_index(request):
         request,
         "Home/media.html",
         services.media_page(
-            "Media - A.G.F",
+            f"Media - {brand_sigle()}",
             page=request.GET.get("page", 1),
             media_type=request.GET.get("type", ""),
             search=request.GET.get("q", ""),
@@ -192,7 +194,7 @@ def media_trending(request):
     return render(
         request,
         "Home/media.html",
-        services.media_page("Trending - A.G.F", page=request.GET.get("page", 1), media_type="video"),
+        services.media_page(f"Trending - {brand_sigle()}", page=request.GET.get("page", 1), media_type="video"),
     )
 
 
@@ -200,7 +202,7 @@ def media_news(request):
     return render(
         request,
         "Home/media.html",
-        services.media_page("News - A.G.F", page=request.GET.get("page", 1), category="News"),
+        services.media_page(f"News - {brand_sigle()}", page=request.GET.get("page", 1), category="News"),
     )
 
 
@@ -208,7 +210,7 @@ def media_testimonials(request):
     return render(
         request,
         "Home/media.html",
-        services.media_page("Témoignages - A.G.F", page=request.GET.get("page", 1), category="Témoignage"),
+        services.media_page(f"Témoignages - {brand_sigle()}", page=request.GET.get("page", 1), category="Témoignage"),
     )
 
 
@@ -218,7 +220,7 @@ def media_type(request, media_type):
     return render(
         request,
         "Home/media.html",
-        services.media_page(f"{media_type.title()} - A.G.F", page=request.GET.get("page", 1), media_type=media_type),
+        services.media_page(f"{media_type.title()} - {brand_sigle()}", page=request.GET.get("page", 1), media_type=media_type),
     )
 
 
@@ -242,7 +244,7 @@ def media_search(request):
         request,
         "Home/media.html",
         services.media_page(
-            f"Recherche : {query} - A.G.F",
+            f"Recherche : {query} - {brand_sigle()}",
             page=request.GET.get("page", 1),
             search=query,
             media_type=request.GET.get("type", ""),

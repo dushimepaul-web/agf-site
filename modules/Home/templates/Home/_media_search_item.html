@@ -5,6 +5,6 @@
   </div>
   <div class="search-item-info">
     <div class="search-item-title"><i class="bi bi-{% if item.type == 'video' %}play-btn-fill{% elif item.type == 'audio' %}music-note-beamed{% elif item.type == 'image' %}image{% elif item.type == 'document' %}file-earmark-text{% else %}link-45deg{% endif %}"></i> {{ item.titre }}</div>
-    <div class="search-item-meta">{{ item.credits|default:item.categorie|default:"A.G.F" }} &middot; {{ item.views_count }} views</div>
+    <div class="search-item-meta">{{ item.credits|default:item.categorie|default:sigle }} &middot; {{ item.views_count }} views</div>
   </div>
 </a>

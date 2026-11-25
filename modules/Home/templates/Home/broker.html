@@ -1,5 +1,5 @@
 {% extends "frontend/Base.html" %}
-{% block title %}{{ page_title|default:'African Green Farmers Limited' }}{% endblock %}
+{% block title %}{{ page_title|default:site_name }}{% endblock %}
 {% block content %}
 
 
@@ -128,7 +128,7 @@ h1.ud-hero-title{color:#fff!important}
 <section class="ud-hero" style="background-image:url('/attachments/Parametres/slide_helo.jpg')">
   <div class="container ud-hero-content">
     <h1 class="ud-hero-title">Become a Broker</h1>
-    <p class="ud-hero-slogan">Partner with A.G.F and earn commissions by connecting investors to Africa's agro-industrial future</p>
+    <p class="ud-hero-slogan">Partner with {{ sigle }} and earn commissions by connecting investors to Africa's agro-industrial future</p>
     <a href="/" class="ud-hero-btn"><i class="fas fa-home"></i> Back to Home</a>
   </div>
 </section>
@@ -139,7 +139,7 @@ h1.ud-hero-title{color:#fff!important}
 
     <div class="agf-sh text-center">
       <h2>Broker <span>Registration</span></h2>
-      <p>Complete each step to register as an authorized A.G.F broker.</p>
+      <p>Complete each step to register as an authorized {{ sigle }} broker.</p>
     </div>
 
     <!-- Progress -->
@@ -369,7 +369,7 @@ h1.ud-hero-title{color:#fff!important}
           </div>
           <div class="cfm-item" id="cfm3Wrap">
             <input type="checkbox" id="cfm3" name="acknowledge_no_exclusivity" value="1" data-required="1">
-            <label for="cfm3">I acknowledge that this registration does not imply any exclusive arrangement with A.G.F.</label>
+            <label for="cfm3">I acknowledge that this registration does not imply any exclusive arrangement with {{ sigle }}.</label>
           </div>
           <div class="cfm-item" id="cfm4Wrap">
             <input type="checkbox" id="cfm4" name="understand_formal_mandate_required" value="1" data-required="1">

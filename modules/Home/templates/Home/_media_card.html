@@ -12,7 +12,7 @@
     <div class="card-details">
       <div class="card-title">{{ item.titre }}</div>
       <div class="card-meta">
-        <span class="card-channel">{{ item.credits|default:item.categorie|default:"A.G.F" }}</span>
+        <span class="card-channel">{{ item.credits|default:item.categorie|default:sigle }}</span>
         <span class="card-sep">&bull;</span>
         <span class="card-views"><i class="bi bi-eye"></i> {{ item.views_count }} vues</span>
       </div>

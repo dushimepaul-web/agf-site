@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.text import Truncator
 
-from core.helpers import media_url
+from core.helpers import brand_sigle, media_url
 from core.models import (
     Broker,
     ContactMessage,
@@ -29,8 +29,8 @@ from core.models import (
 
 
 SETTING_DEFAULTS = {
-    "site_name": "African Green Farmers Limited",
-    "nom_entreprise": "African Green Farmers Limited",
+    "site_name": "AFRICAN GREEN FARMERS LIMITED",
+    "nom_entreprise": "AFRICAN GREEN FARMERS LIMITED",
     "span_site_name": "Agro-Industrial",
     "slogan": "Zambian Agro-Industrial Investment",
     "site_logo": "attachments/Parametres/african-green-farmers-logo.jpg",
@@ -147,7 +147,7 @@ def home_context():
             "site_phone",
         }
     )
-    ctx = base_context(cfg["site_name"])
+    ctx = base_context()
     ctx.update(
         {
             "produits": produits,
@@ -228,7 +228,7 @@ def shop_context(category_slug="", query=""):
         qs = qs.filter(Q(nom__icontains=query) | Q(description__icontains=query))
     products = list(qs.order_by("ordre", "id"))
     enriqued = [_shop_product_payload(product, cat_map.get(product.categorie_id)) for product in products]
-    ctx = base_context("Shop - A.G.F")
+    ctx = base_context(f"Shop - {brand_sigle()}")
     ctx.update(
         {
             "produits": enriqued,
@@ -327,7 +327,7 @@ def contact_context():
         value = _clean(cfg.get(key))
         if value:
             banque[label] = value
-    ctx = base_context("Contact - A.G.F")
+    ctx = base_context(f"Contact - {brand_sigle()}")
     ctx.update(
         {
             "company": cfg["site_name"],
@@ -391,7 +391,7 @@ def subscribe_newsletter(email, request):
         created_at=timezone.now(),
         updated_at=timezone.now(),
     )
-    return "Thank you! You are now subscribed to the A.G.F newsletter."
+    return f"Thank you! You are now subscribed to the {brand_sigle()} newsletter."
 
 
 def _bool(value):

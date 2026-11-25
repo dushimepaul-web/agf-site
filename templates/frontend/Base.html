@@ -6,7 +6,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="A.G.F">
+<meta name="apple-mobile-web-app-title" content="{{ sigle }}">
 <link rel="apple-touch-icon" href="{{ site_logo_url }}">
 <title>{{ page_title|default:site_name }}</title>
 <meta name="description" content="{{ page_description|default:'Integrated agro-industrial and advanced biomanufacturing enterprise' }}">
@@ -602,9 +602,9 @@ body { top:0!important; margin-top:0!important; }
     <div class="nuf-loader-ring-track"></div>
     <img class="nuf-loader-logo"
          src="/attachments/Parametres/african-green-farmers-logo.jpg"
-         alt="A.G.F" onerror="this.src='/attachments/Parametres/african-green-farmers-logo.jpg'">
+         alt="{{ site_name }}" onerror="this.src='/attachments/Parametres/african-green-farmers-logo.jpg'">
   </div>
-  <div class="nuf-loader-text">African Green Farmers Limited</div>
+  <div class="nuf-loader-text">{{ site_name }}</div>
 </div>-->
 
 <!-- GOOGLE TRANSLATE (caché) -->
@@ -788,7 +788,7 @@ function googleTranslateElementInit(){
 
       <li class="nuf-menu-item nuf-mega">
         <a href="/about-us" class="nuf-menu-link">
-          About A.G.F.
+          About {{ sigle }}.
           <i class="bi bi-chevron-down"></i>
         </a>
         <div class="nuf-mega-drop">
@@ -914,7 +914,7 @@ function googleTranslateElementInit(){
         <li><a href="/" class="nuf-panel-link"><i class="bi bi-house-door"></i><span>Home</span></a></li>
         <li>
           <button class="nuf-panel-link" data-sub="mob-about">
-            <i class="bi bi-building"></i><span>About A.G.F.</span><i class="bi bi-chevron-right ch"></i>
+            <i class="bi bi-building"></i><span>About {{ sigle }}.</span><i class="bi bi-chevron-right ch"></i>
           </button>
           <div class="nuf-sub" id="nuf-sub-mob-about">
             <a href="/about-us" class="nuf-sub-item">Company Profile</a>
@@ -1564,7 +1564,7 @@ function renderSearch(data, q) {
                         <div class="footer-accordion-content" id="footerNav1">
                             <ul class="footer-links">
                                 <li><a href="/"><i class="bi bi-house-door"></i> Home</a></li>
-                                <li><a href="/about-us"><i class="bi bi-building"></i> About A.G.F.</a></li>
+                                <li><a href="/about-us"><i class="bi bi-building"></i> About {{ sigle }}.</a></li>
                                 <li><a href="/our-Products"><i class="bi bi-grid"></i> Our Products</a></li>
                                 <li><a href="/agriculture-bioresources"><i class="bi bi-leaf"></i> Agriculture &amp; Bioresources</a></li>
                                 <li><a href="/shop"><i class="bi bi-shop"></i> Shop</a></li>
@@ -1629,7 +1629,7 @@ function renderSearch(data, q) {
                         <h4 class="d-none d-lg-block">Contact</h4>
                         
                         <div class="footer-accordion-content" id="footerNav3">
-                            <p class="footer-newsletter-desc">Stay connected with A.G.F for the latest news on products, investment opportunities and developments.</p>
+                            <p class="footer-newsletter-desc">Stay connected with {{ sigle }} for the latest news on products, investment opportunities and developments.</p>
                             <div class="footer-newsletter-social">
                                 <span>Follow us:</span>
                                 <div class="footer-social footer-social-sm">
@@ -1664,7 +1664,7 @@ function renderSearch(data, q) {
                     
                     <!-- Copyright -->
                     <div class="footer-copyright">
-                        <p>&copy; 2026 <strong>African Green Farmers Limited</strong>. All rights reserved.</p>
+                        <p>&copy; {% now "Y" %} <strong>{{ site_name }}</strong>. All rights reserved.</p>
                     </div>
 
                     <!-- Legal Links -->

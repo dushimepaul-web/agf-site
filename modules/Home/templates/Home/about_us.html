@@ -1,5 +1,5 @@
 {% extends "frontend/Base.html" %}
-{% block title %}{{ page_title|default:'African Green Farmers Limited' }}{% endblock %}
+{% block title %}{{ page_title|default:site_name }}{% endblock %}
 {% block content %}
 
 
@@ -401,7 +401,7 @@ h1.ud-hero-title {
 <div class="ud-hero" style="background: url('/attachments/Parametres/slide_helo.jpg')">
   <div class="container">
     <div class="ud-hero-content">
-      <h1 class="ud-hero-title">A.G.F Overview</h1>
+      <h1 class="ud-hero-title">{{ sigle }} Overview</h1>
       <p class="ud-hero-slogan">"History, vision, mission and institutional foundations of African Green Farmers Limited."</p>
       <a href="/" class="ud-hero-btn"><i class="fas fa-arrow-left-long"></i> Back to Home</a>
     </div>

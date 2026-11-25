@@ -141,8 +141,8 @@
 
         <div class="card mt-3">
           <div class="card-body text-center">
-            <h5 class="card-title">Image section A.G.F (Accueil)</h5>
-            <div class="mb-3 d-flex align-items-center justify-content-center bg-light rounded-3 p-2" style="min-height:120px;"><img src="/attachments/Parametres/agf-limited-certificate.jpg" alt="A.G.F Limited" class="img-fluid rounded" style="max-height:110px;" id="homeAboutImg"></div>
+            <h5 class="card-title">Image section {{ sigle }} (Accueil)</h5>
+            <div class="mb-3 d-flex align-items-center justify-content-center bg-light rounded-3 p-2" style="min-height:120px;"><img src="/attachments/Parametres/agf-limited-certificate.jpg" alt="{{ nom_app }}" class="img-fluid rounded" style="max-height:110px;" id="homeAboutImg"></div>
             <small class="text-muted d-block mb-3">JPG, PNG, GIF, WEBP — max 5 Mo</small>
             <button type="button" class="btn btn-outline-primary btn-sm" onclick="document.getElementById('homeAboutInput').click()"><i class="bi bi-upload me-1"></i>Changer</button>
             <input type="file" id="homeAboutInput" class="d-none" accept="image/jpeg,image/png,image/gif,image/webp">

@@ -1,5 +1,5 @@
 from .auth import session_payload
-from .helpers import get_setting, media_url
+from .helpers import brand_sigle, get_setting, media_url
 from .models import Menu
 from .permissions import is_admin
 
@@ -7,8 +7,15 @@ from .permissions import is_admin
 def branding(request):
     try:
         login_img = (get_setting("login_img", "") or "").strip()
+        nom_app = (get_setting("nom_app", "") or "").strip() or "AFRICAN GREEN FARMERS LIMITED"
+        nom_entreprise = (get_setting("nom_entreprise", "") or "").strip() or nom_app
+        site_name = (get_setting("site_name", "") or "").strip() or nom_entreprise
+        sigle = brand_sigle()
         return {
-            "nom_app": get_setting("nom_app", "Surveillance des maladies"),
+            "nom_app": nom_app,
+            "nom_entreprise": nom_entreprise,
+            "site_name": site_name,
+            "sigle": sigle,
             "logo_url": media_url(get_setting("logo_app", "assets/images/logo.png")),
             "login_img": media_url(login_img) if login_img else "",
             "favicon_url": media_url(
@@ -17,7 +24,10 @@ def branding(request):
         }
     except Exception:
         return {
-            "nom_app": "Surveillance des maladies",
+            "nom_app": "AFRICAN GREEN FARMERS LIMITED",
+            "nom_entreprise": "AFRICAN GREEN FARMERS LIMITED",
+            "site_name": "AFRICAN GREEN FARMERS LIMITED",
+            "sigle": "AGF",
             "logo_url": "/assets/images/logo.png",
             "login_img": "",
             "favicon_url": "/assets/images/favicon.png",

@@ -1,5 +1,5 @@
 {% extends "frontend/Base.html" %}
-{% block title %}{{ page_title|default:'African Green Farmers Limited' }}{% endblock %}
+{% block title %}{{ page_title|default:site_name }}{% endblock %}
 {% block content %}
 
 
@@ -386,7 +386,7 @@ h1.ud-hero-title{color:#fff!important}
 <section class="ud-hero" style="background-image:url('/attachments/Parametres/slide_helo.jpg')">
   <div class="container ud-hero-content">
     <h1 class="ud-hero-title">Become an Investor</h1>
-    <p class="ud-hero-slogan">Partner with A.G.F and invest in Africa's agro-industrial transformation</p>
+    <p class="ud-hero-slogan">Partner with {{ sigle }} and invest in Africa's agro-industrial transformation</p>
     <a href="/" class="ud-hero-btn"><i class="fas fa-home"></i> Back to Home</a>
     <a href="/credit-summary" class="ud-hero-btn alt"><i class="fas fa-file-invoice-dollar"></i> Executive Credit Summary</a>
   </div>
@@ -410,7 +410,7 @@ h1.ud-hero-title{color:#fff!important}
 
     <div class="agf-sh text-center">
       <h2>Investor <span>Registration</span></h2>
-      <p>Complete each step to register as an A.G.F investor.</p>
+      <p>Complete each step to register as an {{ sigle }} investor.</p>
     </div>
 
     <div class="wizard-progress" id="wizardProgress">
@@ -560,7 +560,7 @@ h1.ud-hero-title{color:#fff!important}
         <div class="form-row single">
           <div class="form-group">
             <label>Your Message</label>
-            <textarea name="strategic_message" placeholder="Tell us about your investment goals, expectations, or how you'd like to collaborate with A.G.F..." rows="6"></textarea>
+            <textarea name="strategic_message" placeholder="Tell us about your investment goals, expectations, or how you'd like to collaborate with {{ sigle }}..." rows="6"></textarea>
           </div>
         </div>
         <div class="wizard-nav">
@@ -576,7 +576,7 @@ h1.ud-hero-title{color:#fff!important}
         <div class="cfm-grid">
           <div class="cfm-item" id="cfm1Wrap">
             <input type="checkbox" id="cfm1" name="agree_contact" value="1" data-required="1">
-            <label for="cfm1">I agree to be contacted by A.G.F regarding this registration and potential investment opportunities.</label>
+            <label for="cfm1">I agree to be contacted by {{ sigle }} regarding this registration and potential investment opportunities.</label>
           </div>
           <div class="cfm-item" id="cfm2Wrap">
             <input type="checkbox" id="cfm2" name="non_binding_confirmation" value="1" data-required="1">

@@ -28,6 +28,28 @@ def get_setting(key, default=None):
     return result
 
 
+def brand_name():
+    name = (get_setting("site_name", "") or "").strip()
+    if not name:
+        name = (get_setting("nom_app", "") or "").strip()
+    return name or "AFRICAN GREEN FARMERS LIMITED"
+
+
+_SIGLE_SKIP = {
+    "LIMITED", "LTD", "PLC", "INC", "LLC", "SARL", "SA", "AG", "GMBH",
+    "CORP", "CORPORATION", "COMPANY", "CO", "AND", "OF", "THE",
+}
+
+
+def brand_sigle():
+    name = (get_setting("nom_app", "") or "").strip() or brand_name()
+    words = [w for w in name.split() if w[:1].isalpha()]
+    sigle = "".join(
+        w[0] for w in words if w.upper().strip(".,") not in _SIGLE_SKIP
+    ).upper()
+    return sigle or "".join(w[0] for w in words).upper() or name
+
+
 def generate_uuid():
     return str(uuid.uuid4())
 
