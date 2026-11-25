@@ -4,3 +4,7 @@ __pycache__/
 venv/
 var/cache/*
 !var/cache/.gitkeep
+
+.env
+.env.*
+!.env.example

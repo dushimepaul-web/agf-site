@@ -38,6 +38,13 @@
                   <div class="col-md-6"><label class="form-label fw-semibold">Directeur général</label><input type="text" class="form-control" data-key="directeur_general"></div>
                   <div class="col-md-6"><label class="form-label fw-semibold">Facility / projet</label><input type="text" class="form-control" data-key="facility_projet"></div>
                   <div class="col-12"><label class="form-label fw-semibold">Description courte</label><textarea class="form-control" rows="3" data-key="agf_description_courte"></textarea></div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Mode maintenance</label>
+                    <select class="form-select" data-key="maintenance">
+                      <option value="0">Non</option>
+                      <option value="1">Oui</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -156,6 +163,8 @@ async function loadSettings() {
   if (!r.success || !r.data) return;
   const s = r.data;
   document.querySelectorAll('[data-key]').forEach(el => { el.value = s[el.dataset.key] ?? ''; });
+  const maintenance = document.querySelector('[data-key="maintenance"]');
+  if (maintenance && !maintenance.value) maintenance.value = '0';
   if (s.logo_app) document.getElementById('logoImg').src = '/' + s.logo_app;
   if (s.favicon_ico) document.getElementById('faviconImg').src = '/' + s.favicon_ico;
   if (s.login_img) document.getElementById('loginImg').src = '/' + s.login_img;

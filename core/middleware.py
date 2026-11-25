@@ -84,3 +84,40 @@ class SessionRevalidationMiddleware:
                     )
                 return redirect("/Admin")
         return self.get_response(request)
+
+
+class MaintenanceModeMiddleware:
+    """Paramètre « maintenance » = 1 : visiteurs bloqués par une page dédiée (503),
+    seul l'administrateur connecté continue de naviguer (et peut donc désactiver le mode).
+    Les fichiers statiques et la page de connexion restent accessibles pour pouvoir entrer."""
+
+    ALLOWED_PREFIXES = (
+        "/Admin", "/ADMIN", "/admin", "/login", "/Login",
+        "/Logout",
+        "/assets/", "/attachments/", "/uploads/", "/static/",
+        "/favicon", "/robots.txt",
+    )
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        from django.shortcuts import render
+
+        from .helpers import get_setting
+        from .permissions import is_admin
+
+        value = str(get_setting("maintenance", "0") or "0").strip().lower()
+        if value not in {"1", "true", "oui", "yes", "on"}:
+            return self.get_response(request)
+
+        path = request.path or "/"
+        if path.startswith(self.ALLOWED_PREFIXES):
+            return self.get_response(request)
+
+        if request.session.get("logged_in") and is_admin(
+            request.session.get("role_code"), request.session.get("id_role")
+        ):
+            return self.get_response(request)
+
+        return render(request, "Maintenance_View.html", status=503)

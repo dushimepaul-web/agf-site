@@ -24,7 +24,7 @@ from .csrf import valid_csrf
 from .decorators import login_required
 from .helpers import client_ip, generate_uuid, json_error, json_success, read_json
 from .models import Role, User
-from .permissions import is_staff
+from .permissions import is_admin, is_medecin, is_staff
 from .ratelimit import clear, is_limited, register_failure
 from .security import hash_password, password_strength_error, verify_password
 
@@ -42,9 +42,19 @@ def _flash(request, level, html):
     )
 
 
+def home_for_role(role_code=None, role_id=None):
+    """Interface d'accueil selon le rôle : médecin → ses consultations, admin → tableau de bord,
+    utilisateur simple → son profil (jamais le tableau de bord réservé au personnel)."""
+    if is_medecin(role_code):
+        return "/Consultations"
+    if is_admin(role_code, role_id):
+        return "/Dashboard"
+    return "/Profile"
+
+
 def root(request):
     if request.session.get("logged_in"):
-        return redirect("/Dashboard")
+        return redirect(home_for_role(request.session.get("role_code"), request.session.get("id_role")))
     return redirect("/Admin")
 
 
@@ -84,7 +94,7 @@ def do_login(request):
     touch_last_login(user)
     log_login_attempt(request, email, True, user.id)
     create_user_session(request, user.id, request.session.session_key)
-    return redirect("/Dashboard")
+    return redirect(home_for_role(role.code if role else None, user.role_id))
 
 
 def register_view(request):

@@ -3,6 +3,7 @@ import time
 from pathlib import Path
 
 from django.conf import settings
+from django.core.cache import cache
 from django.utils import timezone
 
 from core.helpers import generate_uuid
@@ -35,6 +36,7 @@ def set_value(key, value):
     row = Setting.objects.filter(clef=key, deleted_at__isnull=True).first()
     if row:
         Setting.objects.filter(id=row.id).update(valeur=value, modifie_le=timezone.now())
+        cache.delete(f"agf:setting:{key}")
         return True
     Setting.objects.create(
         clef=key,
@@ -43,6 +45,7 @@ def set_value(key, value):
         cree_le=timezone.now(),
         modifie_le=timezone.now(),
     )
+    cache.delete(f"agf:setting:{key}")
     return True
 
 
